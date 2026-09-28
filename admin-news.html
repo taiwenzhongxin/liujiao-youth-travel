@@ -6,7 +6,6 @@
     <title>最新消息管理後台 ｜ 嘉義青年壯遊</title>
     
     <link rel="stylesheet" href="css/common.css">
-    <!-- 引入典雅字體 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -135,7 +134,8 @@
                 <h1 class="admin-title">最新消息管理後台</h1>
             </div>
             <div class="admin-actions">
-                <a href="news.html" class="btn-admin-secondary">檢視前台頁面 ↗</a>
+                <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
+                <a href="news.html" class="btn-admin-secondary">檢視前台 ↗</a>
                 <button class="btn-admin-primary" id="btnAddNews">＋ 新增文章</button>
             </div>
         </div>
@@ -159,10 +159,8 @@
         </div>
     </div>
 
-    <!-- 載入 Supabase Client SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // TODO: 請替換為您 Supabase 專案的 URL 與 Public Anon Key
         const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co/rest/v1/';
         const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
         
