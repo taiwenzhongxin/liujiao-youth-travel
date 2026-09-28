@@ -6,7 +6,6 @@
     <title>職人故事管理後台 ｜ 嘉義青年壯遊</title>
     
     <link rel="stylesheet" href="css/common.css">
-    <!-- 引入典雅字體 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -169,12 +168,10 @@
         </div>
     </div>
 
-    <!-- 載入 Supabase Client SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // TODO: 請替換為您 Supabase 專案的 URL 與 Public Anon Key
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co/rest/v1/';
+        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
         
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -199,7 +196,7 @@
                 <tr>
                     <td><code>${item.index_num || '01'}</code></td>
                     <td><span class="badge-town">${item.town}</span></td>
-                    <td><span class="badge-cat">${item.category}</span></td>
+                    <td><span class="badge-cat">${item.category_name || item.category}</span></td>
                     <td>
                         <strong style="font-size: 1rem; display: block; margin-bottom: 4px;"><a href="artisan-detail.html?id=${item.id}" target="_blank" style="color: #111111; text-decoration: none;">${item.name} ↗</a></strong>
                         <span style="color: #6E685F; font-size: 0.82rem; display: block; line-height: 1.4;">${item.role}</span>
@@ -234,10 +231,11 @@
                     name: name,
                     role: role,
                     town: '六腳',
-                    category: '傳統技藝',
+                    category: 'CRAFT',
+                    category_name: '傳統技藝',
                     hero_img: 'assets/黃憲章老師.png',
                     quote: '「請在此輸入職人的核心代表金句...」',
-                    bio: '請在此輸入職人的生平與在地深耕介紹...。',
+                    bio: '請在此輸入職人的生平與在地深耕介紹...',
                     qa_list: [
                         { num: "01", topicId: "CRAFT", topicName: "創作理念", question: "請輸入第一個訪談問題？", answer: "請輸入對應的訪談回答內容..." }
                     ]
