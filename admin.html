@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>六腳青年壯遊 ｜ 總管理後台</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        body { background: #F8F7F4; font-family: 'Noto Sans TC', sans-serif; padding: 60px 20px; color: #1A1A1A; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { font-family: 'Noto Serif TC', serif; font-size: 2rem; margin-bottom: 8px; }
+        p { color: #6E685F; margin-bottom: 32px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .card { background: #FFF; padding: 24px; border-radius: 12px; border: 1px solid #ECE7DE; text-decoration: none; color: inherit; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .card:hover { border-color: #D96328; transform: translateY(-2px); }
+        .card h3 { margin: 0 0 8px 0; color: #D96328; font-size: 1.2rem; }
+        .card span { font-size: 0.85rem; color: #7A746B; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>六腳青年壯遊 ‧ 總管理後台</h1>
+        <p>請選擇您想要管理的網站內容模組：</p>
+        
+        <div class="grid">
+            <a href="admin-news.html" class="card">
+                <h3>📢 最新消息管理</h3>
+                <span>管理最新消息、活動資訊與團隊動態</span>
+            </a>
+            <a href="admin-spots.html" class="card">
+                <h3>📍 壯遊據點管理</h3>
+                <span>管理 14 大地圖座標點位與圖鑑內容</span>
+            </a>
+            <a href="admin-routes.html" class="card">
+                <h3>🗺️ 走讀路線管理</h3>
+                <span>管理一日遊與戶外教育專案教案</span>
+            </a>
+            <a href="admin-artisans.html" class="card">
+                <h3>✍️ 職人故事管理</h3>
+                <span>管理在地匠人專訪與 Q&A 內容</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
