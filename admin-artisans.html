@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職人故事管理後台 ｜ 嘉義青年壯遊</title>
+    
+    <link rel="stylesheet" href="css/common.css">
+    <!-- 引入典雅字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body.admin-body {
+            background-color: #F8F7F4;
+            color: #1A1A1A;
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #E5E0D8;
+            padding-bottom: 16px;
+        }
+        .admin-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 0;
+            color: #111111;
+        }
+        .admin-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-admin-primary {
+            background-color: #D96328;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .btn-admin-primary:hover {
+            background-color: #B84E1B;
+        }
+        .btn-admin-secondary {
+            background-color: transparent;
+            color: #4A463F;
+            border: 1px solid #D8D2C6;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .btn-admin-secondary:hover {
+            background-color: #FAF8F5;
+            border-color: #111111;
+        }
+        .artisans-table-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #ECE7DE;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+        table.admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        table.admin-table th, table.admin-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #F0ECE4;
+            vertical-align: middle;
+        }
+        table.admin-table th {
+            background-color: #FAF8F5;
+            font-weight: 700;
+            color: #555047;
+            letter-spacing: 0.5px;
+        }
+        table.admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        .badge-town {
+            background: #F0EDE6;
+            color: #6E685F;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .badge-cat {
+            background: #FDEEE6;
+            color: #D96328;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .btn-danger {
+            background: #C0392B;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-danger:hover {
+            background: #962D22;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #8C867C;
+        }
+    </style>
+</head>
+<body class="admin-body">
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: #D96328;">ADMIN CONTROL PANEL</span>
+                <h1 class="admin-title">職人故事管理後台</h1>
+            </div>
+            <div class="admin-actions">
+                <a href="journal.html" class="btn-admin-secondary">檢視職人前台 ↗</a>
+                <button class="btn-admin-primary" id="btnAddArtisan">＋ 新增職人專訪</button>
+            </div>
+        </div>
+
+        <div class="artisans-table-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">編號</th>
+                        <th style="width: 100px;">鄉鎮</th>
+                        <th style="width: 120px;">分類</th>
+                        <th>職人姓名與專訪頭銜</th>
+                        <th style="width: 120px; text-align: right;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="artisansTableBody">
+                    <tr>
+                        <td colspan="5" class="empty-state">正在從 Supabase 載入職人專訪資料...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 載入 Supabase Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // TODO: 請替換為您 Supabase 專案的 URL 與 Public Anon Key
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function fetchArtisans() {
+            const tbody = document.getElementById('artisansTableBody');
+            const { data, error } = await supabase
+                .from('artisans')
+                .select('*')
+                .order('id', { ascending: true });
+
+            if (error) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color: #C0392B;">載入失敗：${error.message}</td></tr>`;
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state">目前尚無任何職人專訪資料。</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map(item => `
+                <tr>
+                    <td><code>${item.index_num || '01'}</code></td>
+                    <td><span class="badge-town">${item.town}</span></td>
+                    <td><span class="badge-cat">${item.category}</span></td>
+                    <td>
+                        <strong style="font-size: 1rem; display: block; margin-bottom: 4px;"><a href="artisan-detail.html?id=${item.id}" target="_blank" style="color: #111111; text-decoration: none;">${item.name} ↗</a></strong>
+                        <span style="color: #6E685F; font-size: 0.82rem; display: block; line-height: 1.4;">${item.role}</span>
+                    </td>
+                    <td style="text-align: right;">
+                        <button class="btn-danger" onclick="deleteArtisan(${item.id})">刪除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function deleteArtisan(id) {
+            if (!confirm(`確定要刪除編號 [${id}] 的職人專訪嗎？`)) return;
+            const { error } = await supabase.from('artisans').delete().eq('id', id);
+            if (error) {
+                alert('刪除失敗：' + error.message);
+            } else {
+                alert('刪除成功！');
+                fetchArtisans();
+            }
+        }
+
+        document.getElementById('btnAddArtisan').addEventListener('click', async () => {
+            const name = prompt('請輸入職人姓名：');
+            if (!name) return;
+            const role = prompt('請輸入職人頭銜 (例如 傳統工藝師 ｜ 工作室負責人)：');
+            if (!role) return;
+
+            const { error } = await supabase.from('artisans').insert([
+                {
+                    index_num: '04',
+                    name: name,
+                    role: role,
+                    town: '六腳',
+                    category: '傳統技藝',
+                    hero_img: 'assets/黃憲章老師.png',
+                    quote: '「請在此輸入職人的核心代表金句...」',
+                    bio: '請在此輸入職人的生平與在地深耕介紹...。',
+                    qa_list: [
+                        { num: "01", topicId: "CRAFT", topicName: "創作理念", question: "請輸入第一個訪談問題？", answer: "請輸入對應的訪談回答內容..." }
+                    ]
+                }
+            ]);
+
+            if (error) {
+                alert('新增失敗：' + error.message);
+            } else {
+                alert('新增成功！');
+                fetchArtisans();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', fetchArtisans);
+    </script>
+</body>
+</html>

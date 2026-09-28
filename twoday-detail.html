@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兩日遊規劃 ｜ 走讀路線 ｜ 嘉義青年壯遊</title>
+    
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/twoday-detail.css">
+
+    <!-- 典雅字體引入 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700..900;1,6..96,400..700&family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="twoday-page-body">
+
+    <!-- 頂部黑漸層護欄 -->
+    <div class="site-top-gradient-backdrop"></div>
+
+    <!-- ==================== 全域標準頂部導覽列 ==================== -->
+    <header class="site-header" id="siteHeader">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand" aria-label="六腳青年壯遊首頁">
+                <img src="assets/logo-white.png" alt="六腳青年壯遊點" class="nav-logo-img logo-white">
+                <img src="assets/logo-black.png" alt="六腳青年壯遊點" class="nav-logo-img logo-black">
+            </a>
+
+            <!-- 核心導覽選單 -->
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link" data-i18n="nav_about">關於我們</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="spots.html" class="nav-link" data-i18n="nav_spots">壯遊據點</a>
+                    </li>
+                    <li class="nav-item nav-has-dropdown">
+                        <a href="itinerary.html" class="nav-link active nav-dropdown-trigger">
+                            <span data-i18n="nav_routes">走讀路線</span>
+                            <svg class="nav-icon-svg nav-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="nav-dropdown-menu">
+                            <li>
+                                <a href="itinerary-detail.html" class="dropdown-link">
+                                    <span class="route-badge">1 DAY</span>
+                                    <div>
+                                        <strong data-i18n="route_1day">一日遊規劃</strong>
+                                        <small data-i18n="route_1day_sub">工藝、老街、科技等 A~F 方案</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="twoday-detail.html" class="dropdown-link">
+                                    <span class="route-badge">2 DAYS</span>
+                                    <div>
+                                        <strong data-i18n="route_2day">兩日遊規劃</strong>
+                                        <small data-i18n="route_2day_sub">工廠村寄宿與雙城深度慢活</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="outdoor-detail.html" class="dropdown-link">
+                                    <span class="route-badge">EDU</span>
+                                    <div>
+                                        <strong data-i18n="route_edu">戶外教育專案</strong>
+                                        <small data-i18n="route_edu_sub">嘉禮有糖：高中職探究與青銀共創</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="global-detail.html" class="dropdown-link">
+                                    <span class="route-badge">GLOBAL</span>
+                                    <div>
+                                        <strong data-i18n="route_global">國際壯遊引力</strong>
+                                        <small data-i18n="route_global_sub">來嘉，有藝思：外語學伴與雙偶文化</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="journal.html" class="nav-link" data-i18n="nav_journal">職人故事</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="news.html" class="nav-link" data-i18n="nav_news">最新消息</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- 右側功能操作區 -->
+            <div class="nav-actions">
+                <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+                    <button class="nav-lang-btn" id="langBtn" aria-expanded="false">
+                        <svg class="nav-icon-svg nav-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span id="currentLangLabel">繁中</span>
+                        <svg class="nav-icon-svg nav-caret-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <ul class="lang-dropdown-menu" id="langMenu">
+                        <li><button type="button" class="lang-option active" data-lang="zh-TW">繁體中文</button></li>
+                        <li><button type="button" class="lang-option" data-lang="en">English</button></li>
+                        <li><button type="button" class="lang-option" data-lang="ja">日本語</button></li>
+                        <li><button type="button" class="lang-option" data-lang="vi">Tiếng Việt</button></li>
+                    </ul>
+                </div>
+
+                <a href="contact.html" class="nav-btn-cta">
+                    <span data-i18n="nav_cta">開始規劃</span>
+                    <svg class="nav-icon-svg nav-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 手機版抽屜滑出選單 -->
+    <aside class="sidebar-nav" id="sidebarNav">
+        <div class="sidebar-top">
+            <a href="index.html" class="sidebar-logo">
+                <img src="六腳LOGO.png" alt="嘉義六腳青年壯遊 LOGO" class="sidebar-logo-img">
+            </a>
+            <div class="sidebar-divider"></div>
+            <ul class="sidebar-tabs">
+                <li class="tab-item active"><a href="index.html">首頁故事</a></li>
+                <li class="tab-item"><a href="about.html">關於我們</a></li>
+                <li class="tab-item"><a href="spots.html">壯遊點位</a></li>
+                <li class="tab-item"><a href="itinerary.html">經典路線</a></li>
+                <li class="tab-item"><a href="journal.html">職人故事</a></li>
+                <li class="tab-item"><a href="news.html">最新消息</a></li>
+                <li class="tab-item"><a href="contact.html">預約報名</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-bottom">
+            <a href="contact.html" class="btn-sidebar-cta">預約報名 →</a>
+            <p class="sidebar-footer-text">© 嘉義六腳青年壯遊</p>
+        </div>
+    </aside>
+
+    <!-- ==================== 區塊 1：沉浸式寬幅 Hero 橫幅 ==================== -->
+    <section class="compact-hero-banner">
+        <div class="compact-hero-bg">
+            <img src="assets/水道頭文創聚落.png" alt="兩日遊封面" class="compact-bg-img">
+            <div class="compact-scrim-overlay"></div>
+        </div>
+
+        <div class="compact-hero-container">
+            <nav class="detail-breadcrumbs-light" aria-label="麵包屑">
+                <a href="itinerary.html">走讀路線</a>
+                <span class="crumb-divider">/</span>
+                <span class="crumb-current">兩日遊規劃</span>
+            </nav>
+
+            <div class="compact-hero-text">
+                <div class="compact-eyebrow-line">
+                    <span class="compact-badge-tag">2 DAYS ROUTE</span>
+                    <span class="compact-script-note">Slow Living & Heritage</span>
+                </div>
+                <h1 class="compact-main-title">兩日遊規劃</h1>
+                <p class="compact-sub-slogan">用兩日慢遊的步調，把這裡的生活細細收進心底</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 2. 頁面主要工作舞台 ==================== -->
+    <main class="twoday-detail-stage">
+
+        <!-- ==================== 3. 雙欄兩日行程表 (DAY 1 & DAY 2) ==================== -->
+        <section class="twoday-schedule-grid">
+
+            <!-- ===== DAY 1 欄位 ===== -->
+            <div class="day-column day-1-col">
+                <div class="day-header-box">
+                    <span class="day-badge badge-orange">DAY 1</span>
+                    <h3 class="day-main-theme">工藝 ‧ 老街 ‧ 傳統風景</h3>
+                    <p class="day-sub-desc">從糖業記憶到老街人情，感受地方的文化底蘊。</p>
+                </div>
+
+                <div class="timeline-nodes-list">
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">09:00<br>10:30</span>
+                            <div class="node-num-circle">1</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="蒜頭糖廠文化園區"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">蒜頭糖廠文化園區</h4>
+                                <p class="node-desc">搭乘五分車走讀日式宿舍群，回望百年糖業風華。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">10:50<br>12:00</span>
+                            <div class="node-num-circle">2</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="朴子老街巡禮"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">朴子老街巡禮</h4>
+                                <p class="node-desc">走進第一市場與街屋巷弄，感受小鎮的生活日常。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">12:00<br>13:30</span>
+                            <div class="node-num-circle">3</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="在地美食午餐"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">在地美食午餐</h4>
+                                <p class="node-desc">品嚐市場道地傳統小吃，從滋味中體會人情溫度。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">14:00<br>16:00</span>
+                            <div class="node-num-circle">4</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/藍染體驗.png" alt="木作職人工坊"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">木作職人工坊</h4>
+                                <p class="node-desc">造訪鄉間木作工坊，透過實木工藝感受手作溫度。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">16:30<br>18:00</span>
+                            <div class="node-num-circle">5</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="黃昏河畔散步"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">黃昏河畔散步</h4>
+                                <p class="node-desc">漫步朴子溪堤岸，欣賞夕陽暮色下的開闊景致。</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- ===== DAY 2 欄位 ===== -->
+            <div class="day-column day-2-col">
+                <div class="day-header-box">
+                    <span class="day-badge badge-sand">DAY 2</span>
+                    <h3 class="day-main-theme">濕地 ‧ 人文 ‧ 在地生活</h3>
+                    <p class="day-sub-desc">走進農村、社區與信仰，探索自然與人文的交織。</p>
+                </div>
+
+                <div class="timeline-nodes-list">
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">08:30<br>10:00</span>
+                            <div class="node-num-circle">1</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="蒜頭糖廠晨間巡禮"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">蒜頭糖廠晨間巡禮</h4>
+                                <p class="node-desc">清晨漫步糖廠遺構，聆聽地方鐵道與產業故事。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">10:30<br>12:00</span>
+                            <div class="node-num-circle">2</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/藍染體驗.png" alt="鰲鼓濕地生態導覽"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">鰲鼓濕地生態導覽</h4>
+                                <p class="node-desc">跟隨在地導覽觀察候鳥生態，走訪海岸濕地風貌。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">12:00<br>13:30</span>
+                            <div class="node-num-circle">3</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="漁村風味午餐"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">漁村風味午餐</h4>
+                                <p class="node-desc">享用時令海味料理，感受漁村純樸的餐桌氛圍。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">14:00<br>15:30</span>
+                            <div class="node-num-circle">4</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="朴子配天宮文化參訪"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">朴子配天宮文化參訪</h4>
+                                <p class="node-desc">走讀百年古剎建築細節，認識在地信仰精神脈絡。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="timeline-node-card">
+                        <div class="node-time-col">
+                            <span class="time-text">15:30<br>17:00</span>
+                            <div class="node-num-circle">5</div>
+                        </div>
+                        <div class="node-content-box">
+                            <div class="node-thumb"><img src="assets/水道頭文創聚落.png" alt="青年創新基地"></div>
+                            <div class="node-detail">
+                                <h4 class="node-heading">青年創新基地</h4>
+                                <p class="node-desc">探訪地方創生空間，看見青年帶回鄉間的全新可能。</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ==================== 4. 底部走讀歷程檔案 ==================== -->
+        <section class="twoday-bottom-archive-wrap">
+            <div class="twoday-archive-card">
+                <div class="archive-card-header">
+                    <div class="archive-header-left">
+                        <span class="archive-eyebrow">ROUTE ARCHIVE</span>
+                        <h3 class="archive-title">兩日遊走讀歷程檔案</h3>
+                    </div>
+
+                    <div class="archive-action-btns">
+                        <a href="https://www.google.com/maps/d/viewer?mid=1fiyu30w39XwWRmjdmNjsqvd2hQgE8ks" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="btn-archive-primary">
+                            沿著此路徑自由探索 ↗
+                        </a>
+                        <a href="contact.html" class="btn-archive-secondary">
+                            洽詢類似專案合作 ➔
+                        </a>
+                    </div>
+                </div>
+
+                <div class="archive-meta-grid">
+                    <div class="archive-meta-item">
+                        <div class="meta-icon-bubble">🗺️</div>
+                        <div class="meta-text-box">
+                            <strong class="meta-label">踏查軌跡</strong>
+                            <span class="meta-val">六腳蒜頭糖廠 ➔ 朴子市街 ➔ 鰲鼓濕地</span>
+                        </div>
+                    </div>
+
+                    <div class="archive-meta-item">
+                        <div class="meta-icon-bubble">🚲</div>
+                        <div class="meta-text-box">
+                            <strong class="meta-label">探索建議</strong>
+                            <span class="meta-val">工廠村寄宿 ＋ 雙鐵慢活 ＋ 單車漫遊</span>
+                        </div>
+                    </div>
+
+                    <div class="archive-meta-item">
+                        <div class="meta-icon-bubble">✨</div>
+                        <div class="meta-text-box">
+                            <strong class="meta-label">核心歷程</strong>
+                            <span class="meta-val">雙偶共創交流 ＆ 深度聚落過夜生活</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== 6. 全站統一高級頁尾 ==================== -->
+    <footer class="site-global-footer">
+        <div class="footer-container">
+            <div class="footer-main-grid">
+
+                <div class="footer-brand-col">
+                    <a href="index.html" class="footer-brand-header" aria-label="六腳青年壯遊首頁">
+                        <img src="assets/logo-white.png" alt="六腳青年壯遊點" class="footer-logo-img">
+                    </a>
+
+                    <p class="footer-brand-desc">
+                        用青年的視角走進六腳與朴子，<br>
+                        記錄地方真實的故事，<br>
+                        也創造屬於這個世代的在地連結。
+                    </p>
+
+                    <div class="footer-brand-stamp">
+                        <span>SAME LAND,</span>
+                        <span>NEW VOICES.</span>
+                    </div>
+                </div>
+
+                <div class="footer-nav-columns">
+                    <div class="footer-nav-col">
+                        <div class="col-header-wrap">
+                            <h4 class="nav-col-title">認識地方</h4>
+                        </div>
+                        <ul class="nav-link-list">
+                            <li><a href="about.html">計畫緣起</a></li>
+                            <li><a href="about.html">核心信念</a></li>
+                            <li><a href="about.html">青銀共創</a></li>
+                            <li><a href="about.html">風土主題</a></li>
+                            <li><a href="spots.html" class="highlight-link">風土地圖導覽 ↗</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-nav-col">
+                        <div class="col-header-wrap">
+                            <h4 class="nav-col-title">走讀路線</h4>
+                        </div>
+                        <ul class="nav-link-list">
+                            <li><a href="itinerary-detail.html">一日遊規劃</a></li>
+                            <li><a href="twoday-detail.html">兩日遊規劃</a></li>
+                            <li><a href="outdoor-detail.html">戶外教育專案</a></li>
+                            <li><a href="global-detail.html">國際壯遊引力</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-nav-col">
+                        <div class="col-header-wrap">
+                            <h4 class="nav-col-title">故事動態</h4>
+                        </div>
+                        <ul class="nav-link-list">
+                            <li><a href="journal.html">職人故事專訪</a></li>
+                            <li><a href="news.html">全部最新消息</a></li>
+                            <li><a href="news.html">活動與小旅行報名</a></li>
+                            <li><a href="news.html">地方新聞與團隊動態</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-subscribe-col">
+                    <div class="col-header-wrap">   
+                        <h4 class="subscribe-col-title">訂閱最新消息</h4>
+                    </div>
+                    <p class="subscribe-desc">一起關注六腳與朴子的日常，<br>接收最新活動與地方深度故事。</p>
+
+                    <form class="footer-subscribe-box" onsubmit="event.preventDefault(); alert('感謝您的訂閱！');">
+                        <input type="email" placeholder="輸入你的電子郵件" required autocomplete="email">
+                        <button type="submit" class="btn-sub-send" aria-label="確認訂閱">➔</button>
+                    </form>
+
+                    <div class="footer-social-row">
+                        <!-- 1. Instagram -->
+                        <a href="https://www.instagram.com/ncyu_tcrc_/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+
+                        <!-- 2. Facebook -->
+                        <a href="https://www.facebook.com/profile.php?id=100094951715180" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+
+                        <!-- 3. YouTube -->
+                        <a href="https://youtube.com/@user-ncyutcrc?si=jMXJJ1vmi94Zqzbw" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon>
+                            </svg>
+                        </a>
+
+                        <!-- 4. 國立嘉義大學臺灣文化路徑研究中心 -->
+                        <a href="https://website.ncyu.edu.tw/tcrc" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="國立嘉義大學臺灣文化路徑研究中心" title="國立嘉義大學 臺灣文化路徑研究中心">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-legal-bar">
+                <p class="copyright-text">© 2026 六腳 × 青年壯遊 All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="privacy.html#privacy">隱私權政策</a>
+                    <span class="dot">·</span>
+                    <a href="privacy.html#terms">服務條款</a>
+                    <span class="dot">·</span>
+                    <a href="spots.html">網站地圖</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+</body>
+</html>

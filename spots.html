@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>壯遊據點 ｜ 嘉義青年壯遊 ‧ 搜集文化好時光</title>
+    
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/spots.css">
+
+    <!-- 典雅字體引入 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700..900;1,6..96,400..700&family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="spots-map-body">
+
+    <!-- 頂部黑漸層護欄 -->
+    <div class="site-top-gradient-backdrop"></div>
+
+    <!-- ==================== 全域標準頂部導覽列 ==================== -->
+    <header class="site-header" id="siteHeader">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand" aria-label="六腳青年壯遊首頁">
+                <img src="assets/logo-white.png" alt="六腳青年壯遊點" class="nav-logo-img logo-white">
+                <img src="assets/logo-black.png" alt="六腳青年壯遊點" class="nav-logo-img logo-black">
+            </a>
+
+            <!-- 核心導覽選單 -->
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link" data-i18n="nav_about">關於我們</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="spots.html" class="nav-link active" data-i18n="nav_spots">壯遊據點</a>
+                    </li>
+                    <li class="nav-item nav-has-dropdown">
+                        <a href="itinerary.html" class="nav-link nav-dropdown-trigger">
+                            <span data-i18n="nav_routes">走讀路線</span>
+                            <svg class="nav-icon-svg nav-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="nav-dropdown-menu">
+                            <li>
+                                <a href="itinerary-detail.html" class="dropdown-link">
+                                    <span class="route-badge">1 DAY</span>
+                                    <div>
+                                        <strong data-i18n="route_1day">一日遊規劃</strong>
+                                        <small data-i18n="route_1day_sub">工藝、老街、科技等 A~F 方案</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="twoday-detail.html" class="dropdown-link">
+                                    <span class="route-badge">2 DAYS</span>
+                                    <div>
+                                        <strong data-i18n="route_2day">兩日遊規劃</strong>
+                                        <small data-i18n="route_2day_sub">工廠村寄宿與雙城深度慢活</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="outdoor-detail.html" class="dropdown-link">
+                                    <span class="route-badge">EDU</span>
+                                    <div>
+                                        <strong data-i18n="route_edu">戶外教育專案</strong>
+                                        <small data-i18n="route_edu_sub">嘉禮有糖：高中職探究與青銀共創</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="global-detail.html" class="dropdown-link">
+                                    <span class="route-badge">GLOBAL</span>
+                                    <div>
+                                        <strong data-i18n="route_global">國際壯遊引力</strong>
+                                        <small data-i18n="route_global_sub">來嘉，有藝思：外語學伴與雙偶文化</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="journal.html" class="nav-link" data-i18n="nav_journal">職人故事</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="news.html" class="nav-link" data-i18n="nav_news">最新消息</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- 右側功能操作區 -->
+            <div class="nav-actions">
+                <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+                    <button class="nav-lang-btn" id="langBtn" aria-expanded="false">
+                        <svg class="nav-icon-svg nav-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span id="currentLangLabel">繁中</span>
+                        <svg class="nav-icon-svg nav-caret-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <ul class="lang-dropdown-menu" id="langMenu">
+                        <li><button type="button" class="lang-option active" data-lang="zh-TW">繁體中文</button></li>
+                        <li><button type="button" class="lang-option" data-lang="en">English</button></li>
+                        <li><button type="button" class="lang-option" data-lang="ja">日本語</button></li>
+                        <li><button type="button" class="lang-option" data-lang="vi">Tiếng Việt</button></li>
+                    </ul>
+                </div>
+
+                <a href="contact.html" class="nav-btn-cta">
+                    <span data-i18n="nav_cta">開始規劃</span>
+                    <svg class="nav-icon-svg nav-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 手機版抽屜滑出選單 -->
+    <aside class="sidebar-nav" id="sidebarNav">
+        <div class="sidebar-top">
+            <a href="index.html" class="sidebar-logo">
+                <img src="六腳LOGO.png" alt="嘉義六腳青年壯遊 LOGO" class="sidebar-logo-img">
+            </a>
+            <div class="sidebar-divider"></div>
+            <ul class="sidebar-tabs">
+                <li class="tab-item active"><a href="index.html">首頁故事</a></li>
+                <li class="tab-item"><a href="about.html">關於我們</a></li>
+                <li class="tab-item"><a href="spots.html">壯遊點位</a></li>
+                <li class="tab-item"><a href="itinerary.html">經典路線</a></li>
+                <li class="tab-item"><a href="journal.html">職人故事</a></li>
+                <li class="tab-item"><a href="news.html">最新消息</a></li>
+                <li class="tab-item"><a href="contact.html">預約報名</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-bottom">
+            <a href="contact.html" class="btn-sidebar-cta">預約報名 →</a>
+            <p class="sidebar-footer-text">© 嘉義六腳青年壯遊</p>
+        </div>
+    </aside>
+
+    <!-- ==================== 3. 首屏 100vh 滿版全景封面 ==================== -->
+    <section class="site-hero-full-banner">
+        <div class="hero-bg-layer">
+            <img src="assets/蒜頭糖廠 車站.png" alt="壯遊據點全景" class="hero-bg-img">
+            <div class="hero-gradient-overlay"></div>
+        </div>
+        <div class="hero-content-inner">
+            <div class="hero-heading-block">
+                <span class="hero-eyebrow">S P O T S</span>
+                <h1 class="hero-main-title">壯遊據點</h1>
+                <p class="hero-sub-slogan">穿梭六腳與朴子，收藏眾多地方人文座標。</p>
+            </div>
+        </div>
+        <a href="#spotsMainContent" class="hero-scroll-indicator" aria-label="向下滾動查看據點">
+            <span class="scroll-prompt-text">SCROLL</span>
+            <div class="scroll-mouse-icon"><span class="scroll-wheel-dot"></span></div>
+        </a>
+    </section>
+
+    <!-- 第二屏：視圖容器（支援地圖與網格雙態切換） -->
+    <main class="spots-map-viewport" id="spotsMainContent">
+
+        <!-- 模式切換按鈕浮層 (右上角) -->
+        <div class="view-switch-control">
+            <button class="view-switch-btn active" id="btnViewMap" data-view="map">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                <span>地圖導覽</span>
+            </button>
+            <button class="view-switch-btn" id="btnViewGrid" data-view="grid">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>據點圖鑑</span>
+            </button>
+        </div>
+
+        <!-- 1. 互動地圖畫布 -->
+        <div class="map-interactive-canvas" id="mapCanvas">
+            <div class="map-artwork-container">
+                <img src="assets/地圖.png" alt="嘉義六腳朴子風土地圖" class="map-base-illustration">
+
+                <nav class="map-inline-filter-list">
+                    <button class="inline-cat-item active" data-cat="all">
+                        <span class="icat-icon">▣</span>
+                        <span class="icat-name">全部據點</span>
+                        <span class="icat-num">14</span>
+                    </button>
+                    <button class="inline-cat-item" data-cat="heritage">
+                        <span class="icat-icon">♜</span>
+                        <span class="icat-name">產業與歷史</span>
+                        <span class="icat-num">4</span>
+                    </button>
+                    <button class="inline-cat-item" data-cat="craft">
+                        <span class="icat-icon">♨</span>
+                        <span class="icat-name">傳統手工藝</span>
+                        <span class="icat-num">4</span>
+                    </button>
+                    <button class="inline-cat-item" data-cat="life">
+                        <span class="icat-icon">♟</span>
+                        <span class="icat-name">常民與市井</span>
+                        <span class="icat-num">3</span>
+                    </button>
+                    <button class="inline-cat-item" data-cat="innovation">
+                        <span class="icat-icon">▤</span>
+                        <span class="icat-name">創新與社群</span>
+                        <span class="icat-num">3</span>
+                    </button>
+
+                    <div class="map-sidebar-updating">
+                        <span class="pulse-indicator"></span>
+                        <span>座標持續田調更新中...</span>
+                    </div>
+                </nav>
+
+                <!-- 14 個精準校正點位 -->
+                <div class="map-spot-pin pin-green pop-down" style="top: 14%; left: 58.5%;" data-spot="qianyao" data-category="craft">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <span class="popout-name">墘窯陶坊</span>
+                        <div class="popout-img-box"><img src="assets/illustrations/墘窯陶坊.png" alt="墘窯休閒陶坊"></div>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-orange pop-down" style="top: 13%; left: 60%;" data-spot="yongjiu" data-category="life">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <span class="popout-name">用九柑仔店</span>
+                        <div class="popout-img-box"><img src="assets/illustrations/用九柑仔店.png" alt="潭墘用九柑仔店"></div>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-orange" style="top: 35.5%; left: 72.3%;" data-spot="suantou-market" data-category="life">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/六腳公有市場.png" alt="六腳公有零售市場"></div>
+                        <span class="popout-name">六腳公有市場</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-brown" style="top: 36.1%; left: 74.8%;" data-spot="liqing" data-category="craft">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/立青工作室.png" alt="六腳立青工作室"></div>
+                        <span class="popout-name">立青工作室</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-blue" style="top: 36.5%; left: 73.5%;" data-spot="chengfeng" data-category="innovation">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/成豐社區講堂.png" alt="成豐社區講堂"></div>
+                        <span class="popout-name">成豐社區講堂</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-green" style="top: 52.5%; left: 79.5%;" data-spot="xiaomimi" data-category="craft">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/笑瞇瞇.png" alt="笑咪咪懸絲偶劇團"></div>
+                        <span class="popout-name">笑咪咪劇團</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-orange" style="top: 55%; left: 78.5%;" data-spot="sugar" data-category="heritage">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/蒜頭糖廠.png" alt="蒜頭糖廠文化園區"></div>
+                        <span class="popout-name">蒜頭糖廠</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-blue" style="top: 56%; left: 80.5%;" data-spot="culx-hub" data-category="innovation">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/文化創新基地.png" alt="嘉義文化科技創新基地"></div>
+                        <span class="popout-name">嘉義文化科技創新基地</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-darkgray" style="top: 66%; left: 73.5%;" data-spot="npm-south" data-category="heritage">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/故宮南院.png" alt="國立故宮博物院南部院區"></div>
+                        <span class="popout-name">故宮南院</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-purple" style="top: 63%; left: 52%;" data-spot="dexing-dean" data-category="heritage">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/德興里.png" alt="德興里德安宮"></div>
+                        <span class="popout-name">德興里德安宮</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-darkgray" style="top: 76%; left: 40.9%;" data-spot="shuidiaotou" data-category="heritage">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/水道頭文創.png" alt="嘉藝點水道頭文創聚落"></div>
+                        <span class="popout-name">水道頭文創聚落</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-red" style="top: 75%; left: 39%;" data-spot="embroidery" data-category="craft">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/刺繡文化館.png" alt="朴子刺繡文化館"></div>
+                        <span class="popout-name">朴子刺繡館</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-orange" style="top: 75%; left: 36%;" data-spot="oldstreet" data-category="life">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/配天宮.png" alt="朴子配天宮"></div>
+                        <span class="popout-name">配天宮老街</span>
+                    </div>
+                </div>
+
+                <div class="map-spot-pin pin-blue" style="top: 80%; left: 30.5%;" data-spot="bookstore" data-category="innovation">
+                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
+                    <div class="pin-popout-preview">
+                        <div class="popout-img-box"><img src="assets/illustrations/朴子好書室.png" alt="朴子好書室"></div>
+                        <span class="popout-name">朴子好書室</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 浮動資訊卡片 -->
+            <div class="spot-popup-card-overlay" id="spotModal">
+                <div class="popup-card-inner">
+                    <div class="popup-head-row">
+                        <span class="popup-loc-tag">📍 <span id="modalTown">六腳鄉</span></span>
+                        <button class="popup-close-btn" id="modalCloseBtn" aria-label="關閉卡片">✕</button>
+                    </div>
+
+                    <div class="popup-gallery-block">
+                        <div class="popup-main-pic">
+                            <img src="assets/水道頭文創聚落.png" id="modalMainImg" alt="據點主照片">
+                        </div>
+                        <div class="popup-thumbs-strip" id="modalThumbsStrip"></div>
+                    </div>
+
+                    <div class="popup-text-block">
+                        <div class="popup-tags-wrap" id="modalTags"></div>
+                        <h3 class="popup-title" id="modalTitle">蒜頭糖廠文化園區</h3>
+                        <p class="popup-desc" id="modalDesc"></p>
+
+                        <div class="popup-features-list">
+                            <div class="feat-row"><span class="feat-bullet">✦</span><span id="modalFeat1"></span></div>
+                            <div class="feat-row"><span class="feat-bullet">✦</span><span id="modalFeat2"></span></div>
+                        </div>
+
+                        <a href="itinerary.html" class="popup-link-btn" id="modalLink">查看推薦走讀路線 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 據點圖鑑網格視圖 -->
+        <div class="spots-grid-viewport" id="spotsGridView" style="display: none;">
+            <div class="spots-grid-inner">
+                <div class="grid-filter-bar" id="gridFilterBar">
+                    <button class="grid-filter-tag active" data-cat="all">全部 (14)</button>
+                    <button class="grid-filter-tag" data-cat="heritage">產業與歷史 (4)</button>
+                    <button class="grid-filter-tag" data-cat="craft">傳統手工藝 (4)</button>
+                    <button class="grid-filter-tag" data-cat="life">常民與市井 (3)</button>
+                    <button class="grid-filter-tag" data-cat="innovation">創新與社群 (3)</button>
+                </div>
+                
+                <div class="spots-cards-grid" id="spotsCardsGrid"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 據點詳細資訊 ＋ 地圖彈窗 -->
+    <div class="spot-modal-backdrop" id="spotModalBackdrop" aria-hidden="true">
+        <div class="spot-modal-card" role="dialog" aria-modal="true">
+            <button class="spot-modal-close-btn" id="spotModalCloseBtn" aria-label="關閉視窗">✕</button>
+
+            <div class="spot-modal-body">
+                <div class="spot-modal-map-col">
+                    <iframe 
+                        id="modalSpotMapIframe" 
+                        src="" 
+                        loading="lazy" 
+                        allowfullscreen="" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <div class="spot-modal-info">
+                    <div class="spot-modal-content-main">
+                        <div class="spot-modal-tag-row">
+                            <span class="spot-modal-location" id="modalSpotLocation">📍 六腳鄉</span>
+                            <span class="spot-modal-badge" id="modalSpotCategory">傳統手工藝</span>
+                        </div>
+
+                        <h3 class="spot-modal-title" id="modalSpotTitle">據點名稱</h3>
+                        <p class="spot-modal-desc" id="modalSpotDesc">據點詳細故事介紹...</p>
+
+                        <div class="spot-modal-features">
+                            <strong>推薦體驗：</strong>
+                            <span id="modalSpotFeatures">在地導覽 ‧ 風土手作</span>
+                        </div>
+                    </div>
+
+                    <div class="spot-modal-actions">
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-spot-gmap" id="modalGmapLink">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            在 Google 地圖上開啟導航 ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 6. 全站統一高級頁尾 ==================== -->
+    <footer class="site-global-footer">
+        <div class="footer-container">
+            <div class="footer-main-grid">
+
+                <div class="footer-brand-col">
+                    <a href="index.html" class="footer-brand-header" aria-label="六腳青年壯遊首頁">
+                        <img src="assets/logo-white.png" alt="六腳青年壯遊點" class="footer-logo-img">
+                    </a>
+
+                    <p class="footer-brand-desc">
+                        用青年的視角走進六腳與朴子，<br>
+                        記錄地方真實的故事，<br>
+                        也創造屬於這個世代的在地連結。
+                    </p>
+
+                    <div class="footer-brand-stamp">
+                        <span>SAME LAND,</span>
+                        <span>NEW VOICES.</span>
+                    </div>
+                </div>
+
+                <div class="footer-nav-columns">
+                    <div class="footer-nav-col">
+                        <div class="col-header-wrap">
+                            <h4 class="nav-col-title">認識地方</h4>
+                        </div>
+                        <ul class="nav-link-list">
+                            <li><a href="about.html">計畫緣起</a></li>
+                            <li><a href="about.html">核心信念</a></li>
+                            <li><a href="about.html">青銀共創</a></li>
+                            <li><a href="about.html">風土主題</a></li>
+                            <li><a href="spots.html" class="highlight-link">風土地圖導覽 ↗</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-nav-col">
+                        <div class="col-header-wrap">
+                            <h4 class="nav-col-title">走讀路線</h4>
+                        </div>
+                        <ul class="nav-link-list">
+                            <li><a href="itinerary-detail.html">一日遊規劃</a></li>
+                            <li><a href="twoday-detail.html">兩日遊規劃</a></li>
+                            <li><a href="outdoor-detail.html">戶外教育專案</a></li>
+                            <li><a href="global-detail.html">國際壯遊引力</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-nav-col">
+                        <div class="col-header-wrap">
+                            <h4 class="nav-col-title">故事動態</h4>
+                        </div>
+                        <ul class="nav-link-list">
+                            <li><a href="journal.html">職人故事專訪</a></li>
+                            <li><a href="news.html">全部最新消息</a></li>
+                            <li><a href="news.html">活動與小旅行報名</a></li>
+                            <li><a href="news.html">地方新聞與團隊動態</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-subscribe-col">
+                    <div class="col-header-wrap">   
+                        <h4 class="subscribe-col-title">訂閱最新消息</h4>
+                    </div>
+                    <p class="subscribe-desc">一起關注六腳與朴子的日常，<br>接收最新活動與地方深度故事。</p>
+
+                    <form class="footer-subscribe-box" onsubmit="event.preventDefault(); alert('感謝您的訂閱！');">
+                        <input type="email" placeholder="輸入你的電子郵件" required autocomplete="email">
+                        <button type="submit" class="btn-sub-send" aria-label="確認訂閱">➔</button>
+                    </form>
+
+                    <div class="footer-social-row">
+                        <a href="https://www.instagram.com/ncyu_tcrc_/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+
+                        <a href="https://www.facebook.com/profile.php?id=100094951715180" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+
+                        <a href="https://youtube.com/@user-ncyutcrc?si=jMXJJ1vmi94Zqzbw" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon>
+                            </svg>
+                        </a>
+
+                        <a href="https://website.ncyu.edu.tw/tcrc" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="國立嘉義大學臺灣文化路徑研究中心" title="國立嘉義大學 臺灣文化路徑研究中心">
+                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-legal-bar">
+                <p class="copyright-text">© 2026 六腳 × 青年壯遊 All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="privacy.html#privacy">隱私權政策</a>
+                    <span class="dot">·</span>
+                    <a href="privacy.html#terms">服務條款</a>
+                    <span class="dot">·</span>
+                    <a href="spots.html">網站地圖</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/spots.js"></script>
+</body>
+</html>
