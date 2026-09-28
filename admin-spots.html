@@ -6,7 +6,6 @@
     <title>壯遊據點管理後台 ｜ 嘉義青年壯遊</title>
     
     <link rel="stylesheet" href="css/common.css">
-    <!-- 引入典雅字體 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -153,10 +152,10 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th style="width: 100px;">英文代碼</th>
+                        <th style="width: 110px;">英文代碼</th>
                         <th style="width: 100px;">鄉鎮</th>
                         <th style="width: 120px;">分類</th>
-                        <th>據點名稱與介紹摘要</th>
+                        <th>據點名稱與短評摘要</th>
                         <th style="width: 120px; text-align: right;">操作</th>
                     </tr>
                 </thead>
@@ -169,12 +168,10 @@
         </div>
     </div>
 
-    <!-- 載入 Supabase Client SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // TODO: 請替換為您 Supabase 專案的 URL 與 Public Anon Key
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co/rest/v1/';
+        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
         
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -243,7 +240,7 @@
                 }
             ]);
 
-            if (error) {
+            if, (error) {
                 alert('新增失敗：' + error.message);
             } else {
                 alert('新增成功！');
