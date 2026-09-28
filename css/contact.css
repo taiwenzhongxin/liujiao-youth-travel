@@ -1,0 +1,443 @@
+/* ====================================================================
+   聯絡我們與預約走讀專屬樣式表 (contact.css)
+   ==================================================================== */
+
+body.contact-page-body {
+    background-color: #F8F7F4;
+    color: #1A1A1A;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* 頂部暗色漸層護欄 */
+.site-top-gradient-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 130px !important;
+    background: linear-gradient(
+        180deg,
+        rgba(15, 15, 15, 0.85) 0%,
+        rgba(15, 15, 15, 0.55) 45%,
+        rgba(15, 15, 15, 0.15) 75%,
+        rgba(248, 247, 244, 0) 100%
+    ) !important;
+    z-index: 90 !important;
+    pointer-events: none !important;
+}
+
+body.contact-page-body .site-header {
+    background: transparent !important;
+    border-bottom: none !important;
+}
+
+body.contact-page-body .site-header.scrolled {
+    background: rgba(248, 247, 244, 0.96) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ==================== 1. 寬幅 Hero 橫幅 ==================== */
+.compact-hero-banner {
+    position: relative;
+    width: 100vw;
+    height: 440px;
+    min-height: 400px;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.compact-hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.compact-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+}
+
+.compact-scrim-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(15, 15, 15, 0.75) 0%,
+        rgba(15, 15, 15, 0.35) 40%,
+        rgba(15, 15, 15, 0.65) 80%,
+        rgba(15, 15, 15, 0.85) 100%
+    );
+    z-index: 2;
+}
+
+.compact-hero-container {
+    position: relative;
+    z-index: 5;
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+.detail-breadcrumbs-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 16px;
+}
+
+.detail-breadcrumbs-light a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.detail-breadcrumbs-light a:hover {
+    color: #FFFFFF;
+}
+
+.detail-breadcrumbs-light .crumb-divider {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.detail-breadcrumbs-light .crumb-current {
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.compact-eyebrow-line {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.compact-badge-tag {
+    font-family: var(--display, sans-serif);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: #D96328;
+    color: #FFFFFF;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.compact-script-note {
+    font-family: 'Playfair Display', Georgia, cursive, serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #F8F7F4;
+    opacity: 0.9;
+}
+
+.compact-main-title {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.15;
+    margin: 0 0 10px 0;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.compact-sub-slogan {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    letter-spacing: 0.5px;
+    max-width: 820px;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ==================== 2. 主版型網格 (7:5 比例) ==================== */
+.contact-main-stage {
+    padding: 60px 0 90px 0;
+}
+
+/* 核心容器垂直排列，限制舒適的閱讀寬度並置中 */
+.contact-grid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    max-width: 920px;       /* 限制表單寬度，視覺大器不發散 */
+    margin: 0 auto;
+}
+
+/* 左欄：表單卡片 */
+.contact-form-card {
+    background: #FFFFFF;
+    border: 1px solid #ECE7DE;
+    border-radius: 16px;
+    padding: 48px 52px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+}
+
+.form-header-line {
+    margin-bottom: 28px;
+    border-bottom: 1px solid #F0ECE4;
+    padding-bottom: 20px;
+}
+
+.form-eyebrow {
+    font-family: var(--display, sans-serif);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #D96328;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.form-main-title {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #111111;
+    margin: 0 0 8px 0;
+}
+
+.form-sub-desc {
+    font-size: 0.88rem;
+    color: #6E685F;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 表單元件排版 */
+.booking-inquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #2E2A24;
+}
+
+.form-group .required {
+    color: #D96328;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: #FAF8F5;
+    border: 1px solid #D8D2C6;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #222222;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #D96328;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(217, 99, 40, 0.12);
+}
+
+.btn-submit-booking {
+    width: 100%;
+    background-color: #D96328;
+    color: #FFFFFF;
+    border: none;
+    padding: 14px 0;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(217, 99, 40, 0.35);
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+.btn-submit-booking:hover {
+    background-color: #B84E1B;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(217, 99, 40, 0.45);
+}
+
+.form-privacy-hint {
+    font-size: 0.76rem;
+    color: #8C867D;
+    text-align: center;
+    margin: 4px 0 0 0;
+}
+
+.form-privacy-hint a {
+    color: #D96328;
+    text-decoration: underline;
+}
+
+/* 右欄：資訊卡片群 */
+.contact-info-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: stretch;
+}
+
+.info-widget-card {
+    background: #FFFFFF;
+    border: 1px solid #ECE7DE;
+    border-radius: 14px;
+    padding: 32px 30px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.widget-eyebrow {
+    font-family: var(--display, sans-serif);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #D96328;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.widget-title {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0 0 18px 0;
+}
+
+.widget-meta-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.widget-meta-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.widget-meta-list .meta-icon {
+    font-size: 1.1rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+.widget-meta-list strong {
+    display: block;
+    font-size: 0.8rem;
+    color: #8C867D;
+    margin-bottom: 2px;
+}
+
+.widget-meta-list span {
+    font-size: 0.88rem;
+    color: #2E2A24;
+    line-height: 1.45;
+}
+
+.btn-widget-map {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #FAF8F5;
+    color: #2E2A24;
+    border: 1px solid #D8D2C6;
+    text-decoration: none;
+    padding: 10px 0;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.btn-widget-map:hover {
+    background-color: #111111;
+    color: #FFFFFF;
+    border-color: #111111;
+}
+
+/* FAQ 區塊 */
+.faq-item {
+    margin-bottom: 16px;
+    border-bottom: 1px dashed #EDE8E0;
+    padding-bottom: 14px;
+}
+
+.faq-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.faq-item strong {
+    font-size: 0.88rem;
+    color: #1A1A1A;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.faq-item p {
+    font-size: 0.82rem;
+    color: #6E685F;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 響應式適配 */
+@media (max-width: 992px) {
+    .contact-grid-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-row-two {
+        grid-template-columns: 1fr;
+    }
+    .contact-form-card {
+        padding: 26px 20px;
+    }
+}
