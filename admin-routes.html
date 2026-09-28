@@ -6,7 +6,6 @@
     <title>走讀路線管理後台 ｜ 嘉義青年壯遊</title>
     
     <link rel="stylesheet" href="css/common.css">
-    <!-- 引入典雅字體 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -160,12 +159,10 @@
         </div>
     </div>
 
-    <!-- 載入 Supabase Client SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // TODO: 請替換為您 Supabase 專案的 URL 與 Public Anon Key
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co/rest/v1/';
+        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
         
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -226,7 +223,7 @@
                     tab_title: '新創體驗線',
                     main_title: mainTitle,
                     keywords: '創新 × 體驗 × 探索',
-                    summary: '請在此輸入此路線方案的簡介摘要...。',
+                    summary: '請在此輸入此路線方案的簡介摘要...',
                     specs: {
                         track: '起點 ➔ 中繼站 ➔ 終點',
                         transport: '步行 ＋ 專車接駁',
