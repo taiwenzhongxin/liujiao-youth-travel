@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台登入 ｜ 嘉義青年壯遊</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F8F7F4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .login-card {
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #ECE7DE;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 24px;
+            color: #111111;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #4A463F;
+        }
+        input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #D8D2C6;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+        .btn-login {
+            width: 100%;
+            background-color: #D96328;
+            color: #FFFFFF;
+            border: none;
+            padding: 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .btn-login:hover {
+            background-color: #B84E1B;
+        }
+        #errorMsg {
+            color: #C0392B;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h1>管理後台登入</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>管理員 Email</label>
+                <input type="email" id="email" required placeholder="請輸入 Email">
+            </div>
+            <div class="form-group">
+                <label>密碼</label>
+                <input type="password" id="loginPassword" required placeholder="請輸入密碼">
+            </div>
+            <button type="submit" class="btn-login">登入系統</button>
+            <div id="errorMsg"></div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
+        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            errorMsg.textContent = '登入中...';
+
+            // 呼叫 Supabase 內建登入 API
+            const { data, error } = await db.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                errorMsg.textContent = '登入失敗：' + error.message;
+            } else {
+                alert('登入成功！');
+                window.location.href = 'admin.html'; // 登入後跳轉回總後台
+            }
+        });
+    </script>
+</body>
+</html>
