@@ -144,8 +144,9 @@
             </div>
             <div class="admin-actions">
                 <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
-                <a href="journal.html" class="btn-admin-secondary">檢視職人 ↗</a>
+                <a href="journal.html" class="btn-admin-secondary" target="_blank">檢視職人 ↗</a>
                 <button class="btn-admin-primary" id="btnAddArtisan">＋ 新增職人專訪</button>
+                <button class="btn-admin-secondary" id="logoutBtn" style="color: #C0392B; border-color: #C0392B;">登出</button>
             </div>
         </div>
 
@@ -162,7 +163,7 @@
                 </thead>
                 <tbody id="artisansTableBody">
                     <tr>
-                        <td colspan="5" class="empty-state">正在從 Supabase 載入職人專訪資料...</td>
+                        <td colspan="5" class="empty-state">正在驗證身分並載入職人專訪資料...</td>
                     </tr>
                 </tbody>
             </table>
@@ -174,11 +175,28 @@
         const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 檢查登入身分
+        async function checkAuthAndFetch() {
+            const { data: { session } } = await window.db.auth.getSession();
+            if (!session) {
+                alert('您尚未登入或登入已過期，請先登入後台！');
+                window.location.href = 'login.html';
+                return;
+            }
+            fetchArtisans();
+        }
+
+        // 登出按鈕
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await window.db.auth.signOut();
+            window.location.href = 'login.html';
+        });
 
         async function fetchArtisans() {
             const tbody = document.getElementById('artisansTableBody');
-            const { data, error } = await supabase
+            const { data, error } = await window.db
                 .from('artisans')
                 .select('*')
                 .order('id', { ascending: true });
@@ -211,7 +229,7 @@
 
         async function deleteArtisan(id) {
             if (!confirm(`確定要刪除編號 [${id}] 的職人專訪嗎？`)) return;
-            const { error } = await supabase.from('artisans').delete().eq('id', id);
+            const { error } = await window.db.from('artisans').delete().eq('id', id);
             if (error) {
                 alert('刪除失敗：' + error.message);
             } else {
@@ -226,7 +244,7 @@
             const role = prompt('請輸入職人頭銜 (例如 傳統工藝師 ｜ 工作室負責人)：');
             if (!role) return;
 
-            const { error } = await supabase.from('artisans').insert([
+            const { error } = await window.db.from('artisans').insert([
                 {
                     index_num: '04',
                     name: name,
@@ -251,7 +269,7 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', fetchArtisans);
+        document.addEventListener('DOMContentLoaded', checkAuthAndFetch);
     </script>
 </body>
 </html>

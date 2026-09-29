@@ -136,8 +136,9 @@
             </div>
             <div class="admin-actions">
                 <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
-                <a href="itinerary.html" class="btn-admin-secondary">檢視路線 ↗</a>
+                <a href="itinerary.html" class="btn-admin-secondary" target="_blank">檢視路線 ↗</a>
                 <button class="btn-admin-primary" id="btnAddRoute">＋ 新增路線方案</button>
+                <button class="btn-admin-secondary" id="logoutBtn" style="color: #C0392B; border-color: #C0392B;">登出</button>
             </div>
         </div>
 
@@ -153,7 +154,7 @@
                 </thead>
                 <tbody id="routesTableBody">
                     <tr>
-                        <td colspan="4" class="empty-state">正在從 Supabase 載入走讀路線資料...</td>
+                        <td colspan="4" class="empty-state">正在驗證身分並載入走讀路線資料...</td>
                     </tr>
                 </tbody>
             </table>
@@ -165,11 +166,28 @@
         const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 檢查登入身分
+        async function checkAuthAndFetch() {
+            const { data: { session } } = await window.db.auth.getSession();
+            if (!session) {
+                alert('您尚未登入或登入已過期，請先登入後台！');
+                window.location.href = 'login.html';
+                return;
+            }
+            fetchRoutes();
+        }
+
+        // 登出按鈕事件
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await window.db.auth.signOut();
+            window.location.href = 'login.html';
+        });
 
         async function fetchRoutes() {
             const tbody = document.getElementById('routesTableBody');
-            const { data, error } = await supabase
+            const { data, error } = await window.db
                 .from('routes')
                 .select('*')
                 .order('route_id', { ascending: true });
@@ -199,16 +217,16 @@
             `).join('');
         }
 
-        async function deleteRoute(routeId) {
+        window.deleteRoute = async function(routeId) {
             if (!confirm(`確定要刪除方案 [${routeId}] 嗎？`)) return;
-            const { error } = await supabase.from('routes').delete().eq('route_id', routeId);
+            const { error } = await window.db.from('routes').delete().eq('route_id', routeId);
             if (error) {
                 alert('刪除失敗：' + error.message);
             } else {
                 alert('刪除成功！');
                 fetchRoutes();
             }
-        }
+        };
 
         document.getElementById('btnAddRoute').addEventListener('click', async () => {
             const routeId = prompt('請輸入方案代碼 (例如 G 或 E)：');
@@ -216,7 +234,7 @@
             const mainTitle = prompt('請輸入方案完整標題 (例如 G 創新體驗線)：');
             if (!mainTitle) return;
 
-            const { error } = await supabase.from('routes').insert([
+            const { error } = await window.db.from('routes').insert([
                 {
                     route_id: routeId.toUpperCase(),
                     route_type: 'itinerary_1day',
@@ -245,7 +263,7 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', fetchRoutes);
+        document.addEventListener('DOMContentLoaded', checkAuthAndFetch);
     </script>
 </body>
 </html>

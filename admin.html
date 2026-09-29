@@ -5,22 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>六腳青年壯遊 ｜ 總管理後台</title>
     <link rel="stylesheet" href="css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { background: #F8F7F4; font-family: 'Noto Sans TC', sans-serif; padding: 60px 20px; color: #1A1A1A; }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 { font-family: 'Noto Serif TC', serif; font-size: 2rem; margin-bottom: 8px; }
-        p { color: #6E685F; margin-bottom: 32px; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .card { background: #FFF; padding: 24px; border-radius: 12px; border: 1px solid #ECE7DE; text-decoration: none; color: inherit; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .card:hover { border-color: #D96328; transform: translateY(-2px); }
-        .card h3 { margin: 0 0 8px 0; color: #D96328; font-size: 1.2rem; }
-        .card span { font-size: 0.85rem; color: #7A746B; }
+        body.admin-body {
+            background-color: #F8F7F4;
+            color: #1A1A1A;
+            margin: 0;
+            padding: 60px 20px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #E5E0D8;
+            padding-bottom: 16px;
+        }
+        h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2rem;
+            margin: 0 0 8px 0;
+            color: #111111;
+        }
+        p {
+            color: #6E685F;
+            margin: 0 0 32px 0;
+        }
+        .btn-logout {
+            background-color: transparent;
+            color: #C0392B;
+            border: 1px solid #C0392B;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover {
+            background-color: #C0392B;
+            color: #FFFFFF;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .card {
+            background: #FFF;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #ECE7DE;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .card:hover {
+            border-color: #D96328;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(217, 99, 40, 0.1);
+        }
+        .card h3 {
+            margin: 0 0 8px 0;
+            color: #D96328;
+            font-size: 1.2rem;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .card span {
+            font-size: 0.85rem;
+            color: #7A746B;
+            line-height: 1.4;
+            display: block;
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>六腳青年壯遊 ‧ 總管理後台</h1>
-        <p>請選擇您想要管理的網站內容模組：</p>
+<body class="admin-body">
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: #D96328;">ADMIN CONTROL PANEL</span>
+                <h1>六腳青年壯遊 ‧ 總管理後台</h1>
+            </div>
+            <button class="btn-logout" id="logoutBtn">登出系統</button>
+        </div>
+        <p id="welcomeMsg">正在驗證管理者身分...</p>
         
         <div class="grid">
             <a href="admin-news.html" class="card">
@@ -29,11 +106,11 @@
             </a>
             <a href="admin-spots.html" class="card">
                 <h3>📍 壯遊據點管理</h3>
-                <span>管理 14 大地圖座標點位與圖鑑內容</span>
+                <span>管理大地圖座標點位與 24 據點圖鑑內容</span>
             </a>
             <a href="admin-routes.html" class="card">
                 <h3>🗺️ 走讀路線管理</h3>
-                <span>管理一日遊與戶外教育專案教案</span>
+                <span>管理一日遊、兩日遊與戶外教育專案教案</span>
             </a>
             <a href="admin-artisans.html" class="card">
                 <h3>✍️ 職人故事管理</h3>
@@ -41,5 +118,35 @@
             </a>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
+        
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function checkAuth() {
+            const { data: { session } } = await window.db.auth.getSession();
+            const welcomeMsg = document.getElementById('welcomeMsg');
+
+            if (!session) {
+                alert('您尚未登入或登入已過期，請先登入後台！');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (welcomeMsg) {
+                welcomeMsg.textContent = `歡迎回來，管理員 (${session.user.email})。請選擇您想要管理的網站內容模組：`;
+            }
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await window.db.auth.signOut();
+            window.location.href = 'login.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
 </body>
 </html>

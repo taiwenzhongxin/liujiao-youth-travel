@@ -135,8 +135,9 @@
             </div>
             <div class="admin-actions">
                 <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
-                <a href="news.html" class="btn-admin-secondary">檢視前台 ↗</a>
-                <button class="btn-admin-primary" id="btnAddNews">＋ 新增文章</button>
+                <a href="news.html" class="btn-admin-secondary" target="_blank">檢視前台 ↗</a>
+                <button class="btn-admin-primary" id="btnAddNews" type="button">＋ 新增文章</button>
+                <button class="btn-admin-secondary" id="logoutBtn" style="color: #C0392B; border-color: #C0392B;">登出</button>
             </div>
         </div>
 
@@ -152,23 +153,45 @@
                 </thead>
                 <tbody id="newsTableBody">
                     <tr>
-                        <td colspan="4" class="empty-state">正在從 Supabase 載入資料...</td>
+                        <td colspan="4" class="empty-state">正在驗證身分並載入最新消息資料...</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <!-- 載入 Supabase Client SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // 1. 初始化 Supabase 連線資訊
         const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // 2. 檢查登入身分
+        async function checkAuthAndFetch() {
+            const { data: { session } } = await window.db.auth.getSession();
+            if (!session) {
+                alert('您尚未登入或登入已過期，請先登入後台！');
+                window.location.href = 'login.html';
+                return;
+            }
+            fetchNews();
+        }
+
+        // 3. 登出按鈕事件
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await window.db.auth.signOut();
+            window.location.href = 'login.html';
+        });
+
+        // 4. 從 Supabase 抓取資料並渲染至表格
         async function fetchNews() {
             const tbody = document.getElementById('newsTableBody');
-            const { data, error } = await supabase
+            if (!tbody) return;
+
+            const { data, error } = await window.db
                 .from('news')
                 .select('*')
                 .order('id', { ascending: false });
@@ -185,9 +208,9 @@
 
             tbody.innerHTML = data.map(item => `
                 <tr>
-                    <td>${item.date}</td>
-                    <td><span class="badge-cat">${item.category}</span></td>
-                    <td><strong>${item.title}</strong></td>
+                    <td>${item.date || ''}</td>
+                    <td><span class="badge-cat">${item.category || '未分類'}</span></td>
+                    <td><strong>${item.title || ''}</strong></td>
                     <td style="text-align: right;">
                         <button class="btn-danger" onclick="deleteNews(${item.id})">刪除</button>
                     </td>
@@ -195,43 +218,50 @@
             `).join('');
         }
 
-        async function deleteNews(id) {
+        // 5. 刪除指定 ID 的文章
+        window.deleteNews = async function(id) {
             if (!confirm('確定要刪除這筆最新消息嗎？')) return;
-            const { error } = await supabase.from('news').delete().eq('id', id);
+            const { error } = await window.db.from('news').delete().eq('id', id);
             if (error) {
                 alert('刪除失敗：' + error.message);
             } else {
                 alert('刪除成功！');
                 fetchNews();
             }
-        }
+        };
 
-        document.getElementById('btnAddNews').addEventListener('click', async () => {
-            const title = prompt('請輸入新文章標題：');
-            if (!title) return;
+        // 6. 當網頁完全載入後，先驗證身分再載入資料與綁定新增事件
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthAndFetch();
 
-            const { error } = await supabase.from('news').insert([
-                {
-                    category: '活動資訊',
-                    date: new Date().toISOString().slice(0, 10).replace(/-/g, '.'),
-                    title: title,
-                    sub_slogan: '請在後台補上副標題與內文摘要...',
-                    hero_img: 'assets/水道頭文創聚落.png',
-                    lead: '這是自動新增的前言摘要段落...',
-                    sections: [],
-                    sidebar: { showSpec: false, title: '活動資訊概覽', btnText: '了解更多 ➔', btnLink: 'news.html' }
-                }
-            ]);
+            const btnAddNews = document.getElementById('btnAddNews');
+            if (btnAddNews) {
+                btnAddNews.addEventListener('click', async () => {
+                    const title = prompt('請輸入新文章標題：');
+                    if (!title) return;
 
-            if (error) {
-                alert('新增失敗：' + error.message);
-            } else {
-                alert('新增成功！');
-                fetchNews();
+                    const { error } = await window.db.from('news').insert([
+                        {
+                            category: '活動資訊',
+                            date: new Date().toISOString().slice(0, 10).replace(/-/g, '.'),
+                            title: title,
+                            sub_slogan: '請在後台補上副標題與內文摘要...',
+                            hero_img: 'assets/水道頭文創聚落.png',
+                            lead: '這是自動新增的前言摘要段落...',
+                            sections: [],
+                            sidebar: { showSpec: false, title: '活動資訊概覽', btnText: '了解更多 ➔', btnLink: 'news.html' }
+                        }
+                    ]);
+
+                    if (error) {
+                        alert('新增失敗：' + error.message);
+                    } else {
+                        alert('新增成功！');
+                        fetchNews();
+                    }
+                });
             }
         });
-
-        document.addEventListener('DOMContentLoaded', fetchNews);
     </script>
 </body>
 </html>
