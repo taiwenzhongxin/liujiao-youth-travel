@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>壯遊據點管理後台 ｜ 嘉義青年壯遊</title>
+    
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body.admin-body {
+            background-color: #F8F7F4;
+            color: #1A1A1A;
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #E5E0D8;
+            padding-bottom: 16px;
+        }
+        .admin-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 0;
+            color: #111111;
+        }
+        .admin-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-admin-primary {
+            background-color: #D96328;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .btn-admin-primary:hover {
+            background-color: #B84E1B;
+        }
+        .btn-admin-secondary {
+            background-color: transparent;
+            color: #4A463F;
+            border: 1px solid #D8D2C6;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .btn-admin-secondary:hover {
+            background-color: #FAF8F5;
+            border-color: #111111;
+        }
+        .spots-table-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #ECE7DE;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+        table.admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        table.admin-table th, table.admin-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #F0ECE4;
+            vertical-align: middle;
+        }
+        table.admin-table th {
+            background-color: #FAF8F5;
+            font-weight: 700;
+            color: #555047;
+            letter-spacing: 0.5px;
+        }
+        table.admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        .badge-town {
+            background: #F0EDE6;
+            color: #6E685F;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .badge-cat {
+            background: #FDEEE6;
+            color: #D96328;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .btn-danger {
+            background: #C0392B;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-danger:hover {
+            background: #962D22;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #8C867C;
+        }
+    </style>
+</head>
+<body class="admin-body">
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: #D96328;">ADMIN CONTROL PANEL</span>
+                <h1 class="admin-title">壯遊據點管理後台</h1>
+            </div>
+            <div class="admin-actions">
+                <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
+                <a href="spots.html" class="btn-admin-secondary">檢視地圖 ↗</a>
+                <button class="btn-admin-primary" id="btnAddSpot">＋ 新增據點</button>
+            </div>
+        </div>
+
+        <div class="spots-table-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 110px;">英文代碼</th>
+                        <th style="width: 100px;">鄉鎮</th>
+                        <th style="width: 120px;">分類</th>
+                        <th>據點名稱與短評摘要</th>
+                        <th style="width: 120px; text-align: right;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="spotsTableBody">
+                    <tr>
+                        <td colspan="5" class="empty-state">正在從 Supabase 載入據點資料...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function fetchSpots() {
+            const tbody = document.getElementById('spotsTableBody');
+            const { data, error } = await supabase
+                .from('spots')
+                .select('*')
+                .order('title', { ascending: true });
+
+            if (error) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color: #C0392B;">載入失敗：${error.message}</td></tr>`;
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state">目前尚無任何壯遊據點資料。</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map(item => `
+                <tr>
+                    <td><code>${item.spot_key}</code></td>
+                    <td><span class="badge-town">${item.town}</span></td>
+                    <td><span class="badge-cat">${item.category}</span></td>
+                    <td>
+                        <strong style="font-size: 1rem; display: block; margin-bottom: 4px;">${item.title}</strong>
+                        <span style="color: #6E685F; font-size: 0.82rem; display: block; line-height: 1.4;">${item.short_desc || ''}</span>
+                    </td>
+                    <td style="text-align: right;">
+                        <button class="btn-danger" onclick="deleteSpot('${item.spot_key}')">刪除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function deleteSpot(spotKey) {
+            if (!confirm(`確定要刪除據點 [${spotKey}] 嗎？`)) return;
+            const { error } = await supabase.from('spots').delete().eq('spot_key', spotKey);
+            if (error) {
+                alert('刪除失敗：' + error.message);
+            } else {
+                alert('刪除成功！');
+                fetchSpots();
+            }
+        }
+
+        document.getElementById('btnAddSpot').addEventListener('click', async () => {
+            const spotKey = prompt('請輸入英文代碼 (例如 new-spot)：');
+            if (!spotKey) return;
+            const title = prompt('請輸入據點名稱：');
+            if (!title) return;
+
+            const { error } = await supabase.from('spots').insert([
+                {
+                    spot_key: spotKey,
+                    town: '六腳鄉',
+                    title: title,
+                    category: '創新與社群',
+                    tags: ['創新與社群'],
+                    short_desc: '請在此輸入據點短評摘要...',
+                    desc: '請在此輸入完整的據點詳細故事介紹...',
+                    features: '在地導覽 ‧ 風土體驗',
+                    photos: ['assets/水道頭文創聚落.png'],
+                    gmap_query: `${title} 嘉義`
+                }
+            ]);
+
+            if (error) {
+                alert('新增失敗：' + error.message);
+            } else {
+                alert('新增成功！');
+                fetchSpots();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', fetchSpots);
+    </script>
+</body>
+</html>
