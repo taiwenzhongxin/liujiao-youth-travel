@@ -19,14 +19,14 @@
             font-family: 'Noto Sans TC', sans-serif;
         }
         .admin-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             border-bottom: 2px solid #E5E0D8;
             padding-bottom: 16px;
         }
@@ -40,6 +40,7 @@
         .admin-actions {
             display: flex;
             gap: 12px;
+            align-items: center;
         }
         .btn-admin-primary {
             background-color: #D96328;
@@ -71,6 +72,37 @@
             background-color: #FAF8F5;
             border-color: #111111;
         }
+        
+        /* 分頁導覽列 */
+        .admin-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .tab-btn {
+            background: #EFECE6;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: #6E685F;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: #1A1A1A;
+            color: #FFFFFF;
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 表格區塊 */
         .spots-table-card {
             background: #FFFFFF;
             border-radius: 12px;
@@ -93,10 +125,6 @@
             background-color: #FAF8F5;
             font-weight: 700;
             color: #555047;
-            letter-spacing: 0.5px;
-        }
-        table.admin-table tr:last-child td {
-            border-bottom: none;
         }
         .badge-town {
             background: #F0EDE6;
@@ -127,10 +155,146 @@
         .btn-danger:hover {
             background: #962D22;
         }
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #8C867C;
+
+        /* 地圖編輯模式畫布區塊 */
+        .map-editor-wrapper {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #ECE7DE;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+        }
+        .map-canvas-box {
+            position: relative;
+            width: 100%;
+            background: #E8DDCB;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px dashed #D8D2C6;
+        }
+        .map-canvas-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+        }
+        /* 可拖曳的座標 Pin */
+        .draggable-pin {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .draggable-pin:active {
+            cursor: grabbing;
+        }
+        .pin-dot {
+            width: 20px;
+            height: 20px;
+            background: #D96328;
+            border: 3px solid #FFFFFF;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .pin-label {
+            background: rgba(0,0,0,0.8);
+            color: #FFF;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-top: 2px;
+            pointer-events: none;
+        }
+        .map-editor-sidebar {
+            background: #FAF8F5;
+            border: 1px solid #ECE7DE;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+        .sidebar-spot-item {
+            padding: 10px 12px;
+            background: #FFFFFF;
+            border: 1px solid #E5E0D8;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sidebar-spot-item:hover {
+            border-color: #D96328;
+            background: #FDEEE6;
+        }
+
+        /* 彈出式表單 Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-card {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #4A463F;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #D8D2C6;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            height: 90px;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
         }
     </style>
 </head>
@@ -143,29 +307,94 @@
                 <h1 class="admin-title">壯遊據點管理後台</h1>
             </div>
             <div class="admin-actions">
-                <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
-                <a href="spots.html" class="btn-admin-secondary">檢視地圖 ↗</a>
-                <button class="btn-admin-primary" id="btnAddSpot">＋ 新增據點</button>
+                <a href="spots.html" class="btn-admin-secondary" target="_blank">檢視前台地圖 ↗</a>
+                <button class="btn-admin-secondary" id="logoutBtn" style="color: #C0392B; border-color: #C0392B;">登出</button>
             </div>
         </div>
 
-        <div class="spots-table-card">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th style="width: 110px;">英文代碼</th>
-                        <th style="width: 100px;">鄉鎮</th>
-                        <th style="width: 120px;">分類</th>
-                        <th>據點名稱與短評摘要</th>
-                        <th style="width: 120px; text-align: right;">操作</th>
-                    </tr>
-                </thead>
-                <tbody id="spotsTableBody">
-                    <tr>
-                        <td colspan="5" class="empty-state">正在從 Supabase 載入據點資料...</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 後台分頁按鈕 -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('tableTab', event)">📋 據點資料管理</button>
+            <button class="tab-btn" onclick="switchTab('mapEditorTab', event)">🗺️ 地圖座標編輯模式</button>
+        </div>
+
+        <!-- 1. 據點資料表格管理分頁 -->
+        <div id="tableTab" class="tab-content active">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+                <button class="btn-admin-primary" id="openModalBtn" type="button">＋ 新增據點</button>
+            </div>
+            <div class="spots-table-card">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 110px;">英文代碼</th>
+                            <th style="width: 100px;">鄉鎮</th>
+                            <th style="width: 120px;">分類</th>
+                            <th>據點名稱與短評摘要</th>
+                            <th style="width: 120px; text-align: right;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="spotsTableBody">
+                        <tr><td colspan="5" class="empty-state">正在載入據點資料...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. 地圖座標編輯模式分頁 -->
+        <div id="mapEditorTab" class="tab-content">
+            <div class="map-editor-wrapper">
+                <div>
+                    <p style="margin-top: 0; font-size: 0.88rem; color: #6E685F;">💡 提示：請直接用滑鼠按住地圖上的橘色標記（Pin）進行拖曳，放到正確位置後放開，系統會自動儲存座標！</p>
+                    <div class="map-canvas-box" id="mapCanvasBox">
+                        <img src="assets/地圖.png" alt="風土地圖" id="mapEditorImg">
+                        <!-- 動態生成拖曳點位層 -->
+                        <div id="editorPinsLayer" style="position: absolute; inset: 0;"></div>
+                    </div>
+                </div>
+                <div class="map-editor-sidebar">
+                    <h3 style="font-family: 'Noto Serif TC', serif; margin-top: 0; font-size: 1.1rem;">據點座標清單</h3>
+                    <p style="font-size: 0.78rem; color: #8C867C; margin-bottom: 12px;">點擊清單可快速定位據點。</p>
+                    <div id="sidebarSpotsList" style="flex: 1;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 彈出式表單 Modal (新增據點) -->
+    <div class="modal-overlay" id="spotModal">
+        <div class="modal-card">
+            <h2 class="modal-title">新增壯遊據點</h2>
+            <form id="spotForm">
+                <div class="form-group">
+                    <label>英文代碼 (spot_key，例如 qianyao)</label>
+                    <input type="text" id="spotKeyInput" required placeholder="例如：qianyao">
+                </div>
+                <div class="form-group">
+                    <label>據點名稱 (title)</label>
+                    <input type="text" id="titleInput" required placeholder="例如：墘窯陶坊">
+                </div>
+                <div class="form-group">
+                    <label>鄉鎮 (town)</label>
+                    <input type="text" id="townInput" value="六腳鄉" required>
+                </div>
+                <div class="form-group">
+                    <label>分類 (category)</label>
+                    <input type="text" id="categoryInput" value="傳統手工藝" required>
+                </div>
+                <div class="form-group">
+                    <label>短評摘要 (short_desc)</label>
+                    <textarea id="shortDescInput" placeholder="請輸入地圖卡片上的簡短描述..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>詳細故事介紹 (desc)</label>
+                    <textarea id="descInput" placeholder="請輸入完整的據點深度介紹..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-admin-secondary" id="closeModalBtn">取消</button>
+                    <button type="submit" class="btn-admin-primary">確認送出</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -173,16 +402,52 @@
     <script>
         const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
-        
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        async function fetchSpots() {
+        // 分頁切換函式
+        window.switchTab = function(tabId, event) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (event) event.currentTarget.classList.add('active');
+
+            if (tabId === 'mapEditorTab') {
+                loadMapEditorPins();
+            }
+        };
+
+        const modal = document.getElementById('spotModal');
+        const openBtn = document.getElementById('openModalBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const form = document.getElementById('spotForm');
+
+        if (openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
+        if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                await window.db.auth.signOut();
+                window.location.href = 'login.html';
+            });
+        }
+
+        async function checkAuthAndFetch() {
+            const { data: { session } } = await window.db.auth.getSession();
+            if (!session) {
+                alert('您尚未登入或登入已過期，請先登入後台！');
+                window.location.href = 'login.html';
+                return;
+            }
+            fetchSpotsTable();
+        }
+
+        // 1. 載入表格清單
+        async function fetchSpotsTable() {
             const tbody = document.getElementById('spotsTableBody');
-            const { data, error } = await supabase
-                .from('spots')
-                .select('*')
-                .order('title', { ascending: true });
+            if (!tbody) return;
 
+            const { data, error } = await window.db.from('spots').select('*').order('title', { ascending: true });
             if (error) {
                 tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color: #C0392B;">載入失敗：${error.message}</td></tr>`;
                 return;
@@ -209,47 +474,119 @@
             `).join('');
         }
 
-        async function deleteSpot(spotKey) {
+        window.deleteSpot = async function(spotKey) {
             if (!confirm(`確定要刪除據點 [${spotKey}] 嗎？`)) return;
-            const { error } = await supabase.from('spots').delete().eq('spot_key', spotKey);
+            const { error } = await window.db.from('spots').delete().eq('spot_key', spotKey);
             if (error) {
                 alert('刪除失敗：' + error.message);
             } else {
                 alert('刪除成功！');
-                fetchSpots();
+                fetchSpotsTable();
             }
+        };
+
+        // 2. 載入地圖編輯模式的拖曳 Pin 點與側邊欄
+        async function loadMapEditorPins() {
+            const pinsLayer = document.getElementById('editorPinsLayer');
+            const sidebarList = document.getElementById('sidebarSpotsList');
+            const canvasBox = document.getElementById('mapCanvasBox');
+            if (!pinsLayer) return;
+
+            const { data: spots, error } = await window.db.from('spots').select('*').order('title', { ascending: true });
+            if (error || !spots) return;
+
+            pinsLayer.innerHTML = '';
+            sidebarList.innerHTML = '';
+
+            spots.forEach(item => {
+                // 建立側邊欄清單
+                const sItem = document.createElement('div');
+                sItem.className = 'sidebar-spot-item';
+                sItem.innerHTML = `<strong style="font-size:0.85rem; display:block;">${item.title}</strong><span style="font-size:0.72rem; color:#8C867C;">座標: ${item.pos_top || '50%'}, ${item.pos_left || '50%'}</span>`;
+                sidebarList.appendChild(sItem);
+
+                // 建立地圖上的拖曳 Pin
+                const pin = document.createElement('div');
+                pin.className = 'draggable-pin';
+                pin.style.top = item.pos_top || '50%';
+                pin.style.left = item.pos_left || '50%';
+                pin.innerHTML = `
+                    <div class="pin-dot"></div>
+                    <span class="pin-label">${item.title}</span>
+                `;
+                pinsLayer.appendChild(pin);
+
+                // 拖曳互動邏輯
+                let isDragging = false;
+                pin.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    e.stopPropagation();
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    const rect = canvasBox.getBoundingClientRect();
+                    let x = ((e.clientX - rect.left) / rect.width) * 100;
+                    let y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                    x = Math.max(0, Math.min(100, x));
+                    y = Math.max(0, Math.min(100, y));
+
+                    pin.style.left = `${x}%`;
+                    pin.style.top = `${y}%`;
+                });
+
+                window.addEventListener('mouseup', async () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+
+                    const finalTop = pin.style.top;
+                    const finalLeft = pin.style.left;
+
+                    // 即時更新至 Supabase
+                    const { error: updateErr } = await window.db
+                        .from('spots')
+                        .update({ pos_top: finalTop, pos_left: finalLeft })
+                        .eq('spot_key', item.spot_key);
+
+                    if (!updateErr) {
+                        sItem.querySelector('span').textContent = `座標: ${finalTop}, ${finalLeft}`;
+                    }
+                });
+            });
         }
 
-        document.getElementById('btnAddSpot').addEventListener('click', async () => {
-            const spotKey = prompt('請輸入英文代碼 (例如 new-spot)：');
-            if (!spotKey) return;
-            const title = prompt('請輸入據點名稱：');
-            if (!title) return;
-
-            const { error } = await supabase.from('spots').insert([
-                {
-                    spot_key: spotKey,
-                    town: '六腳鄉',
-                    title: title,
-                    category: '創新與社群',
-                    tags: ['創新與社群'],
-                    short_desc: '請在此輸入據點短評摘要...',
-                    desc: '請在此輸入完整的據點詳細故事介紹...',
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const newSpot = {
+                    spot_key: document.getElementById('spotKeyInput').value.trim(),
+                    title: document.getElementById('titleInput').value.trim(),
+                    town: document.getElementById('townInput').value.trim(),
+                    category: document.getElementById('categoryInput').value.trim(),
+                    tags: [document.getElementById('categoryInput').value.trim()],
+                    short_desc: document.getElementById('shortDescInput').value.trim(),
+                    desc: document.getElementById('descInput').value.trim(),
                     features: '在地導覽 ‧ 風土體驗',
                     photos: ['assets/水道頭文創聚落.png'],
-                    gmap_query: `${title} 嘉義`
+                    gmap_query: `${document.getElementById('titleInput').value.trim()} 嘉義`,
+                    pos_top: '50%',
+                    pos_left: '50%'
+                };
+
+                const { error } = await window.db.from('spots').insert([newSpot]);
+                if (error) {
+                    alert('新增失敗：' + error.message);
+                } else {
+                    alert('新增成功！');
+                    modal.classList.remove('active');
+                    form.reset();
+                    fetchSpotsTable();
                 }
-            ]);
+            });
+        }
 
-            if (error) {
-                alert('新增失敗：' + error.message);
-            } else {
-                alert('新增成功！');
-                fetchSpots();
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', fetchSpots);
+        document.addEventListener('DOMContentLoaded', checkAuthAndFetch);
     </script>
 </body>
 </html>
