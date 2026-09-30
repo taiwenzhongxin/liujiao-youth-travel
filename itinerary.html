@@ -16,109 +16,118 @@
 <body class="routes-page-body">
 
 <!-- ==================== 全域標準頂部導覽列 ==================== -->
-<header class="site-header" id="siteHeader">
-    <div class="nav-container">
-        <a href="index.html" class="nav-brand" aria-label="六腳青年壯遊首頁">
-            <img src="assets/logo-white.png" alt="六腳青年壯遊點" class="nav-logo-img logo-white">
-            <img src="assets/logo-black.png" alt="六腳青年壯遊點" class="nav-logo-img logo-black">
-        </a>
+<!-- ==================== 全域標準頂部導覽列 ==================== -->
+    <header class="site-header" id="siteHeader">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand" aria-label="六腳青年壯遊首頁">
+                <img src="assets/logo-white.png" alt="六腳青年壯遊點" class="nav-logo-img logo-white">
+                <img src="assets/logo-black.png" alt="六腳青年壯遊點" class="nav-logo-img logo-black">
+            </a>
 
-        <!-- 核心導覽選單 -->
-        <nav class="nav-menu" id="navMenu">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link" data-i18n="nav_about">關於我們</a>
-                </li>
-                <li class="nav-item">
-                    <a href="spots.html" class="nav-link" data-i18n="nav_spots">壯遊據點</a>
-                </li>
-                <li class="nav-item nav-has-dropdown">
-                    <a href="itinerary.html" class="nav-link active nav-dropdown-trigger">
-                        <span data-i18n="nav_routes">走讀路線</span>
-                        <svg class="nav-icon-svg nav-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 核心導覽選單 -->
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link active" data-i18n="nav_about">關於我們</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="spots.html" class="nav-link" data-i18n="nav_spots">壯遊據點</a>
+                    </li>
+                    <li class="nav-item nav-has-dropdown">
+                        <a href="itinerary.html" class="nav-link nav-dropdown-trigger">
+                            <span data-i18n="nav_routes">走讀路線</span>
+                            <svg class="nav-icon-svg nav-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="nav-dropdown-menu">
+                            <li>
+                                <a href="itinerary-detail.html" class="dropdown-link">
+                                    <span class="route-badge">1 DAY</span>
+                                    <div>
+                                        <strong data-i18n="route_1day">一日遊規劃</strong>
+                                        <small data-i18n="route_1day_sub">工藝、老街、科技等 A~F 方案</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="twoday-detail.html" class="dropdown-link">
+                                    <span class="route-badge">2 DAYS</span>
+                                    <div>
+                                        <strong data-i18n="route_2day">兩日遊規劃</strong>
+                                        <small data-i18n="route_2day_sub">工廠村寄宿與雙城深度慢活</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="outdoor-detail.html" class="dropdown-link">
+                                    <span class="route-badge">EDU</span>
+                                    <div>
+                                        <strong data-i18n="route_edu">戶外教育專案</strong>
+                                        <small data-i18n="route_edu_sub">嘉禮有糖：高中職探究與青銀共創</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="global-detail.html" class="dropdown-link">
+                                    <span class="route-badge">GLOBAL</span>
+                                    <div>
+                                        <strong data-i18n="route_global">國際壯遊引力</strong>
+                                        <small data-i18n="route_global_sub">來嘉，有藝思：外語學伴與雙偶文化</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="journal.html" class="nav-link" data-i18n="nav_journal">職人故事</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="news.html" class="nav-link" data-i18n="nav_news">最新消息</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- 右側功能操作區 -->
+            <div class="nav-actions">
+                <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+                    <button class="nav-lang-btn" id="langBtn" aria-expanded="false">
+                        <svg class="nav-icon-svg nav-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span id="currentLangLabel">繁中</span>
+                        <svg class="nav-icon-svg nav-caret-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
-                    </a>
-                    <ul class="nav-dropdown-menu">
-                        <li>
-                            <a href="itinerary-detail.html" class="dropdown-link">
-                                <span class="route-badge">1 DAY</span>
-                                <div>
-                                    <strong data-i18n="route_1day">一日遊規劃</strong>
-                                    <small data-i18n="route_1day_sub">工藝、老街、科技等 A~F 方案</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="twoday-detail.html" class="dropdown-link">
-                                <span class="route-badge">2 DAYS</span>
-                                <div>
-                                    <strong data-i18n="route_2day">兩日遊規劃</strong>
-                                    <small data-i18n="route_2day_sub">工廠村寄宿與雙城深度慢活</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="outdoor-detail.html" class="dropdown-link">
-                                <span class="route-badge">EDU</span>
-                                <div>
-                                    <strong data-i18n="route_edu">戶外教育專案</strong>
-                                    <small data-i18n="route_edu_sub">嘉禮有糖：高中職探究與青銀共創</small>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="global-detail.html" class="dropdown-link">
-                                <span class="route-badge">GLOBAL</span>
-                                <div>
-                                    <strong data-i18n="route_global">國際壯遊引力</strong>
-                                    <small data-i18n="route_global_sub">來嘉，有藝思：外語學伴與雙偶文化</small>
-                                </div>
-                            </a>
-                        </li>
+                    </button>
+                    <ul class="lang-dropdown-menu" id="langMenu">
+                        <li><button type="button" class="lang-option active" data-lang="zh-TW">繁體中文</button></li>
+                        <li><button type="button" class="lang-option" data-lang="en">English</button></li>
+                        <li><button type="button" class="lang-option" data-lang="ja">日本語</button></li>
+                        <li><button type="button" class="lang-option" data-lang="vi">Tiếng Việt</button></li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="journal.html" class="nav-link" data-i18n="nav_journal">職人故事</a>
-                </li>
-                <li class="nav-item">
-                    <a href="news.html" class="nav-link" data-i18n="nav_news">最新消息</a>
-                </li>
-            </ul>
-        </nav>
+                </div>
 
-        <!-- 右側功能操作區 -->
-        <div class="nav-actions">
-            <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
-                <button class="nav-lang-btn" id="langBtn" aria-expanded="false">
-                    <svg class="nav-icon-svg nav-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                <a href="contact.html" class="nav-btn-cta">
+                    <span data-i18n="nav_cta">開始規劃</span>
+                    <svg class="nav-icon-svg nav-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                    <span id="currentLangLabel">繁中</span>
-                    <svg class="nav-icon-svg nav-caret-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-                <ul class="lang-dropdown-menu" id="langMenu">
-                    <li><button type="button" class="lang-option active" data-lang="zh-TW">繁體中文</button></li>
-                    <li><button type="button" class="lang-option" data-lang="en">English</button></li>
-                    <li><button type="button" class="lang-option" data-lang="ja">日本語</button></li>
-                    <li><button type="button" class="lang-option" data-lang="vi">Tiếng Việt</button></li>
-                </ul>
-            </div>
+                </a>
 
-            <a href="contact.html" class="nav-btn-cta">
-                <span data-i18n="nav_cta">開始規劃</span>
-                <svg class="nav-icon-svg nav-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
+                <button class="hamburger-toggle" id="hamburgerToggle" aria-label="切換選單">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
                 </svg>
-            </a>
+                </button>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
 <!-- ==================== 3. 走讀路線 首屏 100vh 滿版全景封面 ==================== -->
 <section class="site-hero-full-banner">
