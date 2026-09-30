@@ -1,0 +1,1026 @@
+/* ====================================================================
+   關於我們專屬樣式表 (about.css) - 首屏 100vh 滿版 ✕ 底部全屏 CTA ✕ 純淨內容排版
+   ==================================================================== */
+
+/* 1. 解鎖全域捲軸，平滑滾動 */
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+    height: auto !important;
+}
+
+body.about-page-body {
+    background-color: #F8F7F4;
+    color: #1A1A1A;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 100vh;
+    height: auto !important;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+}
+
+/* ==================== 2. 首屏 100vh 滿版全景橫幅 (大標封面) ==================== */
+.about-hero-full-banner {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-top: 0;
+    height: 100vh;
+    min-height: 620px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center right;
+    display: block;
+}
+
+.hero-content-inner {
+    position: relative;
+    z-index: 5;
+    max-width: 1380px;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.hero-vertical-meta {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--display, 'Poppins', sans-serif);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #9C9589;
+    line-height: 1.4;
+}
+
+.hero-heading-block {
+    margin-left: 100px;
+    max-width: 620px;
+    transform: translateY(150px);
+}
+
+.hero-eyebrow {
+    font-family: var(--display, sans-serif);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 8px;
+    color: #FFFFFF !important;
+    margin-bottom: 12px;
+    display: block;
+    -webkit-text-stroke: 0.6px rgba(0, 0, 0, 0.85);
+    text-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.9),
+        0 0 6px rgba(0, 0, 0, 0.7) !important;
+}
+
+.hero-main-title {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: clamp(3.6rem, 5.5vw, 5.2rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1.05;
+    color: #FFFFFF !important;
+    margin: 0 0 16px 0;
+    -webkit-text-stroke: 1.2px #111111;
+    paint-order: stroke fill;
+    text-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.95),
+        0 4px 18px rgba(0, 0, 0, 0.75) !important;
+}
+
+.hero-sub-slogan {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: clamp(1.1rem, 1.45vw, 1.35rem);
+    font-weight: 600;
+    color: #FFFFFF !important;
+    margin: 0;
+    letter-spacing: 0.8px;
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.9);
+    paint-order: stroke fill;
+    text-shadow: 
+        0 1px 4px rgba(0, 0, 0, 0.95),
+        0 2px 10px rgba(0, 0, 0, 0.8) !important;
+}
+
+.hero-script-floating {
+    position: absolute;
+    right: 6%;
+    bottom: 25%;
+    font-family: 'Playfair Display', Georgia, cursive, serif;
+    font-style: italic;
+    font-size: 1.45rem;
+    color: #FFFFFF;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    line-height: 1.4;
+    text-align: right;
+    pointer-events: none;
+}
+
+/* 底部滑動指示器 */
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #FFFFFF;
+    opacity: 0.85;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hero-scroll-indicator:hover {
+    opacity: 1;
+    transform: translateX(-50%) translateY(4px);
+}
+
+.scroll-prompt-text {
+    font-family: var(--display, sans-serif);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.scroll-mouse-icon {
+    width: 22px;
+    height: 34px;
+    border: 2px solid #FFFFFF;
+    border-radius: 12px;
+    position: relative;
+}
+
+.scroll-wheel-dot {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 3px;
+    height: 6px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transform: translateX(-50%);
+    animation: scrollDotAnim 1.6s infinite ease-in-out;
+}
+
+@keyframes scrollDotAnim {
+    0% { transform: translate(-50%, 0); opacity: 1; }
+    100% { transform: translate(-50%, 14px); opacity: 0; }
+}
+
+/* ==================== 頂部單純黑色漸層 ==================== */
+.hero-gradient-overlay {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.72) 0%,
+        rgba(0, 0, 0, 0.4) 18%,
+        rgba(0, 0, 0, 0.12) 28%,
+        transparent 40%
+    ) !important;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ==================== 3. 主舞台共用規範 ==================== */
+.about-main-container {
+    max-width: 1380px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px 40px 80px 40px;
+    box-sizing: border-box;
+}
+
+.about-section-block {
+    padding: 85px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.about-section-block:last-child {
+    border-bottom: none;
+}
+
+.section-tag-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tag-num {
+    font-family: var(--display-serif-heavy, serif);
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #111111;
+}
+
+.tag-en {
+    font-family: var(--display, 'Poppins', sans-serif);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #8C867C;
+}
+
+.section-main-heading {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: clamp(2.4rem, 3.4vw, 3rem);
+    font-weight: 900;
+    color: #111111;
+    margin: 0 0 14px 0;
+    line-height: 1.2;
+}
+
+.section-sub-heading {
+    font-family: 'Playfair Display', var(--serif, serif);
+    font-style: italic;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #D96328;
+    margin: 0 0 20px 0;
+    line-height: 1.4;
+}
+
+/* ==================== 4. 01 WHO WE ARE ==================== */
+.section-who-we-are {
+    display: grid;
+    grid-template-columns: 1.05fr 1.35fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.who-lead-p {
+    font-family: var(--serif, serif);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #111111;
+    line-height: 1.7;
+    margin: 0 0 16px 0;
+}
+
+.who-body-p {
+    font-size: 0.94rem;
+    color: #5E584F;
+    line-height: 2.1;
+    margin: 0 0 24px 0;
+}
+
+.about-academic-meta {
+    background: transparent !important;
+    border: none !important;
+    padding: 12px 0 0 0 !important;
+    margin-top: 20px !important;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.about-academic-meta .meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #B0A99F;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.about-academic-meta .meta-text {
+    font-size: 0.8rem;
+    color: #8C867C;
+    line-height: 1.5;
+}
+
+.about-academic-meta .meta-text strong {
+    color: #555047;
+    font-weight: 600;
+}
+
+.about-academic-meta .meta-link {
+    font-size: 0.78rem;
+    color: #8C867C;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-left: 4px;
+    transition: color 0.2s ease;
+}
+
+.about-academic-meta .meta-link:hover {
+    color: #D96328;
+}
+
+/* 01 右側：黑白大圖疊加彩色特寫 */
+.who-right-col {
+    position: relative;
+    width: 100%;
+    height: 340px;
+}
+
+.overlap-photo-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.base-mono-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #EAE6DF;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+    position: relative;
+}
+
+.base-mono-photo .img-monochrome {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: grayscale(100%) contrast(110%);
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.base-mono-photo:hover .img-monochrome {
+    transform: scale(1.03);
+    filter: grayscale(85%) contrast(108%);
+}
+
+.photo-badge-note {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-family: var(--display, 'Poppins', sans-serif);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: rgba(18, 16, 14, 0.7);
+    color: #FFFFFF;
+    padding: 3px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
+.overlay-focus-card {
+    position: absolute;
+    top: 30%;
+    left: 33%;
+    width: 250px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 6px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+    z-index: 10;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.overlay-focus-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+.focus-crop-box {
+    width: 100%;
+    height: 110px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    background: #EAE6DF;
+}
+
+.focus-crop-box .img-focus-face {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 48% 44%;
+    transform: scale(2.8);
+    transform-origin: 48% 44%;
+    transition: transform 0.35s ease;
+}
+
+.overlay-focus-card:hover .img-focus-face {
+    transform: scale(3.0);
+}
+
+@media (max-width: 900px) {
+    .who-right-col {
+        height: 280px;
+    }
+    .overlay-focus-card {
+        top: 22%;
+        left: 42%;
+        width: 120px;
+    }
+    .focus-crop-box {
+        height: 95px;
+    }
+}
+
+/* ==================== 5. 02 OUR BELIEF ==================== */
+.section-our-belief {
+    display: grid;
+    grid-template-columns: 0.9fr 1.3fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.belief-right-col {
+    padding-left: 70px;
+    box-sizing: border-box;
+}
+
+.belief-photo-frame {
+    width: 100%;
+    height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #EAE6DF;
+}
+
+.belief-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.belief-body-p {
+    font-size: 0.95rem;
+    color: #5E584F;
+    line-height: 2.1;
+    margin: 0 0 28px 0;
+}
+
+.belief-sketch-cluster {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.towns-circle-sketch {
+    width: 80px;
+    height: 80px;
+    border: 1px dashed #C8C0B2;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--display, sans-serif);
+    font-size: 0.52rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #9E988D;
+    line-height: 1.25;
+}
+
+.belief-cursive-text {
+    font-family: 'Playfair Display', Georgia, cursive, serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #4A463F;
+    line-height: 1.45;
+    transform: rotate(-3deg);
+}
+
+.wheat-sketch-icon {
+    width: 70px;
+    height: 60px;
+    opacity: 0.85;
+}
+
+/* ==================== 6. 03 OUR WAY ==================== */
+.about-section-block.section-our-way {
+    display: grid;
+    grid-template-columns: 1fr 1.65fr;
+    gap: 50px;
+    align-items: center;
+    border-bottom: none !important;
+    padding-top: 100px !important;
+    padding-bottom: 150px !important;
+}
+
+.way-body-p {
+    font-size: 0.95rem;
+    color: #5E584F;
+    line-height: 2;
+    margin: 0;
+}
+
+.way-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.pillar-item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.pillar-icon-bubble {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #EDE8DF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.pillar-title {
+    font-family: var(--serif, serif);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 8px 0;
+}
+
+.pillar-desc {
+    font-size: 0.82rem;
+    color: #7E786E;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* ==================== 7. 04 PEOPLE (全幅滿版黑底區塊) ==================== */
+.section-people-silver {
+    width: 100vw !important;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    background-color: #1F1E1B !important;
+    color: #FFFFFF !important;
+    border-radius: 0 !important;
+    padding: 85px 0 !important;
+    border-bottom: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 40px;
+    box-sizing: border-box !important;
+}
+
+.silver-inner-wrap {
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1.15fr 1.35fr;
+    gap: 60px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.tag-row-dark .tag-num { color: #FFFFFF; }
+.tag-row-dark .tag-en { color: #A6A095; }
+
+.dark-theme-heading {
+    color: #FFFFFF !important;
+    font-size: clamp(2.4rem, 3.4vw, 3rem) !important;
+    line-height: 1.25;
+    margin: 0 0 20px 0;
+}
+
+.silver-body-p {
+    font-size: 0.95rem;
+    color: #C8C2B7;
+    line-height: 2.1;
+    margin: 0;
+}
+
+.silver-right-col {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.silver-photo-box {
+    flex: 1.3;
+    height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+.silver-photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.silver-cursive-quote {
+    flex: 0.9;
+    font-family: 'Playfair Display', Georgia, cursive, serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    color: #E2DDD5;
+    line-height: 1.55;
+    transform: rotate(-3deg);
+}
+
+/* ==================== 8. 05 OUR TOPICS (極簡圖文 2x3 方格排版) ==================== */
+.section-our-topics {
+    padding-top: 40px !important;
+    padding-bottom: 70px !important;
+}
+
+.topics-header-wrap {
+    margin-bottom: 28px;
+}
+
+.topic-cards-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 22px 24px !important;
+    width: 100%;
+}
+
+.topic-compact-card {
+    background: #FFFFFF;
+    border: 1px solid #ECE7DE;
+    border-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    height: 125px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.topic-compact-card:hover {
+    transform: translateY(-2px);
+    border-color: #D96328;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.topic-compact-info {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.topic-compact-info .topic-num {
+    font-family: var(--display, 'Poppins', sans-serif);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #D96328;
+    line-height: 1;
+}
+
+.topic-compact-info .topic-title {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0;
+    line-height: 1.45;
+    letter-spacing: 0.2px;
+}
+
+.topic-compact-thumb {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #EAE6DF;
+}
+
+.topic-compact-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+}
+
+.topic-compact-card:hover .topic-compact-thumb img {
+    transform: scale(1.06);
+}
+
+@media (max-width: 1100px) {
+    .topic-cards-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .topic-cards-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .topic-compact-card {
+        height: 115px;
+    }
+}
+
+/* ==================== 9. 底部全景滿版號召 ==================== */
+.about-bottom-cta-banner {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    height: clamp(380px, 45vh, 480px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.cta-bg-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.cta-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cta-dark-shade {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 18, 18, 0.58);
+}
+
+.cta-content-inner {
+    position: relative;
+    z-index: 5;
+    max-width: 1380px;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    color: #FFFFFF;
+}
+
+.cta-left-text {
+    font-family: 'Playfair Display', var(--serif, serif);
+    font-style: italic;
+    font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.cta-right-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.cta-prompt-title {
+    font-family: var(--serif, serif);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.cta-buttons-row {
+    display: flex;
+    gap: 14px;
+}
+
+.btn-cta-ghost {
+    padding: 11px 28px;
+    border: 1.5px solid #FFFFFF;
+    border-radius: 999px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.btn-cta-ghost:hover {
+    background: #FFFFFF;
+    color: #111111;
+}
+
+.btn-cta-solid {
+    padding: 11px 28px;
+    background-color: #D96328;
+    border: 1.5px solid #D96328;
+    border-radius: 999px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(217, 99, 40, 0.4);
+    transition: all 0.2s ease;
+}
+
+.btn-cta-solid:hover {
+    background-color: #B84E1B;
+    border-color: #B84E1B;
+}
+
+/* ==================== 10. 平板與手機 RWD 響應式完美適配 (全面補強) ==================== */
+
+/* 平板模式：適用於 1200px 以下之裝置 */
+@media (max-width: 1200px) {
+    .section-who-we-are,
+    .section-our-belief,
+    .silver-inner-wrap {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    
+    .belief-right-col {
+        padding-left: 0 !important; /* 清除桌機版的左側大留白 */
+    }
+    
+    .who-right-col {
+        height: 280px;
+    }
+    
+    .about-main-container,
+    .hero-content-inner,
+    .silver-inner-wrap,
+    .cta-content-inner {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+    }
+}
+
+/* 小平板與大手機模式：適用於 900px 以下之裝置 */
+@media (max-width: 900px) {
+    .hero-vertical-meta,
+    .hero-script-floating {
+        display: none !important;
+    }
+    
+    .hero-heading-block {
+        margin-left: 0 !important;
+        max-width: 100% !important;
+        transform: translateY(40px) !important;
+    }
+    
+    .about-section-block.section-our-way {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        padding-top: 60px !important;
+        padding-bottom: 80px !important;
+    }
+    
+    .way-pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+}
+
+/* 手機直向模式：適用於 768px 以下之裝置 */
+@media (max-width: 768px) {
+    .about-hero-full-banner {
+        height: 100vh;
+        min-height: 520px;
+    }
+    
+    .hero-content-inner {
+        padding: 0 20px !important;
+    }
+    
+    .hero-main-title {
+        font-size: clamp(2.8rem, 10vw, 3.8rem) !important;
+        letter-spacing: 2px !important;
+    }
+    
+    .about-main-container {
+        padding: 30px 20px 60px 20px !important;
+    }
+    
+    .about-section-block {
+        padding: 50px 0 !important;
+    }
+    
+    /* 03 核心方法支柱改為單欄垂直排列 */
+    .way-pillars-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+    }
+    
+    .pillar-item-card {
+        align-items: flex-start;
+        text-align: left;
+        flex-direction: row;
+        gap: 16px;
+    }
+    
+    .pillar-icon-bubble {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        margin-bottom: 0;
+    }
+    
+    /* 04 團隊區塊與引言 */
+    .silver-inner-wrap {
+        padding: 0 20px !important;
+    }
+    
+    .silver-right-col {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .silver-photo-box {
+        width: 100%;
+        height: 240px;
+    }
+    
+    .silver-cursive-quote {
+        transform: rotate(0deg); /* 手機上取消傾斜，保持俐落閱讀 */
+        font-size: 1.15rem;
+    }
+    
+    /* 底部滿版 CTA 橫幅 */
+    .about-bottom-cta-banner {
+        height: auto !important;
+        padding: 50px 0 !important;
+    }
+    
+    .cta-content-inner {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        gap: 24px !important;
+        padding: 0 20px !important;
+    }
+    
+    .cta-left-text {
+        font-size: 1.8rem !important;
+    }
+    
+    .cta-right-actions {
+        align-items: flex-start !important;
+        width: 100%;
+    }
+    
+    .cta-buttons-row {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+    
+    .btn-cta-ghost,
+    .btn-cta-solid {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
