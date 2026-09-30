@@ -119,10 +119,83 @@
         .btn-danger:hover {
             background: #962D22;
         }
+        .btn-edit {
+            background: #27AE60;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-edit:hover {
+            background: #1E8449;
+        }
         .empty-state {
             text-align: center;
             padding: 40px;
             color: #8C867C;
+        }
+
+        /* 彈窗卡片樣式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+        .modal-card {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-sizing: border-box;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-card h3 {
+            margin-top: 0;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #111;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #4A463F;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D8D2C6;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            resize: vertical;
+            height: 70px;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -146,29 +219,77 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th style="width: 100px;">方案代碼</th>
-                        <th style="width: 140px;">分頁標題</th>
+                        <th style="width: 80px;">封面</th>
+                        <th style="width: 90px;">方案代碼</th>
+                        <th style="width: 130px;">分頁標題</th>
                         <th>路線名稱與摘要</th>
-                        <th style="width: 120px; text-align: right;">操作</th>
+                        <th style="width: 130px; text-align: right;">操作</th>
                     </tr>
                 </thead>
                 <tbody id="routesTableBody">
                     <tr>
-                        <td colspan="4" class="empty-state">正在驗證身分並載入走讀路線資料...</td>
+                        <td colspan="5" class="empty-state">正在驗證身分並載入走讀路線資料...</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <!-- 互動卡片彈窗 (Modal) -->
+    <div class="modal-overlay" id="routeModal">
+        <div class="modal-card">
+            <h3 id="modalTitle">新增路線方案</h3>
+            <form id="routeForm">
+                <div style="display: flex; gap: 12px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>方案代碼 (例如 G)</label>
+                        <input type="text" id="routeIdInput" required placeholder="例如 G">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>分頁標題 (例如 新創體驗線)</label>
+                        <input type="text" id="routeTabTitleInput" required placeholder="例如 新創體驗線">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>小標籤 (例如 ROUTE G)</label>
+                        <input type="text" id="routeEyebrowInput" placeholder="例如 ROUTE G">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>關鍵字</label>
+                        <input type="text" id="routeKeywordsInput" placeholder="例如 創新 × 體驗">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>方案完整標題</label>
+                    <input type="text" id="routeMainTitleInput" required placeholder="例如 G 創新體驗線">
+                </div>
+                <div class="form-group">
+                    <label>路線簡介摘要</label>
+                    <textarea id="routeSummaryInput" placeholder="請輸入路線簡介..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>路線封面圖片 (上傳圖檔)</label>
+                    <input type="file" id="routeImageFile" accept="image/*">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-admin-secondary" id="closeModalBtn">取消</button>
+                    <button type="submit" class="btn-admin-primary" id="saveRouteBtn">儲存資料</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
+        const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
         
         window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 檢查登入身分
+        let isEditing = false;
+        let currentImageUrl = '';
+
         async function checkAuthAndFetch() {
             const { data: { session } } = await window.db.auth.getSession();
             if (!session) {
@@ -179,12 +300,12 @@
             fetchRoutes();
         }
 
-        // 登出按鈕事件
         document.getElementById('logoutBtn').addEventListener('click', async () => {
             await window.db.auth.signOut();
             window.location.href = 'login.html';
         });
 
+        // 抓取路線資料
         async function fetchRoutes() {
             const tbody = document.getElementById('routesTableBody');
             const { data, error } = await window.db
@@ -193,17 +314,20 @@
                 .order('route_id', { ascending: true });
 
             if (error) {
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state" style="color: #C0392B;">載入失敗：${error.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color: #C0392B;">載入失敗：${error.message}</td></tr>`;
                 return;
             }
 
             if (!data || data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">目前尚無任何走讀路線資料。</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state">目前尚無任何走讀路線資料。</td></tr>`;
                 return;
             }
 
             tbody.innerHTML = data.map(item => `
                 <tr>
+                    <td>
+                        ${item.image_url ? `<img src="${item.image_url}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" alt="封面">` : `<span style="color: #ccc; font-size: 0.8rem;">無圖</span>`}
+                    </td>
                     <td><span class="badge-id">${item.route_id}</span></td>
                     <td><strong>${item.tab_title || ''}</strong></td>
                     <td>
@@ -211,12 +335,14 @@
                         <span style="color: #6E685F; font-size: 0.82rem; display: block; line-height: 1.4;">${item.summary || ''}</span>
                     </td>
                     <td style="text-align: right;">
+                        <button class="btn-edit" onclick="openEditModal('${item.route_id}')">修改</button>
                         <button class="btn-danger" onclick="deleteRoute('${item.route_id}')">刪除</button>
                     </td>
                 </tr>
             `).join('');
         }
 
+        // 刪除路線
         window.deleteRoute = async function(routeId) {
             if (!confirm(`確定要刪除方案 [${routeId}] 嗎？`)) return;
             const { error } = await window.db.from('routes').delete().eq('route_id', routeId);
@@ -228,38 +354,124 @@
             }
         };
 
-        document.getElementById('btnAddRoute').addEventListener('click', async () => {
-            const routeId = prompt('請輸入方案代碼 (例如 G 或 E)：');
-            if (!routeId) return;
-            const mainTitle = prompt('請輸入方案完整標題 (例如 G 創新體驗線)：');
-            if (!mainTitle) return;
+        // 上傳檔案至 Supabase Storage
+        async function uploadFileToStorage(file) {
+            if (!file) return null;
+            const fileExt = file.name.split('.').pop();
+            const fileName = `route_${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+            const filePath = `routes-covers/${fileName}`;
 
-            const { error } = await window.db.from('routes').insert([
-                {
-                    route_id: routeId.toUpperCase(),
-                    route_type: 'itinerary_1day',
-                    eyebrow: `ROUTE ${routeId.toUpperCase()}`,
-                    tab_title: '新創體驗線',
-                    main_title: mainTitle,
-                    keywords: '創新 × 體驗 × 探索',
-                    summary: '請在此輸入此路線方案的簡介摘要...',
-                    specs: {
-                        track: '起點 ➔ 中繼站 ➔ 終點',
-                        transport: '步行 ＋ 專車接駁',
-                        highlight: '在地文史走讀 ＆ 風土手作體驗'
-                    },
-                    timeline: [
-                        { time: "09:00 - 12:00", num: 1, title: "上午場域踏查與導覽", desc: "深入地方聚落進行深度導覽。", img: "assets/水道頭文創聚落.png" },
-                        { time: "13:30 - 16:30", num: 2, title: "下午風土手作體驗", desc: "動手體驗在地傳統工藝與手作。", img: "assets/藍染體驗.png" }
-                    ]
-                }
-            ]);
+            const { error } = await window.db.storage
+                .from('spot-images') // 共用 spot-images 儲存桶
+                .upload(filePath, file);
 
             if (error) {
-                alert('新增失敗：' + error.message);
+                alert('圖片上傳失敗：' + error.message);
+                return null;
+            }
+
+            const { data: { publicUrl } } = window.db.storage
+                .from('spot-images')
+                .getPublicUrl(filePath);
+
+            return publicUrl;
+        }
+
+        // 彈窗控制
+        const modal = document.getElementById('routeModal');
+        const btnAddRoute = document.getElementById('btnAddRoute');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const routeForm = document.getElementById('routeForm');
+
+        btnAddRoute.addEventListener('click', () => {
+            isEditing = false;
+            currentImageUrl = '';
+            document.getElementById('modalTitle').innerText = '新增路線方案';
+            document.getElementById('routeIdInput').value = '';
+            document.getElementById('routeIdInput').disabled = false;
+            document.getElementById('routeTabTitleInput').value = '新創體驗線';
+            document.getElementById('routeEyebrowInput').value = 'ROUTE G';
+            document.getElementById('routeKeywordsInput').value = '創新 × 體驗 × 探索';
+            document.getElementById('routeMainTitleInput').value = '';
+            document.getElementById('routeSummaryInput').value = '';
+            document.getElementById('routeImageFile').value = '';
+            
+            modal.style.display = 'flex';
+        });
+
+        // 開啟修改彈窗
+        window.openEditModal = async function(routeId) {
+            const { data, error } = await window.db.from('routes').select('*').eq('route_id', routeId).single();
+            if (error || !data) {
+                alert('找不到該路線資料');
+                return;
+            }
+
+            isEditing = true;
+            currentImageUrl = data.image_url || '';
+            document.getElementById('modalTitle').innerText = `修改路線：${data.route_id}`;
+            document.getElementById('routeIdInput').value = data.route_id;
+            document.getElementById('routeIdInput').disabled = true; // 主鍵代碼不可修改
+            document.getElementById('routeTabTitleInput').value = data.tab_title || '';
+            document.getElementById('routeEyebrowInput').value = data.eyebrow || '';
+            document.getElementById('routeKeywordsInput').value = data.keywords || '';
+            document.getElementById('routeMainTitleInput').value = data.main_title || '';
+            document.getElementById('routeSummaryInput').value = data.summary || '';
+            document.getElementById('routeImageFile').value = '';
+
+            modal.style.display = 'flex';
+        };
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 表單送出 (新增或修改)
+        routeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const route_id = document.getElementById('routeIdInput').value.trim().toUpperCase();
+            const tab_title = document.getElementById('routeTabTitleInput').value.trim();
+            const eyebrow = document.getElementById('routeEyebrowInput').value.trim();
+            const keywords = document.getElementById('routeKeywordsInput').value.trim();
+            const main_title = document.getElementById('routeMainTitleInput').value.trim();
+            const summary = document.getElementById('routeSummaryInput').value.trim();
+            const imageFile = document.getElementById('routeImageFile').files[0];
+
+            let finalImageUrl = currentImageUrl;
+            if (imageFile) {
+                const uploadedUrl = await uploadFileToStorage(imageFile);
+                if (uploadedUrl) finalImageUrl = uploadedUrl;
+            }
+
+            if (isEditing) {
+                const { error } = await window.db.from('routes').update({
+                    tab_title, eyebrow, keywords, main_title, summary,
+                    image_url: finalImageUrl
+                }).eq('route_id', route_id);
+
+                if (error) {
+                    alert('修改失敗：' + error.message);
+                } else {
+                    alert('修改成功！');
+                    modal.style.display = 'none';
+                    fetchRoutes();
+                }
             } else {
-                alert('新增成功！');
-                fetchRoutes();
+                const { error } = await window.db.from('routes').insert([{
+                    route_id, tab_title, eyebrow, keywords, main_title, summary,
+                    image_url: finalImageUrl,
+                    route_type: 'itinerary_1day',
+                    specs: { track: '起點 ➔ 終點', transport: '步行 ＋ 專車', highlight: '在地文史走讀' },
+                    timeline: []
+                }]);
+
+                if (error) {
+                    alert('新增失敗（可能代碼重複）：' + error.message);
+                } else {
+                    alert('新增成功！');
+                    modal.style.display = 'none';
+                    fetchRoutes();
+                }
             }
         });
 

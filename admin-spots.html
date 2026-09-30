@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>壯遊據點管理後台 ｜ 嘉義青年壯遊</title>
-    
     <link rel="stylesheet" href="css/common.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
         body.admin-body {
             background-color: #F8F7F4;
@@ -19,14 +17,14 @@
             font-family: 'Noto Sans TC', sans-serif;
         }
         .admin-container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             border-bottom: 2px solid #E5E0D8;
             padding-bottom: 16px;
         }
@@ -40,7 +38,6 @@
         .admin-actions {
             display: flex;
             gap: 12px;
-            align-items: center;
         }
         .btn-admin-primary {
             background-color: #D96328;
@@ -72,37 +69,6 @@
             background-color: #FAF8F5;
             border-color: #111111;
         }
-        
-        /* 分頁導覽列 */
-        .admin-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .tab-btn {
-            background: #EFECE6;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            color: #6E685F;
-            transition: all 0.2s;
-        }
-        .tab-btn.active {
-            background: #1A1A1A;
-            color: #FFFFFF;
-        }
-
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-
-        /* 表格區塊 */
         .spots-table-card {
             background: #FFFFFF;
             border-radius: 12px;
@@ -125,22 +91,18 @@
             background-color: #FAF8F5;
             font-weight: 700;
             color: #555047;
+            letter-spacing: 0.5px;
         }
-        .badge-town {
-            background: #F0EDE6;
-            color: #6E685F;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
+        table.admin-table tr:last-child td {
+            border-bottom: none;
         }
-        .badge-cat {
-            background: #FDEEE6;
-            color: #D96328;
-            padding: 3px 10px;
+        .badge-id {
+            background: #D96328;
+            color: #FFFFFF;
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 800;
         }
         .btn-danger {
             background: #C0392B;
@@ -155,146 +117,112 @@
         .btn-danger:hover {
             background: #962D22;
         }
-
-        /* 地圖編輯模式畫布區塊 */
-        .map-editor-wrapper {
-            background: #FFFFFF;
-            border-radius: 12px;
-            border: 1px solid #ECE7DE;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 24px;
-        }
-        .map-canvas-box {
-            position: relative;
-            width: 100%;
-            background: #E8DDCB;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px dashed #D8D2C6;
-        }
-        .map-canvas-box img {
-            width: 100%;
-            height: auto;
-            display: block;
-            pointer-events: none;
-            user-select: none;
-        }
-        /* 可拖曳的座標 Pin */
-        .draggable-pin {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            cursor: grab;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .draggable-pin:active {
-            cursor: grabbing;
-        }
-        .pin-dot {
-            width: 20px;
-            height: 20px;
-            background: #D96328;
-            border: 3px solid #FFFFFF;
-            border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        }
-        .pin-label {
-            background: rgba(0,0,0,0.8);
-            color: #FFF;
-            font-size: 0.7rem;
-            padding: 2px 6px;
+        .btn-edit {
+            background: #27AE60;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 12px;
             border-radius: 4px;
-            white-space: nowrap;
-            margin-top: 2px;
-            pointer-events: none;
-        }
-        .map-editor-sidebar {
-            background: #FAF8F5;
-            border: 1px solid #ECE7DE;
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            max-height: 700px;
-            overflow-y: auto;
-        }
-        .sidebar-spot-item {
-            padding: 10px 12px;
-            background: #FFFFFF;
-            border: 1px solid #E5E0D8;
-            border-radius: 6px;
-            margin-bottom: 8px;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.2s;
+            font-weight: 600;
         }
-        .sidebar-spot-item:hover {
-            border-color: #D96328;
-            background: #FDEEE6;
+        .btn-edit:hover {
+            background: #1E8449;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #8C867C;
         }
 
-        /* 彈出式表單 Modal */
+        /* 彈窗卡片樣式 */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
             justify-content: center;
             align-items: center;
-        }
-        .modal-overlay.active {
-            display: flex;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px 0;
         }
         .modal-card {
             background: #FFFFFF;
             width: 100%;
-            max-width: 600px;
-            border-radius: 12px;
-            padding: 32px;
+            max-width: 650px;
+            border-radius: 16px;
+            padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            max-height: 90vh;
+            box-sizing: border-box;
+            max-height: 92vh;
             overflow-y: auto;
         }
-        .modal-title {
-            font-family: 'Noto Serif TC', serif;
-            font-size: 1.5rem;
-            font-weight: 900;
+        .modal-card h3 {
             margin-top: 0;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
             margin-bottom: 20px;
+            color: #111;
         }
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .form-group label {
             display: block;
             font-size: 0.85rem;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: #4A463F;
         }
-        .form-group input, .form-group textarea {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
-            padding: 10px 14px;
+            padding: 8px 12px;
             border: 1px solid #D8D2C6;
             border-radius: 8px;
             font-size: 0.9rem;
-            font-family: inherit;
             box-sizing: border-box;
+            font-family: inherit;
         }
         .form-group textarea {
             resize: vertical;
-            height: 90px;
+            height: 60px;
         }
+
+        /* 自定義圖片點選容器 */
+        .map-picker-container {
+            position: relative;
+            width: 100%;
+            cursor: crosshair;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #D8D2C6;
+            background: #eee;
+        }
+        .map-picker-container img {
+            width: 100%;
+            display: block;
+        }
+        /* 點下去產生的紅點標記 */
+        .map-pin {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #D96328;
+            border: 2px solid #FFFFFF;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            pointer-events: none;
+            display: none;
+        }
+
         .modal-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 12px;
-            margin-top: 24px;
+            gap: 10px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -307,92 +235,94 @@
                 <h1 class="admin-title">壯遊據點管理後台</h1>
             </div>
             <div class="admin-actions">
-                <a href="spots.html" class="btn-admin-secondary" target="_blank">檢視前台地圖 ↗</a>
+                <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
+                <a href="spots.html" class="btn-admin-secondary" target="_blank">檢視前台 ↗</a>
+                <button class="btn-admin-primary" id="btnAddSpot">＋ 新增據點</button>
                 <button class="btn-admin-secondary" id="logoutBtn" style="color: #C0392B; border-color: #C0392B;">登出</button>
             </div>
         </div>
 
-        <!-- 後台分頁按鈕 -->
-        <div class="admin-tabs">
-            <button class="tab-btn active" onclick="switchTab('tableTab', event)">📋 據點資料管理</button>
-            <button class="tab-btn" onclick="switchTab('mapEditorTab', event)">🗺️ 地圖座標編輯模式</button>
-        </div>
-
-        <!-- 1. 據點資料表格管理分頁 -->
-        <div id="tableTab" class="tab-content active">
-            <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
-                <button class="btn-admin-primary" id="openModalBtn" type="button">＋ 新增據點</button>
-            </div>
-            <div class="spots-table-card">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 110px;">英文代碼</th>
-                            <th style="width: 100px;">鄉鎮</th>
-                            <th style="width: 120px;">分類</th>
-                            <th>據點名稱與短評摘要</th>
-                            <th style="width: 120px; text-align: right;">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody id="spotsTableBody">
-                        <tr><td colspan="5" class="empty-state">正在載入據點資料...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- 2. 地圖座標編輯模式分頁 -->
-        <div id="mapEditorTab" class="tab-content">
-            <div class="map-editor-wrapper">
-                <div>
-                    <p style="margin-top: 0; font-size: 0.88rem; color: #6E685F;">💡 提示：請直接用滑鼠按住地圖上的橘色標記（Pin）進行拖曳，放到正確位置後放開，系統會自動儲存座標！</p>
-                    <div class="map-canvas-box" id="mapCanvasBox">
-                        <img src="assets/地圖.png" alt="風土地圖" id="mapEditorImg">
-                        <!-- 動態生成拖曳點位層 -->
-                        <div id="editorPinsLayer" style="position: absolute; inset: 0;"></div>
-                    </div>
-                </div>
-                <div class="map-editor-sidebar">
-                    <h3 style="font-family: 'Noto Serif TC', serif; margin-top: 0; font-size: 1.1rem;">據點座標清單</h3>
-                    <p style="font-size: 0.78rem; color: #8C867C; margin-bottom: 12px;">點擊清單可快速定位據點。</p>
-                    <div id="sidebarSpotsList" style="flex: 1;"></div>
-                </div>
-            </div>
+        <div class="spots-table-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">圖片</th>
+                        <th style="width: 90px;">英文代碼</th>
+                        <th style="width: 120px;">鄉鎮 / 分類</th>
+                        <th>據點名稱與短評摘要</th>
+                        <th style="width: 130px; text-align: right;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="spotsTableBody">
+                    <!-- 這裡保持空白，完全由 Supabase 帶入 -->
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- 彈出式表單 Modal (新增據點) -->
+    <!-- 互動卡片彈窗 (Modal) -->
     <div class="modal-overlay" id="spotModal">
         <div class="modal-card">
-            <h2 class="modal-title">新增壯遊據點</h2>
+            <h3 id="modalTitle">新增據點</h3>
             <form id="spotForm">
-                <div class="form-group">
-                    <label>英文代碼 (spot_key，例如 qianyao)</label>
-                    <input type="text" id="spotKeyInput" required placeholder="例如：qianyao">
+                <div style="display: flex; gap: 12px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>據點英文代碼 (例如 spot_02)</label>
+                        <input type="text" id="spotIdInput" required placeholder="請輸入英文代碼">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>鄉鎮</label>
+                        <input type="text" id="spotTownInput" required placeholder="例如 六腳鄉">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>分類</label>
+                        <select id="spotCategoryInput" required>
+                            <option value="產業與歷史">產業與歷史</option>
+                            <option value="傳統手工藝">傳統手工藝</option>
+                            <option value="常民與市井">常民與市井</option>
+                            <option value="創新與社群">創新與社群</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>據點名稱</label>
+                        <input type="text" id="spotTitleInput" required placeholder="請輸入據點名稱">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>據點名稱 (title)</label>
-                    <input type="text" id="titleInput" required placeholder="例如：墘窯陶坊">
+                    <label>短評摘要說明</label>
+                    <textarea id="spotSummaryInput" placeholder="請輸入據點摘要內容..."></textarea>
                 </div>
+                
+                <!-- 自定義插畫地圖點選區塊 -->
                 <div class="form-group">
-                    <label>鄉鎮 (town)</label>
-                    <input type="text" id="townInput" value="六腳鄉" required>
+                    <label>地圖點位設定 (請直接在下方插畫地圖上點擊該據點位置)</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 6px;">
+    <!-- 移除 readonly，讓使用者也可以手動微調數字 -->
+    <input type="text" id="spotLatInput" placeholder="X 座標 (%)">
+    <input type="text" id="spotLngInput" placeholder="Y 座標 (%)">
+</div>
+                    <div class="map-picker-container" id="mapPickerBox">
+                        <img src="assets/map.png" alt="插畫地圖" id="pickerMapImg">
+                        <div class="map-pin" id="mapPin"></div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>分類 (category)</label>
-                    <input type="text" id="categoryInput" value="傳統手工藝" required>
+
+                <div style="display: flex; gap: 12px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>代表圖片</label>
+                        <input type="file" id="spotImageFile" accept="image/*">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>小插圖 (Icon)</label>
+                        <input type="file" id="spotIconFile" accept="image/*">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>短評摘要 (short_desc)</label>
-                    <textarea id="shortDescInput" placeholder="請輸入地圖卡片上的簡短描述..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>詳細故事介紹 (desc)</label>
-                    <textarea id="descInput" placeholder="請輸入完整的據點深度介紹..."></textarea>
-                </div>
+
                 <div class="modal-actions">
                     <button type="button" class="btn-admin-secondary" id="closeModalBtn">取消</button>
-                    <button type="submit" class="btn-admin-primary">確認送出</button>
+                    <button type="submit" class="btn-admin-primary" id="saveSpotBtn">儲存資料</button>
                 </div>
             </form>
         </div>
@@ -400,54 +330,34 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://iwdqccgeabktkqqrtahd.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_8xL7hdpdUuT5lwyNYnWsjw_701urNJ3';
+        const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
+
         window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // 分頁切換函式
-        window.switchTab = function(tabId, event) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            if (event) event.currentTarget.classList.add('active');
-
-            if (tabId === 'mapEditorTab') {
-                loadMapEditorPins();
-            }
-        };
-
-        const modal = document.getElementById('spotModal');
-        const openBtn = document.getElementById('openModalBtn');
-        const closeBtn = document.getElementById('closeModalBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const form = document.getElementById('spotForm');
-
-        if (openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
-        if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', async () => {
-                await window.db.auth.signOut();
-                window.location.href = 'login.html';
-            });
-        }
+        
+        let isEditing = false;
+        let currentImageUrl = '';
+        let currentIconUrl = '';
 
         async function checkAuthAndFetch() {
-            const { data: { session } } = await window.db.auth.getSession();
-            if (!session) {
-                alert('您尚未登入或登入已過期，請先登入後台！');
-                window.location.href = 'login.html';
-                return;
-            }
             fetchSpotsTable();
         }
 
-        // 1. 載入表格清單
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await window.db.auth.signOut();
+            window.location.href = 'login.html';
+        });
+
+        // 抓取表格資料
         async function fetchSpotsTable() {
             const tbody = document.getElementById('spotsTableBody');
             if (!tbody) return;
 
-            const { data, error } = await window.db.from('spots').select('*').order('title', { ascending: true });
+            const { data, error } = await window.db
+                .from('spots')
+                .select('*')
+                .order('title', { ascending: true });
+
             if (error) {
                 tbody.innerHTML = `<tr><td colspan="5" class="empty-state" style="color: #C0392B;">載入失敗：${error.message}</td></tr>`;
                 return;
@@ -460,131 +370,242 @@
 
             tbody.innerHTML = data.map(item => `
                 <tr>
-                    <td><code>${item.spot_key}</code></td>
-                    <td><span class="badge-town">${item.town}</span></td>
-                    <td><span class="badge-cat">${item.category}</span></td>
                     <td>
-                        <strong style="font-size: 1rem; display: block; margin-bottom: 4px;">${item.title}</strong>
-                        <span style="color: #6E685F; font-size: 0.82rem; display: block; line-height: 1.4;">${item.short_desc || ''}</span>
+                        ${item.image_url ? `<img src="${item.image_url}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" alt="預覽">` : `<span style="color: #ccc; font-size: 0.8rem;">無圖</span>`}
+                    </td>
+                    <td><span class="badge-id">${item.id || ''}</span></td>
+                    <td>
+                        <strong>${item.town || ''}</strong><br>
+                        <span style="background: #FDEEE6; color: #D96328; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;">${item.category || ''}</span>
+                    </td>
+                    <td>
+                        <strong style="font-size: 1rem; display: block; margin-bottom: 4px;">${item.title || ''}</strong>
+                        <span style="color: #6E685F; font-size: 0.82rem; display: block; line-height: 1.4;">${item.summary || ''}</span>
                     </td>
                     <td style="text-align: right;">
-                        <button class="btn-danger" onclick="deleteSpot('${item.spot_key}')">刪除</button>
+                        <button class="btn-edit" onclick="openEditModal('${item.id}')">修改</button>
+                        <button class="btn-danger" onclick="deleteSpot('${item.id}')">刪除</button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        window.deleteSpot = async function(spotKey) {
-            if (!confirm(`確定要刪除據點 [${spotKey}] 嗎？`)) return;
-            const { error } = await window.db.from('spots').delete().eq('spot_key', spotKey);
+window.deleteSpot = async function(id) {
+    console.log("準備刪除 ID:", id);
+    if (!confirm(`確定要刪除據點 [${id}] 嗎？`)) return;
+
+    // 加入 .select() 讓 Supabase 回傳被刪除的資料
+    const { data, error, count } = await window.db
+        .from('spots')
+        .delete()
+        .eq('id', id)
+        .select();
+
+    console.log("Supabase 回傳結果 - error:", error);
+    console.log("Supabase 回傳結果 - 被刪除的資料:", data);
+
+    if (error) {
+        alert('刪除失敗：' + error.message);
+    } else if (!data || data.length === 0) {
+        alert('警告：雖然沒報錯，但資料庫中找不到這筆 ID，或者沒有任何資料被刪除！');
+    } else {
+        alert('刪除成功！');
+        fetchSpotsTable();
+    }
+};
+
+        // 上傳檔案至 Supabase Storage
+        async function uploadFileToStorage(file, folder) {
+            if (!file) return null;
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+            const filePath = `${folder}/${fileName}`;
+
+            const { data, error } = await window.db.storage
+                .from('spot-images')
+                .upload(filePath, file);
+
             if (error) {
-                alert('刪除失敗：' + error.message);
-            } else {
-                alert('刪除成功！');
-                fetchSpotsTable();
+                alert('圖片上傳失敗：' + error.message);
+                return null;
             }
+
+            const { data: { publicUrl } } = window.db.storage
+                .from('spot-images')
+                .getPublicUrl(filePath);
+
+            return publicUrl;
+        }
+
+        // 設定地圖點擊互動
+        const mapPickerBox = document.getElementById('mapPickerBox');
+        const mapPin = document.getElementById('mapPin');
+
+        // 手動輸入座標時，紅點同步移動
+        document.getElementById('spotLatInput').addEventListener('input', updatePinFromInputs);
+        document.getElementById('spotLngInput').addEventListener('input', updatePinFromInputs);
+
+        function updatePinFromInputs() {
+            const x = parseFloat(document.getElementById('spotLatInput').value);
+            const y = parseFloat(document.getElementById('spotLngInput').value);
+            
+            if (!isNaN(x) && !isNaN(y)) {
+                mapPin.style.left = `${x}%`;
+                mapPin.style.top = `${y}%`;
+                mapPin.style.display = 'block';
+            } else {
+                mapPin.style.display = 'none';
+            }
+        }
+
+        mapPickerBox.addEventListener('click', (e) => {
+            const rect = mapPickerBox.getBoundingClientRect();
+            const xClick = e.clientX - rect.left;
+            const yClick = e.clientY - rect.top;
+
+            const xPercent = ((xClick / rect.width) * 100).toFixed(2);
+            const yPercent = ((yClick / rect.height) * 100).toFixed(2);
+
+            document.getElementById('spotLatInput').value = xPercent; // 借用 lat 欄位存 X%
+            document.getElementById('spotLngInput').value = yPercent; // 借用 lng 欄位存 Y%
+
+            mapPin.style.left = `${xPercent}%`;
+            mapPin.style.top = `${yPercent}%`;
+            mapPin.style.display = 'block';
+        });
+
+        function setPinByPercent(x, y) {
+            if (x && y) {
+                document.getElementById('spotLatInput').value = x;
+                document.getElementById('spotLngInput').value = y;
+                mapPin.style.left = `${x}%`;
+                mapPin.style.top = `${y}%`;
+                mapPin.style.display = 'block';
+            } else {
+                document.getElementById('spotLatInput').value = '';
+                document.getElementById('spotLngInput').value = '';
+                mapPin.style.display = 'none';
+            }
+        }
+
+        // 開啟新增卡片
+        const modal = document.getElementById('spotModal');
+        const btnAddSpot = document.getElementById('btnAddSpot');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const spotForm = document.getElementById('spotForm');
+
+        btnAddSpot.addEventListener('click', () => {
+            isEditing = false;
+            currentImageUrl = '';
+            currentIconUrl = '';
+            document.getElementById('modalTitle').innerText = '新增據點';
+            document.getElementById('spotIdInput').value = '';
+            document.getElementById('spotIdInput').disabled = false;
+            document.getElementById('spotTownInput').value = '六腳鄉';
+            document.getElementById('spotCategoryInput').value = '在地文化';
+            document.getElementById('spotTitleInput').value = '';
+            document.getElementById('spotSummaryInput').value = '';
+            document.getElementById('spotImageFile').value = '';
+            document.getElementById('spotIconFile').value = '';
+            
+            setPinByPercent(null, null);
+            modal.style.display = 'flex';
+        });
+
+        // 開啟修改卡片
+        window.openEditModal = async function(id) {
+            console.log("準備修改的據點 ID:", JSON.stringify(id)); // 印出乾淨的 ID 檢查有沒有空白
+            const { data, error } = await window.db.from('spots').select('*').eq('id', id.trim()).single();
+            if (error || !data) {
+                alert('找不到該據點資料: ' + (error ? error.message : ''));
+                return;
+            }
+
+            isEditing = true;
+            currentImageUrl = data.image_url || '';
+            currentIconUrl = data.icon_url || '';
+            document.getElementById('modalTitle').innerText = `修改據點：${data.id}`;
+            document.getElementById('spotIdInput').value = data.id.trim();
+            document.getElementById('spotIdInput').disabled = true;
+            document.getElementById('spotTownInput').value = data.town || '';
+            document.getElementById('spotCategoryInput').value = data.category || '';
+            document.getElementById('spotTitleInput').value = data.title || '';
+            document.getElementById('spotSummaryInput').value = data.summary || '';
+            document.getElementById('spotImageFile').value = '';
+            document.getElementById('spotIconFile').value = '';
+
+            modal.style.display = 'flex';
+            setPinByPercent(data.lat, data.lng); 
         };
 
-        // 2. 載入地圖編輯模式的拖曳 Pin 點與側邊欄
-        async function loadMapEditorPins() {
-            const pinsLayer = document.getElementById('editorPinsLayer');
-            const sidebarList = document.getElementById('sidebarSpotsList');
-            const canvasBox = document.getElementById('mapCanvasBox');
-            if (!pinsLayer) return;
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
 
-            const { data: spots, error } = await window.db.from('spots').select('*').order('title', { ascending: true });
-            if (error || !spots) return;
+        // 表單送出 (儲存新增或修改)
+        spotForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('spotIdInput').value.trim();
+            const town = document.getElementById('spotTownInput').value.trim();
+            const category = document.getElementById('spotCategoryInput').value.trim();
+            const title = document.getElementById('spotTitleInput').value.trim();
+            const summary = document.getElementById('spotSummaryInput').value.trim();
+            
+            const lat = parseFloat(document.getElementById('spotLatInput').value) || 50; // X%
+            const lng = parseFloat(document.getElementById('spotLngInput').value) || 50; // Y%
 
-            pinsLayer.innerHTML = '';
-            sidebarList.innerHTML = '';
+            const imageFile = document.getElementById('spotImageFile').files[0];
+            const iconFile = document.getElementById('spotIconFile').files[0];
 
-            spots.forEach(item => {
-                // 建立側邊欄清單
-                const sItem = document.createElement('div');
-                sItem.className = 'sidebar-spot-item';
-                sItem.innerHTML = `<strong style="font-size:0.85rem; display:block;">${item.title}</strong><span style="font-size:0.72rem; color:#8C867C;">座標: ${item.pos_top || '50%'}, ${item.pos_left || '50%'}</span>`;
-                sidebarList.appendChild(sItem);
+            let finalImageUrl = currentImageUrl;
+            let finalIconUrl = currentIconUrl;
 
-                // 建立地圖上的拖曳 Pin
-                const pin = document.createElement('div');
-                pin.className = 'draggable-pin';
-                pin.style.top = item.pos_top || '50%';
-                pin.style.left = item.pos_left || '50%';
-                pin.innerHTML = `
-                    <div class="pin-dot"></div>
-                    <span class="pin-label">${item.title}</span>
-                `;
-                pinsLayer.appendChild(pin);
+            if (imageFile) {
+                const uploadedUrl = await uploadFileToStorage(imageFile, 'covers');
+                if (uploadedUrl) finalImageUrl = uploadedUrl;
+            }
 
-                // 拖曳互動邏輯
-                let isDragging = false;
-                pin.addEventListener('mousedown', (e) => {
-                    isDragging = true;
-                    e.stopPropagation();
-                });
+            if (iconFile) {
+                const uploadedUrl = await uploadFileToStorage(iconFile, 'icons');
+                if (uploadedUrl) finalIconUrl = uploadedUrl;
+            }
 
-                window.addEventListener('mousemove', (e) => {
-                    if (!isDragging) return;
-                    const rect = canvasBox.getBoundingClientRect();
-                    let x = ((e.clientX - rect.left) / rect.width) * 100;
-                    let y = ((e.clientY - rect.top) / rect.height) * 100;
-
-                    x = Math.max(0, Math.min(100, x));
-                    y = Math.max(0, Math.min(100, y));
-
-                    pin.style.left = `${x}%`;
-                    pin.style.top = `${y}%`;
-                });
-
-                window.addEventListener('mouseup', async () => {
-                    if (!isDragging) return;
-                    isDragging = false;
-
-                    const finalTop = pin.style.top;
-                    const finalLeft = pin.style.left;
-
-                    // 即時更新至 Supabase
-                    const { error: updateErr } = await window.db
-                        .from('spots')
-                        .update({ pos_top: finalTop, pos_left: finalLeft })
-                        .eq('spot_key', item.spot_key);
-
-                    if (!updateErr) {
-                        sItem.querySelector('span').textContent = `座標: ${finalTop}, ${finalLeft}`;
-                    }
-                });
-            });
-        }
-
-        if (form) {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const newSpot = {
-                    spot_key: document.getElementById('spotKeyInput').value.trim(),
-                    title: document.getElementById('titleInput').value.trim(),
-                    town: document.getElementById('townInput').value.trim(),
-                    category: document.getElementById('categoryInput').value.trim(),
-                    tags: [document.getElementById('categoryInput').value.trim()],
-                    short_desc: document.getElementById('shortDescInput').value.trim(),
-                    desc: document.getElementById('descInput').value.trim(),
-                    features: '在地導覽 ‧ 風土體驗',
-                    photos: ['assets/水道頭文創聚落.png'],
-                    gmap_query: `${document.getElementById('titleInput').value.trim()} 嘉義`,
-                    pos_top: '50%',
-                    pos_left: '50%'
+            if (isEditing) {
+                const updatePayload = {
+                    town, category, title, summary, lat, lng,
+                    image_url: finalImageUrl,
+                    icon_url: finalIconUrl
                 };
 
-                const { error } = await window.db.from('spots').insert([newSpot]);
+                // 移除 .select()，改用純粹的 update
+                const { error } = await window.db
+                    .from('spots')
+                    .update(updatePayload)
+                    .eq('id', id);
+
                 if (error) {
-                    alert('新增失敗：' + error.message);
+                    alert('修改失敗：' + error.message);
+                } else {
+                    alert('修改成功！');
+                    modal.style.display = 'none';
+                    fetchSpotsTable(); // 重新整理表格，會直接從資料庫抓取最新資料！
+                }
+            } else {
+                const { error } = await window.db.from('spots').insert([{
+                    id, town, category, title, summary, lat, lng,
+                    image_url: finalImageUrl,
+                    icon_url: finalIconUrl
+                }]);
+
+                if (error) {
+                    alert('新增或英文代碼重複：' + error.message);
                 } else {
                     alert('新增成功！');
-                    modal.classList.remove('active');
-                    form.reset();
+                    modal.style.display = 'none';
                     fetchSpotsTable();
                 }
-            });
-        }
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', checkAuthAndFetch);
     </script>

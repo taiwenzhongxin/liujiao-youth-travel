@@ -166,9 +166,9 @@
 
         <div class="journal-controls-bar">
             <nav class="journal-filter-pills" aria-label="職人類別篩選">
-                <button class="filter-btn active" data-filter="ALL">全部 (3)</button>
-                <button class="filter-btn" data-filter="CRAFT">傳統技藝 (2)</button>
-                <button class="filter-btn" data-filter="INNOVATION">地方創生 (1)</button>
+                <button class="filter-btn active" data-filter="ALL">全部</button>
+                <button class="filter-btn" data-filter="CRAFT">傳統技藝</button>
+                <button class="filter-btn" data-filter="REVITALIZATION">地方創生</button>
             </nav>
 
             <div class="journal-view-tools">
@@ -186,60 +186,11 @@
             </div>
         </div>
 
+        <!-- 職人卡片動態渲染容器 -->
         <div class="journal-card-deck-grid" id="journalCardsGrid">
-            <!-- 01 黃憲章 老師 -->
-            <article class="journal-card" data-category="CRAFT">
-                <div class="card-thumb-wrap">
-                    <img src="assets/黃憲章老師.png" alt="黃憲章 懸絲偶藝師">
-                    <span class="card-num-stamp">01</span>
-                    <span class="card-category-badge">傳統技藝</span>
-                </div>
-                <div class="card-info-wrap">
-                    <h3 class="card-artisan-name">黃憲章</h3>
-                    <p class="card-artisan-role">國寶級懸絲偶技師 ｜ 立青工作室創辦人</p>
-                    <blockquote class="card-artisan-quote">「不能讓這條線，在我們這一代斷掉。只要架構在，就能一直延續。」</blockquote>
-                    <div class="card-footer-meta">
-                        <span class="meta-location">📍 六腳</span>
-                        <a href="artisan-detail.html?id=1" class="btn-round-arrow" aria-label="閱讀黃憲章專訪故事">→</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 02 蕭英偉 老師 -->
-            <article class="journal-card" data-category="INNOVATION">
-                <div class="card-thumb-wrap">
-                    <img src="assets/蕭英偉老師.png" alt="蕭英偉 朴子好書室創辦人">
-                    <span class="card-num-stamp">02</span>
-                    <span class="card-category-badge">地方創生</span>
-                </div>
-                <div class="card-info-wrap">
-                    <h3 class="card-artisan-name">蕭英偉</h3>
-                    <p class="card-artisan-role">拾間文化負責人 ｜ 朴子好書室創辦人</p>
-                    <blockquote class="card-artisan-quote">「壯遊不只是看風光旖旎，更要看見人間的艱難險阻。把老屋接回土地的過去與未來。」</blockquote>
-                    <div class="card-footer-meta">
-                        <span class="meta-location">📍 朴子</span>
-                        <a href="artisan-detail.html?id=2" class="btn-round-arrow" aria-label="閱讀蕭英偉專訪故事">→</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 03 蔡承哲 老師 -->
-            <article class="journal-card" data-category="CRAFT">
-                <div class="card-thumb-wrap">
-                    <img src="assets/蔡承哲老師.png" alt="蔡承哲 糊紙工藝師">
-                    <span class="card-num-stamp">03</span>
-                    <span class="card-category-badge">傳統工藝</span>
-                </div>
-                <div class="card-info-wrap">
-                    <h3 class="card-artisan-name">蔡承哲</h3>
-                    <p class="card-artisan-role">糊紙工藝師 ｜ 無形文化資產保存者</p>
-                    <blockquote class="card-artisan-quote">「真正的推廣，是教到學生有一天做得比你還強。我玩的是真的，不是假的。」</blockquote>
-                    <div class="card-footer-meta">
-                        <span class="meta-location">📍 朴子</span>
-                        <a href="artisan-detail.html?id=3" class="btn-round-arrow" aria-label="閱讀蔡承哲專訪故事">→</a>
-                    </div>
-                </div>
-            </article>
+            <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 60px; color: #8C867C;">
+                正在從資料庫載入職人故事專訪...
+            </div>
         </div>
 
         <div class="journal-tail-row" style="padding: 40px 0 20px 0; border-top: 1px solid #ECE7DE; margin-top: 48px;">
@@ -378,8 +329,55 @@
         </div>
     </footer>
 
+    <!-- 引入 Supabase SDK 與前端渲染邏輯 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/common.js"></script>
-    <script src="js/artisans-data.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const gridContainer = document.getElementById('journalCardsGrid');
+            if (!gridContainer) return;
+
+            // 從 Supabase 抓取 artisans 資料
+            const { data, error } = await window.db
+                .from('artisans')
+                .select('*')
+                .order('index_num', { ascending: true });
+
+            if (error) {
+                gridContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #C0392B; padding: 40px;">載入職人資料失敗：${error.message}</div>`;
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                gridContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #8C867C;">目前尚無任何職人專訪故事。</div>`;
+                return;
+            }
+
+            // 動態渲染職人故事卡片
+            gridContainer.innerHTML = data.map(item => `
+                <article class="journal-card" data-category="${item.category || 'CRAFT'}">
+                    <div class="card-thumb-wrap">
+                        <img src="${item.hero_img || 'assets/default.png'}" alt="${item.name} 專訪照片">
+                        <span class="card-num-stamp">${item.index_num || '01'}</span>
+                        <span class="card-category-badge">${item.category_name || '傳統技藝'}</span>
+                    </div>
+                    <div class="card-info-wrap">
+                        <h3 class="card-artisan-name" style="cursor: pointer;" onclick="window.location.href='artisan-detail.html?id=${item.id}'">${item.name}</h3>
+                        <p class="card-artisan-role">${item.role || ''}</p>
+                        <blockquote class="card-artisan-quote">「${item.quote || ''}」</blockquote>
+                        <div class="card-footer-meta">
+                            <span class="meta-location">📍 ${item.town || ''}</span>
+                            <a href="artisan-detail.html?id=${item.id}" class="btn-round-arrow" aria-label="閱讀${item.name}專訪故事">→</a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        });
+    </script>
     <script src="js/journal.js"></script>
 </body>
 </html>

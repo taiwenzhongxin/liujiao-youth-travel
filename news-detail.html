@@ -284,9 +284,60 @@
         </div>
     </footer>
 
-    <!-- 關鍵腳本引入順序 -->
+    <!-- 引入 Supabase SDK 與資料動態渲染邏輯 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/common.js"></script>
-    <script src="js/news-data.js"></script>
-    <script src="js/news-detail.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. 取得網址列的 id 參數 (例如 ?id=5)
+            const urlParams = new URLSearchParams(window.location.search);
+            const newsId = urlParams.get('id');
+
+            if (!newsId) {
+                document.getElementById('newsMainTitle').innerText = '找不到文章編號';
+                return;
+            }
+
+            // 2. 從 Supabase 的 news 表格查詢該筆文章資料
+            const { data, error } = await window.db
+                .from('news')
+                .select('*')
+                .eq('id', newsId)
+                .single();
+
+            if (error || !data) {
+                document.getElementById('newsMainTitle').innerText = '找不到這篇最新消息';
+                document.getElementById('newsLeadPara').innerText = '可能已被刪除或網址有誤。';
+                return;
+            }
+
+            // 3. 動態將資料填入對應的 HTML 元素中
+            document.title = `${data.title} ｜ 最新消息 ｜ 嘉義青年壯遊`;
+            document.getElementById('newsCrumbCurrent').innerText = data.category || '最新消息';
+            document.getElementById('newsBadgeTag').innerText = data.category || 'NEWS';
+            document.getElementById('newsDateNote').innerText = `${data.date || ''} 發布`;
+            document.getElementById('newsMainTitle').innerText = data.title || '';
+            document.getElementById('newsLeadPara').innerText = data.summary || '';
+
+            // 如果有上傳圖片則替換封面背景
+            if (data.image_url) {
+                document.getElementById('newsHeroBg').src = data.image_url;
+            }
+
+            // 若有詳細內文可在此擴充渲染，若無則以摘要帶過
+            const sectionsContainer = document.getElementById('newsSectionsContainer');
+            if (sectionsContainer) {
+                sectionsContainer.innerHTML = `
+                    <div style="font-size: 1.05rem; line-height: 1.8; color: #4A463F; margin-top: 24px;">
+                        <p>${data.summary || '詳細內容 持續更新中...'}</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
 </body>
 </html>

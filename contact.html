@@ -411,13 +411,34 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/common.js"></script>
     <script>
-        function handleFormSubmit(e) {
+        const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function handleFormSubmit(e) {
             e.preventDefault();
-            const name = document.getElementById('userName').value;
-            alert(`謝謝您，${name}！您的走讀諮詢需求已送出，團隊將於 1~2 個工作天內聯繫您。`);
-            document.getElementById('bookingForm').reset();
+            
+            const name = document.getElementById('userName').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const route = document.getElementById('routeType').value;
+            const size = parseInt(document.getElementById('partySize').value) || 1;
+            const notes = document.getElementById('userNotes').value.trim();
+
+            // 將預約資料寫入 Supabase
+            const { error } = await window.db.from('contacts').insert([
+                { name, phone, email, route, size, notes }
+            ]);
+
+            if (error) {
+                alert('送出預約失敗，請稍後再試：' + error.message);
+            } else {
+                alert(`謝謝您，${name}！您的走讀諮詢需求已成功送出，團隊將於 1~2 個工作天內聯繫您。`);
+                document.getElementById('bookingForm').reset();
+            }
         }
     </script>
 </body>

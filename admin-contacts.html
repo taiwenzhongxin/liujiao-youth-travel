@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>預約諮詢管理後台 ｜ 嘉義青年壯遊</title>
+    
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body.admin-body {
+            background-color: #F8F7F4;
+            color: #1A1A1A;
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #E5E0D8;
+            padding-bottom: 16px;
+        }
+        .admin-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 0;
+            color: #111111;
+        }
+        .admin-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-admin-secondary {
+            background-color: transparent;
+            color: #4A463F;
+            border: 1px solid #D8D2C6;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .btn-admin-secondary:hover {
+            background-color: #FAF8F5;
+            border-color: #111111;
+        }
+        .contacts-table-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #ECE7DE;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+        table.admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        table.admin-table th, table.admin-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #F0ECE4;
+            vertical-align: middle;
+        }
+        table.admin-table th {
+            background-color: #FAF8F5;
+            font-weight: 700;
+            color: #555047;
+            letter-spacing: 0.5px;
+        }
+        table.admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        .badge-route {
+            background: #FDEEE6;
+            color: #D96328;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+        .badge-status-done {
+            background: #E8F8F5;
+            color: #27AE60;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .badge-status-pending {
+            background: #FEF9E7;
+            color: #D35400;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .btn-status {
+            background: #2980B9;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .btn-status:hover {
+            background: #2471A3;
+        }
+        .btn-danger {
+            background: #C0392B;
+            color: #FFFFFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-danger:hover {
+            background: #962D22;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #8C867C;
+        }
+    </style>
+</head>
+<body class="admin-body">
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: #D96328;">ADMIN CONTROL PANEL</span>
+                <h1 class="admin-title">預約與諮詢清單管理</h1>
+            </div>
+            <div class="admin-actions">
+                <button class="btn-admin-secondary" id="exportCsvBtn" style="border-color: #27AE60; color: #27AE60;">📊 匯出試算表</button>
+                <a href="admin.html" class="btn-admin-secondary">← 返回總後台</a>
+                <button class="btn-admin-secondary" id="logoutBtn" style="color: #C0392B; border-color: #C0392B;">登出</button>
+            </div>
+        </div>
+
+        <div class="contacts-table-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 130px;">提交時間</th>
+                        <th style="width: 140px;">預約人與電話</th>
+                        <th style="width: 180px;">諮詢方案 / 人數</th>
+                        <th>需求備註內容</th>
+                        <th style="width: 100px;">處理狀態</th>
+                        <th style="width: 150px; text-align: right;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="contactsTableBody">
+                    <tr>
+                        <td colspan="6" class="empty-state">正在驗證身分並載入預約諮詢資料...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function checkAuthAndFetch() {
+            const { data: { session } } = await window.db.auth.getSession();
+            if (!session) {
+                alert('您尚未登入或登入已過期，請先登入後台！');
+                window.location.href = 'login.html';
+                return;
+            }
+            fetchContacts();
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await window.db.auth.signOut();
+            window.location.href = 'login.html';
+        });
+
+        // 抓取預約諮詢清單
+        async function fetchContacts() {
+            const tbody = document.getElementById('contactsTableBody');
+            const { data, error } = await window.db
+                .from('contacts')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="color: #C0392B;">載入失敗：${error.message}</td></tr>`;
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state">目前尚無任何訪客預約或諮詢表單。</td></tr>`;
+                return;
+            }
+
+            // 類別對應中文名稱
+            const routeMap = {
+                'school-edu': '學校戶外教育',
+                'group-custom': '社團客製參訪',
+                'curation': '文化策展合作',
+                'field-trip': '經典路線諮詢',
+                'other': '其他合作需求'
+            };
+
+            tbody.innerHTML = data.map(item => {
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleString('zh-TW', { hour12: false }) : '';
+                const routeName = routeMap[item.route] || item.route || '一般諮詢';
+                const statusBadge = item.status === '已聯繫' 
+                    ? `<span class="badge-status-done">已聯繫</span>` 
+                    : `<span class="badge-status-pending">未聯繫</span>`;
+
+                return `
+                    <tr>
+                        <td style="font-size: 0.85rem; color: #6E685F;">${dateStr}</td>
+                        <td>
+                            <strong style="font-size: 0.95rem; display: block; margin-bottom: 2px;">${item.name}</strong>
+                            <a href="tel:${item.phone}" style="color: #D96328; text-decoration: none; font-size: 0.85rem;">📞 ${item.phone}</a>
+                            <br><a href="mailto:${item.email}" style="color: #6E685F; text-decoration: none; font-size: 0.78rem;">✉️ ${item.email}</a>
+                        </td>
+                        <td>
+                            <span class="badge-route">${routeName}</span>
+                            <div style="font-size: 0.85rem; color: #4A463F;">預計人數：<strong>${item.size || 1} 人</strong></div>
+                        </td>
+                        <td>
+                            <p style="margin: 0; font-size: 0.88rem; color: #333; line-height: 1.4; word-break: break-all;">${item.notes || '（無特別備註）'}</p>
+                        </td>
+                        <td>${statusBadge}</td>
+                        <td style="text-align: right;">
+                            <button class="btn-status" onclick="toggleStatus(${item.id}, '${item.status}')">${item.status === '已聯繫' ? '改為未聯繫' : '標記已聯繫'}</button>
+                            <button class="btn-danger" onclick="deleteContact(${item.id})">刪除</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // 切換處理狀態
+        window.toggleStatus = async function(id, currentStatus) {
+            const newStatus = currentStatus === '已聯繫' ? '未聯繫' : '已聯繫';
+            const { error } = await window.db
+                .from('contacts')
+                .update({ status: newStatus })
+                .eq('id', id);
+
+            if (error) {
+                alert('狀態更新失敗：' + error.message);
+            } else {
+                fetchContacts();
+            }
+        };
+
+        // 刪除預約紀錄
+        window.deleteContact = async function(id) {
+            if (!confirm('確定要刪除這筆預約諮詢紀錄嗎？')) return;
+            const { error } = await window.db.from('contacts').delete().eq('id', id);
+            if (error) {
+                alert('刪除失敗：' + error.message);
+            } else {
+                alert('刪除成功！');
+                fetchContacts();
+            }
+        };
+
+        // 點擊按鈕時將目前的資料轉為 CSV 並下載
+        document.getElementById('exportCsvBtn').addEventListener('click', async () => {
+            // 重新向資料庫撈取最新資料
+            const { data, error } = await window.db
+                .from('contacts')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error || !data || data.length === 0) {
+                alert('目前沒有資料可供匯出！');
+                return;
+            }
+
+            const routeMap = {
+                'school-edu': '學校戶外教育',
+                'group-custom': '社團客製參訪',
+                'curation': '文化策展合作',
+                'field-trip': '經典路線諮詢',
+                'other': '其他合作需求'
+            };
+
+            // CSV 標頭
+            let csvContent = "\uFEFF"; // 加入 BOM 以防 Excel 開啟時中文亂碼
+            csvContent += "提交時間,姓名,電話,信箱,諮詢方案,預計人數,處理狀態,備註內容\n";
+
+            // 組裝每一筆資料列
+            data.forEach(item => {
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleString('zh-TW', { hour12: false }) : '';
+                const routeName = routeMap[item.route] || item.route || '一般諮詢';
+                const name = `"${(item.name || '').replace(/"/g, '""')}"`;
+                const phone = `"${(item.phone || '').replace(/"/g, '""')}"`;
+                const email = `"${(item.email || '').replace(/"/g, '""')}"`;
+                const route = `"${routeName}"`;
+                const size = item.size || 1;
+                const status = `"${item.status || '未聯繫'}"`;
+                const notes = `"${(item.notes || '').replace(/"/g, '""').replace(/\n/g, ' ')}"`;
+
+                csvContent += `${dateStr},${name},${phone},${email},${route},${size},${status},${notes}\n`;
+            });
+
+            // 建立下載連結
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `六腳青年壯遊_預約諮詢名單_${new Date().toISOString().slice(0, 10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        document.addEventListener('DOMContentLoaded', checkAuthAndFetch);
+    </script>
+</body>
+</html>

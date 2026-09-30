@@ -180,192 +180,40 @@
             </button>
         </div>
 
-        <!-- 1. 互動地圖畫布 -->
+        <!-- 1. 互動地圖畫布 (點位將由後台資料庫動態載入) -->
         <div class="map-interactive-canvas" id="mapCanvas">
-            <div class="map-artwork-container">
-                <img src="assets/地圖.png" alt="嘉義六腳朴子風土地圖" class="map-base-illustration">
+            <div class="map-artwork-container" id="mapArtworkContainer">
+                <img src="assets/map.png" alt="嘉義六腳朴子風土地圖" class="map-base-illustration">
 
                 <nav class="map-inline-filter-list">
                     <button class="inline-cat-item active" data-cat="all">
                         <span class="icat-icon">▣</span>
                         <span class="icat-name">全部據點</span>
-                        <span class="icat-num">14</span>
                     </button>
-                    <button class="inline-cat-item" data-cat="heritage">
+                    <button class="inline-cat-item" data-cat="產業與歷史">
                         <span class="icat-icon">♜</span>
                         <span class="icat-name">產業與歷史</span>
-                        <span class="icat-num">4</span>
                     </button>
-                    <button class="inline-cat-item" data-cat="craft">
+                    <button class="inline-cat-item" data-cat="傳統手工藝">
                         <span class="icat-icon">♨</span>
                         <span class="icat-name">傳統手工藝</span>
-                        <span class="icat-num">4</span>
                     </button>
-                    <button class="inline-cat-item" data-cat="life">
+                    <button class="inline-cat-item" data-cat="常民與市井">
                         <span class="icat-icon">♟</span>
                         <span class="icat-name">常民與市井</span>
-                        <span class="icat-num">3</span>
                     </button>
-                    <button class="inline-cat-item" data-cat="innovation">
+                    <button class="inline-cat-item" data-cat="創新與社群">
                         <span class="icat-icon">▤</span>
                         <span class="icat-name">創新與社群</span>
-                        <span class="icat-num">3</span>
                     </button>
 
                     <div class="map-sidebar-updating">
                         <span class="pulse-indicator"></span>
-                        <span>座標持續田調更新中...</span>
+                        <span>後台資料庫同步中...</span>
                     </div>
                 </nav>
 
-                <!-- 14 個精準校正點位 -->
-                <div class="map-spot-pin pin-green pop-down" style="top: 14%; left: 58.5%;" data-spot="qianyao" data-category="craft">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <span class="popout-name">墘窯陶坊</span>
-                        <div class="popout-img-box"><img src="assets/illustrations/墘窯陶坊.png" alt="墘窯休閒陶坊"></div>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-orange pop-down" style="top: 13%; left: 60%;" data-spot="yongjiu" data-category="life">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <span class="popout-name">用九柑仔店</span>
-                        <div class="popout-img-box"><img src="assets/illustrations/用九柑仔店.png" alt="潭墘用九柑仔店"></div>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-orange" style="top: 35.5%; left: 72.3%;" data-spot="suantou-market" data-category="life">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/六腳公有市場.png" alt="六腳公有零售市場"></div>
-                        <span class="popout-name">六腳公有市場</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-brown" style="top: 36.1%; left: 74.8%;" data-spot="liqing" data-category="craft">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/立青工作室.png" alt="六腳立青工作室"></div>
-                        <span class="popout-name">立青工作室</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-blue" style="top: 36.5%; left: 73.5%;" data-spot="chengfeng" data-category="innovation">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/成豐社區講堂.png" alt="成豐社區講堂"></div>
-                        <span class="popout-name">成豐社區講堂</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-green" style="top: 52.5%; left: 79.5%;" data-spot="xiaomimi" data-category="craft">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/笑瞇瞇.png" alt="笑咪咪懸絲偶劇團"></div>
-                        <span class="popout-name">笑咪咪劇團</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-orange" style="top: 55%; left: 78.5%;" data-spot="sugar" data-category="heritage">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/蒜頭糖廠.png" alt="蒜頭糖廠文化園區"></div>
-                        <span class="popout-name">蒜頭糖廠</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-blue" style="top: 56%; left: 80.5%;" data-spot="culx-hub" data-category="innovation">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/文化創新基地.png" alt="嘉義文化科技創新基地"></div>
-                        <span class="popout-name">嘉義文化科技創新基地</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-darkgray" style="top: 66%; left: 73.5%;" data-spot="npm-south" data-category="heritage">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/故宮南院.png" alt="國立故宮博物院南部院區"></div>
-                        <span class="popout-name">故宮南院</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-purple" style="top: 63%; left: 52%;" data-spot="dexing-dean" data-category="heritage">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/德興里.png" alt="德興里德安宮"></div>
-                        <span class="popout-name">德興里德安宮</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-darkgray" style="top: 76%; left: 40.9%;" data-spot="shuidiaotou" data-category="heritage">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="popout-img-box"><img src="assets/illustrations/水道頭文創.png" alt="嘉藝點水道頭文創聚落"></div>
-                    <span class="popout-name">水道頭文創聚落</span>
-                </div>
-
-                <div class="map-spot-pin pin-red" style="top: 75%; left: 39%;" data-spot="embroidery" data-category="craft">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/刺繡文化館.png" alt="朴子刺繡文化館"></div>
-                        <span class="popout-name">朴子刺繡館</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-orange" style="top: 75%; left: 36%;" data-spot="oldstreet" data-category="life">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/配天宮.png" alt="朴子配天宮"></div>
-                        <span class="popout-name">配天宮老街</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-blue" style="top: 80%; left: 30.5%;" data-spot="bookstore" data-category="innovation">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/朴子好書室.png" alt="朴子好書室"></div>
-                        <span class="popout-name">朴子好書室</span>
-                    </div>
-                </div>
-
-                <div class="map-spot-pin pin-blue" style="top: 55%; left: 81%;" data-spot="bookstore" data-category="innovation">
-                    <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
-                    <div class="pin-popout-preview">
-                        <div class="popout-img-box"><img src="assets/illustrations/朴子好書室.png" alt="好食作企業社"></div>
-                        <span class="popout-name">好食作企業社</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 浮動資訊卡片 -->
-            <div class="spot-popup-card-overlay" id="spotModal">
-                <div class="popup-card-inner">
-                    <div class="popup-head-row">
-                        <span class="popup-loc-tag">📍 <span id="modalTown">六腳鄉</span></span>
-                        <button class="popup-close-btn" id="modalCloseBtn" aria-label="關閉卡片">✕</button>
-                    </div>
-
-                    <div class="popup-gallery-block">
-                        <div class="popup-main-pic">
-                            <img src="assets/水道頭文創聚落.png" id="modalMainImg" alt="據點主照片">
-                        </div>
-                        <div class="popup-thumbs-strip" id="modalThumbsStrip"></div>
-                    </div>
-
-                    <div class="popup-text-block">
-                        <div class="popup-tags-wrap" id="modalTags"></div>
-                        <h3 class="popup-title" id="modalTitle">蒜頭糖廠文化園區</h3>
-                        <p class="popup-desc" id="modalDesc"></p>
-
-                        <div class="popup-features-list">
-                            <div class="feat-row"><span class="feat-bullet">✦</span><span id="modalFeat1"></span></div>
-                            <div class="feat-row"><span class="feat-bullet">✦</span><span id="modalFeat2"></span></div>
-                        </div>
-
-                        <a href="itinerary.html" class="popup-link-btn" id="modalLink">查看推薦走讀路線 →</a>
-                    </div>
-                </div>
+                <!-- 動態點位會由 spots.js 自動插入在此處 -->
             </div>
         </div>
 
@@ -373,11 +221,11 @@
         <div class="spots-grid-viewport" id="spotsGridView" style="display: none;">
             <div class="spots-grid-inner">
                 <div class="grid-filter-bar" id="gridFilterBar">
-                    <button class="grid-filter-tag active" data-cat="all">全部 (14)</button>
-                    <button class="grid-filter-tag" data-cat="heritage">產業與歷史 (4)</button>
-                    <button class="grid-filter-tag" data-cat="craft">傳統手工藝 (4)</button>
-                    <button class="grid-filter-tag" data-cat="life">常民與市井 (3)</button>
-                    <button class="grid-filter-tag" data-cat="innovation">創新與社群 (3)</button>
+                    <button class="grid-filter-tag active" data-cat="all">全部據點</button>
+                    <button class="grid-filter-tag" data-cat="產業與歷史">產業與歷史</button>
+                    <button class="grid-filter-tag" data-cat="傳統手工藝">傳統手工藝</button>
+                    <button class="grid-filter-tag" data-cat="常民與市井">常民與市井</button>
+                    <button class="grid-filter-tag" data-cat="創新與社群">創新與社群</button>
                 </div>
                 
                 <div class="spots-cards-grid" id="spotsCardsGrid"></div>
@@ -550,6 +398,8 @@
         </div>
     </footer>
 
+    <!-- 載入 Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/common.js"></script>
     <script src="js/spots.js"></script>
 </body>

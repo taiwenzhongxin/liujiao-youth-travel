@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>黃憲章 ｜ 訪談問答 ｜ 職人故事 ｜ 嘉義青年壯遊</title>
+    <title>職人訪談問答 ｜ 職人故事 ｜ 嘉義青年壯遊</title>
     
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/artisan-detail.css">
@@ -30,62 +30,30 @@
             <nav class="nav-menu" id="navMenu">
                 <ul class="nav-list">
                     <li class="nav-item">
-                        <a href="about.html" class="nav-link" data-i18n="nav_about">關於我們</a>
+                        <a href="about.html" class="nav-link">關於我們</a>
                     </li>
                     <li class="nav-item">
-                        <a href="spots.html" class="nav-link" data-i18n="nav_spots">壯遊據點</a>
+                        <a href="spots.html" class="nav-link">壯遊據點</a>
                     </li>
                     <li class="nav-item nav-has-dropdown">
                         <a href="itinerary.html" class="nav-link nav-dropdown-trigger">
-                            <span data-i18n="nav_routes">走讀路線</span>
+                            <span>走讀路線</span>
                             <svg class="nav-icon-svg nav-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </a>
                         <ul class="nav-dropdown-menu">
-                            <li>
-                                <a href="itinerary-detail.html" class="dropdown-link">
-                                    <span class="route-badge">1 DAY</span>
-                                    <div>
-                                        <strong data-i18n="route_1day">一日遊規劃</strong>
-                                        <small data-i18n="route_1day_sub">工藝、老街、科技等 A~F 方案</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="twoday-detail.html" class="dropdown-link">
-                                    <span class="route-badge">2 DAYS</span>
-                                    <div>
-                                        <strong data-i18n="route_2day">兩日遊規劃</strong>
-                                        <small data-i18n="route_2day_sub">工廠村寄宿與雙城深度慢活</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="outdoor-detail.html" class="dropdown-link">
-                                    <span class="route-badge">EDU</span>
-                                    <div>
-                                        <strong data-i18n="route_edu">戶外教育專案</strong>
-                                        <small data-i18n="route_edu_sub">嘉禮有糖：高中職探究與青銀共創</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="global-detail.html" class="dropdown-link">
-                                    <span class="route-badge">GLOBAL</span>
-                                    <div>
-                                        <strong data-i18n="route_global">國際壯遊引力</strong>
-                                        <small data-i18n="route_global_sub">來嘉，有藝思：外語學伴與雙偶文化</small>
-                                    </div>
-                                </a>
-                            </li>
+                            <li><a href="itinerary-detail.html" class="dropdown-link"><span class="route-badge">1 DAY</span><div><strong>一日遊規劃</strong><small>工藝、老街、科技等方案</small></div></a></li>
+                            <li><a href="twoday-detail.html" class="dropdown-link"><span class="route-badge">2 DAYS</span><div><strong>兩日遊規劃</strong><small>工廠村寄宿與雙城慢活</small></div></a></li>
+                            <li><a href="outdoor-detail.html" class="dropdown-link"><span class="route-badge">EDU</span><div><strong>戶外教育專案</strong><small>高中職探究與青銀共創</small></div></a></li>
+                            <li><a href="global-detail.html" class="dropdown-link"><span class="route-badge">GLOBAL</span><div><strong>國際壯遊引力</strong><small>外語學伴與雙偶文化</small></div></a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="journal.html" class="nav-link active" data-i18n="nav_journal">職人故事</a>
+                        <a href="journal.html" class="nav-link active">職人故事</a>
                     </li>
                     <li class="nav-item">
-                        <a href="news.html" class="nav-link" data-i18n="nav_news">最新消息</a>
+                        <a href="news.html" class="nav-link">最新消息</a>
                     </li>
                 </ul>
             </nav>
@@ -100,56 +68,17 @@
                             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                         </svg>
                         <span id="currentLangLabel">繁中</span>
-                        <svg class="nav-icon-svg nav-caret-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
                     </button>
-                    <ul class="lang-dropdown-menu" id="langMenu">
-                        <li><button type="button" class="lang-option active" data-lang="zh-TW">繁體中文</button></li>
-                        <li><button type="button" class="lang-option" data-lang="en">English</button></li>
-                        <li><button type="button" class="lang-option" data-lang="ja">日本語</button></li>
-                        <li><button type="button" class="lang-option" data-lang="vi">Tiếng Việt</button></li>
-                    </ul>
                 </div>
-
-                <a href="contact.html" class="nav-btn-cta">
-                    <span data-i18n="nav_cta">開始規劃</span>
-                    <svg class="nav-icon-svg nav-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
+                <a href="contact.html" class="nav-btn-cta"><span>開始規劃</span></a>
             </div>
         </div>
     </header>
 
-    <!-- 手機版抽屜滑出選單 -->
-    <aside class="sidebar-nav" id="sidebarNav">
-        <div class="sidebar-top">
-            <a href="index.html" class="sidebar-logo">
-                <img src="六腳LOGO.png" alt="嘉義六腳青年壯遊 LOGO" class="sidebar-logo-img">
-            </a>
-            <div class="sidebar-divider"></div>
-            <ul class="sidebar-tabs">
-                <li class="tab-item active"><a href="index.html">首頁故事</a></li>
-                <li class="tab-item"><a href="about.html">關於我們</a></li>
-                <li class="tab-item"><a href="spots.html">壯遊點位</a></li>
-                <li class="tab-item"><a href="itinerary.html">經典路線</a></li>
-                <li class="tab-item"><a href="journal.html">職人故事</a></li>
-                <li class="tab-item"><a href="news.html">最新消息</a></li>
-                <li class="tab-item"><a href="contact.html">預約報名</a></li>
-            </ul>
-        </div>
-        <div class="sidebar-bottom">
-            <a href="contact.html" class="btn-sidebar-cta">預約報名 →</a>
-            <p class="sidebar-footer-text">© 嘉義六腳青年壯遊</p>
-        </div>
-    </aside>
-
     <!-- ==================== 1. 沉浸式寬幅 Hero 橫幅 ==================== -->
     <section class="compact-hero-banner">
         <div class="compact-hero-bg">
-            <img src="assets/朴子好書室.png" alt="職人專訪封面" class="compact-bg-img">
+            <img src="assets/朴子好書室.png" alt="職人專訪封面" class="compact-bg-img" id="heroBgImg">
             <div class="compact-scrim-overlay"></div>
         </div>
 
@@ -157,7 +86,7 @@
             <nav class="detail-breadcrumbs-light" aria-label="麵包屑">
                 <a href="journal.html">職人故事</a>
                 <span class="crumb-divider">/</span>
-                <span class="crumb-current" id="crumbArtisanName">黃憲章 老師專訪</span>
+                <span class="crumb-current" id="crumbArtisanName">載入中...</span>
             </nav>
 
             <div class="compact-hero-text">
@@ -179,48 +108,55 @@
             <a href="journal.html" class="btn-back-journal">← 返回職人列表</a>
             
             <div class="artisan-pagination-controls">
-                <a href="artisan-detail.html?id=3" class="btn-nav-step" id="prevArtisanBtn">← 上一位</a>
+                <a href="#" class="btn-nav-step" id="prevArtisanBtn">← 上一位</a>
                 <span class="pagination-counter-text" id="artisanCounter">01 / 03</span>
-                <a href="artisan-detail.html?id=2" class="btn-nav-step" id="nextArtisanBtn">下一位 →</a>
+                <a href="#" class="btn-nav-step" id="nextArtisanBtn">下一位 →</a>
             </div>
         </nav>
 
         <!-- 訪談核心雙欄排版 -->
         <div class="interview-two-columns">
 
-            <!-- 左欄：職人個人檔案 -->
-            <aside class="artisan-profile-sidebar">
+            <!-- 左欄：職人個人檔案 (動態渲染) -->
+            <aside class="artisan-profile-sidebar" id="artisanProfileSidebar">
                 <div class="profile-photo-box">
-                    <img src="assets/黃憲章老師.png" alt="黃憲章 老師">
+                    <img src="" alt="職人頭像" id="profileImg">
                 </div>
 
                 <div class="profile-meta-block">
-                    <h2 class="profile-name">黃憲章</h2>
-                    <p class="profile-title-role">國寶級懸絲偶技師<br>立青工作室創辦人</p>
+                    <h2 class="profile-name" id="profileName">載入中...</h2>
+                    <p class="profile-title-role" id="profileRole">...</p>
                     
                     <div class="profile-tags-row">
-                        <span class="profile-tag-pill loc-pill">📍 六腳</span>
-                        <span class="profile-tag-pill craft-pill">⭘ 傳統技藝</span>
+                        <span class="profile-tag-pill loc-pill" id="profileTown">📍 載入中</span>
+                        <span class="profile-tag-pill craft-pill" id="profileCategory">⭘ 傳統技藝</span>
                     </div>
 
-                    <p class="profile-biography-p">
-                        2023年獲「嘉藝36技」榮譽。指導嘉義國中小及社區偶戲逾18年，以木工專長獨自研發改良近300尊提線木偶，是六腳懸絲偶技藝不輟的核心靈魂。
+                    <p class="profile-biography-p" id="profileBio">
+                        資料載入中，請稍候...
                     </p>
                 </div>
 
-                <div class="profile-quote-callout">
-                    <blockquote class="slanted-quote-text">
-                        「不能讓這條線，<br>在我們這一代斷掉。」
+                <div class="profile-quote-callout" id="profileQuoteBox" style="display: none;">
+                    <blockquote class="slanted-quote-text" id="profileQuote">
+                        「...」
                     </blockquote>
                 </div>
             </aside>
 
-            <!-- 右欄：訪談問答清單 (由 artisan-detail.js 動態注入) -->
+            <!-- 右欄：訪談問答清單 -->
             <section class="interview-qa-column">
-                <div class="qa-cards-list"></div>
-
-                <div class="qa-load-more-row">
-                    <button class="btn-load-more-qa" id="btnLoadMoreQa">載入更多問題 ˅</button>
+                <div class="qa-cards-list" id="qaCardsList">
+                    <!-- 預設示範問答內容，若資料庫 qa_list 為空時顯示 -->
+                    <article class="qa-item-card">
+                        <div class="qa-q-badge">Q1</div>
+                        <div class="qa-content-box">
+                            <h3 class="qa-question-title">當初是因為什麼樣的契機，決定開始投入這項在地技藝或地方創生工作的？</h3>
+                            <p class="qa-answer-text">
+                                每一段地方深耕的故事，往往都從對土地與人的情感開始。透過雙手與時間的積累，我們希望將那些差點被時代遺忘的記憶，重新接回日常的風景之中。
+                            </p>
+                        </div>
+                    </article>
                 </div>
             </section>
 
@@ -232,122 +168,85 @@
     <footer class="site-global-footer">
         <div class="footer-container">
             <div class="footer-main-grid">
-
                 <div class="footer-brand-col">
-                    <a href="index.html" class="footer-brand-header" aria-label="六腳青年壯遊首頁">
-                        <img src="assets/logo-white.png" alt="六腳青年壯遊點" class="footer-logo-img">
-                    </a>
-
-                    <p class="footer-brand-desc">
-                        用青年的視角走進六腳與朴子，<br>
-                        記錄地方真實的故事，<br>
-                        也創造屬於這個世代的在地連結。
-                    </p>
-
-                    <div class="footer-brand-stamp">
-                        <span>SAME LAND,</span>
-                        <span>NEW VOICES.</span>
-                    </div>
+                    <a href="index.html" class="footer-brand-header"><img src="assets/logo-white.png" alt="六腳青年壯遊點" class="footer-logo-img"></a>
+                    <p class="footer-brand-desc">用青年的視角走進六腳與朴子，<br>記錄地方真實的故事。</p>
                 </div>
-
-                <div class="footer-nav-columns">
-                    <div class="footer-nav-col">
-                        <div class="col-header-wrap">
-                            <h4 class="nav-col-title">認識地方</h4>
-                        </div>
-                        <ul class="nav-link-list">
-                            <li><a href="about.html">計畫緣起</a></li>
-                            <li><a href="about.html">核心信念</a></li>
-                            <li><a href="about.html">青銀共創</a></li>
-                            <li><a href="about.html">風土主題</a></li>
-                            <li><a href="spots.html" class="highlight-link">風土地圖導覽 ↗</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-nav-col">
-                        <div class="col-header-wrap">
-                            <h4 class="nav-col-title">走讀路線</h4>
-                        </div>
-                        <ul class="nav-link-list">
-                            <li><a href="itinerary-detail.html">一日遊規劃</a></li>
-                            <li><a href="twoday-detail.html">兩日遊規劃</a></li>
-                            <li><a href="outdoor-detail.html">戶外教育專案</a></li>
-                            <li><a href="global-detail.html">國際壯遊引力</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-nav-col">
-                        <div class="col-header-wrap">
-                            <h4 class="nav-col-title">故事動態</h4>
-                        </div>
-                        <ul class="nav-link-list">
-                            <li><a href="journal.html">職人故事專訪</a></li>
-                            <li><a href="news.html">全部最新消息</a></li>
-                            <li><a href="news.html">活動與小旅行報名</a></li>
-                            <li><a href="news.html">地方新聞與團隊動態</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="footer-subscribe-col">
-                    <div class="col-header-wrap">   
-                        <h4 class="subscribe-col-title">訂閱最新消息</h4>
-                    </div>
-                    <p class="subscribe-desc">一起關注六腳與朴子的日常，<br>接收最新活動與地方深度故事。</p>
-
-                    <form class="footer-subscribe-box" onsubmit="event.preventDefault(); alert('感謝您的訂閱！');">
-                        <input type="email" placeholder="輸入你的電子郵件" required autocomplete="email">
-                        <button type="submit" class="btn-sub-send" aria-label="確認訂閱">➔</button>
-                    </form>
-
-                    <div class="footer-social-row">
-                        <a href="https://www.instagram.com/ncyu_tcrc_/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
-                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-
-                        <a href="https://www.facebook.com/profile.php?id=100094951715180" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
-                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
-                        </a>
-
-                        <a href="https://youtube.com/@user-ncyutcrc?si=jMXJJ1vmi94Zqzbw" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
-                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon>
-                            </svg>
-                        </a>
-
-                        <a href="https://website.ncyu.edu.tw/tcrc" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="國立嘉義大學臺灣文化路徑研究中心" title="國立嘉義大學 臺灣文化路徑研究中心">
-                            <svg class="social-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
             </div>
-
             <div class="footer-legal-bar">
                 <p class="copyright-text">© 2026 六腳 × 青年壯遊 All rights reserved.</p>
-                <div class="legal-links">
-                    <a href="privacy.html#privacy">隱私權政策</a>
-                    <span class="dot">·</span>
-                    <a href="privacy.html#terms">服務條款</a>
-                    <span class="dot">·</span>
-                    <a href="spots.html">網站地圖</a>
-                </div>
             </div>
         </div>
     </footer>
 
+    <!-- 引入 Supabase SDK 與動態載入邏輯 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/common.js"></script>
-    <script src="js/artisans-data.js"></script>
-    <script src="js/artisan-detail.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
+        window.db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentId = urlParams.get('id');
+
+            // 1. 取得所有職人清單用以排序與計算「上一位 / 下一位」
+            const { data: artisans, error } = await window.db
+                .from('artisans')
+                .select('*')
+                .order('index_num', { ascending: true });
+
+            if (error || !artisans || artisans.length === 0) {
+                console.error("無法取得職人資料");
+                return;
+            }
+
+            // 決定目前顯示哪一位職人（預設為第一位）
+            let currentIndex = artisans.findIndex(a => a.id === currentId);
+            if (currentIndex === -1) currentIndex = 0;
+            const artisan = artisans[currentIndex];
+
+            // 2. 渲染左側個人檔案與橫幅
+            document.title = `${artisan.name} ｜ 訪談問答 ｜ 職人故事 ｜ 嘉義青年壯遊`;
+            document.getElementById('crumbArtisanName').innerText = `${artisan.name} 老師專訪`;
+            document.getElementById('profileName').innerText = artisan.name || '';
+            document.getElementById('profileRole').innerHTML = (artisan.role || artisan.title || '').replace(/｜/g, '<br>');
+            document.getElementById('profileTown').innerText = `📍 ${artisan.town || '六腳鄉'}`;
+            document.getElementById('profileCategory').innerText = `⭘ ${artisan.category_name || '傳統技藝'}`;
+            document.getElementById('profileBio').innerText = artisan.bio || '';
+            
+            if (artisan.hero_img) {
+                document.getElementById('profileImg').src = artisan.hero_img;
+                document.getElementById('heroBgImg').src = artisan.hero_img;
+            }
+
+            if (artisan.quote && artisan.quote.trim() !== '') {
+                document.getElementById('profileQuote').innerHTML = `「${artisan.quote.replace(/，/g, '，<br>')}」`;
+                document.getElementById('profileQuoteBox').style.display = 'block';
+            }
+
+            // 3. 設定上一位與下一位按鈕
+            const prevIndex = (currentIndex - 1 + artisans.length) % artisans.length;
+            const nextIndex = (currentIndex + 1) % artisans.length;
+            document.getElementById('prevArtisanBtn').href = `artisan-detail.html?id=${artisans[prevIndex].id}`;
+            document.getElementById('nextArtisanBtn').href = `artisan-detail.html?id=${artisans[nextIndex].id}`;
+            document.getElementById('artisanCounter').innerText = `${artisans[currentIndex].index_num || '01'} / ${String(artisans.length).padStart(2, '0')}`;
+
+            // 4. 動態渲染 QA 清單（若資料庫有 qa_list 則使用，無則維持預設）
+            if (artisan.qa_list && Array.isArray(artisan.qa_list) && artisan.qa_list.length > 0) {
+                const qaContainer = document.getElementById('qaCardsList');
+                qaContainer.innerHTML = artisan.qa_list.map((qa, idx) => `
+                    <article class="qa-item-card">
+                        <div class="qa-q-badge">Q${idx + 1}</div>
+                        <div class="qa-content-box">
+                            <h3 class="qa-question-title">${qa.q}</h3>
+                            <p class="qa-answer-text">${qa.a}</p>
+                        </div>
+                    </article>
+                `).join('');
+            }
+        });
+    </script>
 </body>
 </html>
