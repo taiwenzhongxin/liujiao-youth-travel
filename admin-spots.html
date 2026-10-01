@@ -246,7 +246,7 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th style="width: 80px;">圖片</th>
+                        <th style="width: 140px;">代表圖 / Icon</th>
                         <th style="width: 90px;">英文代碼</th>
                         <th style="width: 120px;">鄉鎮 / 分類</th>
                         <th>據點名稱與短評摘要</th>
@@ -371,7 +371,16 @@
             tbody.innerHTML = data.map(item => `
                 <tr>
                     <td>
-                        ${item.image_url ? `<img src="${item.image_url}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;" alt="預覽">` : `<span style="color: #ccc; font-size: 0.8rem;">無圖</span>`}
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <div>
+                                <small style="display: block; font-size: 0.65rem; color: #888;">卡片圖</small>
+                                ${item.image_url ? `<img src="${item.image_url}" style="width: 42px; height: 42px; object-fit: cover; border-radius: 4px;" alt="代表圖">` : `<span style="color: #ccc; font-size: 0.7rem;">無</span>`}
+                            </div>
+                            <div>
+                                <small style="display: block; font-size: 0.65rem; color: #888;">地圖Icon</small>
+                                ${item.icon_url ? `<img src="${item.icon_url}" style="width: 42px; height: 42px; object-fit: contain; background: #eee; border-radius: 4px;" alt="Icon">` : `<span style="color: #ccc; font-size: 0.7rem;">無</span>`}
+                            </div>
+                        </div>
                     </td>
                     <td><span class="badge-id">${item.id || ''}</span></td>
                     <td>
