@@ -1161,21 +1161,37 @@ html, body {
 }
 
 /* 手機直向模式：768px 以下之裝置 */
+/* ==================== 手機版導覽列防重疊與 RWD 微調 ==================== */
 @media (max-width: 768px) {
-    .nav-container, 
-    .footer-container {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
+    /* 1. 稍微縮減手機版導覽列的左右間距與高度 */
+    .site-header {
+        height: 70px !important;
     }
     
-    .footer-container {
-        padding-top: 60px !important;
-        padding-bottom: 30px !important;
+    .nav-container {
+        padding: 0 16px !important;
+    }
+
+    /* 2. 稍微縮小手機版 LOGO 的大小，避免向右延伸過多 */
+    .nav-logo-img {
+        max-height: 42px !important;
+        transform: scale(1.05) !important;
     }
     
-    .footer-nav-columns {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 28px !important;
+    .nav-logo-img.logo-black {
+        transform: translateY(-50%) scale(1.05) !important;
+    }
+
+    /* 3. 讓右側操作區塊（語言按鈕與漢堡選單）更加緊湊 */
+    .nav-actions {
+        gap: 8px !important;
+    }
+
+    /* 4. 將語言按鈕的寬度和內距在手機版稍微縮小，釋放空間 */
+    .nav-lang-btn {
+        min-width: unset !important;
+        padding: 5px 8px !important;
+        font-size: 0.8rem !important;
     }
 }
 
