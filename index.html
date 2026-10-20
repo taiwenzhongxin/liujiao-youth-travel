@@ -7,6 +7,7 @@
     
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/home-motion.css">
 
     <!-- 補齊 Bodoni Moda 與 Noto Serif TC，確保雜誌風襯線排版完整 -->
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,900&family=Noto+Serif+TC:wght@600;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@600;800;900&display=swap" rel="stylesheet">
@@ -164,9 +165,9 @@
         <div class="hero-content-overlay" id="heroTextOverlay">
             <div class="hero-text-box" id="heroTextBox">
                 <h1 class="hero-main-title">
-                    JOURNEY INTO<br>
-                    CHIAYI YOUTH<br>
-                    LOCAL
+                    <span class="hero-title-line">JOURNEY INTO</span>
+                    <span class="hero-title-line">CHIAYI YOUTH</span>
+                    <span class="hero-title-line">LOCAL</span>
                 </h1>
                 <p class="hero-desc-cn">走進風土，啟程壯遊。</p>
             </div>
@@ -183,16 +184,16 @@
                 <path d="m9 18 6-6-6-6"/>
             </svg>
         </button>
-
-        <div class="hero-marquee-strip">
-            <div class="marquee-track" id="heroMarquee">
-                CHIAYI YOUTH TRAVEL ‧ LIOUJIAO & PUZI ‧ ARTFUL CHIAYI ‧ CHIAYI YOUTH TRAVEL
-            </div>
-        </div>
     </section>
 
     <!-- ==================== 01. 關於我們 ==================== -->
     <section id="about" class="section-editorial-about">
+        <svg class="landscape-contours" viewBox="0 0 800 600" fill="none" aria-hidden="true" focusable="false">
+            <path d="M-80 440C100 150 260 590 460 300S740 50 900 190"/>
+            <path d="M-80 475C100 185 260 625 460 335S740 85 900 225"/>
+            <path d="M-80 510C100 220 260 660 460 370S740 120 900 260"/>
+            <path d="M-80 545C100 255 260 695 460 405S740 155 900 295"/>
+        </svg>
         <div class="about-layout-container">
             <div class="about-text-column">
                 <div class="editorial-section-tag">
@@ -512,5 +513,6 @@
 
 <script src="js/common.js"></script>
 <script src="js/index.js"></script>
+<script src="js/home-motion.js"></script>
 </body>
 </html>
