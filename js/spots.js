@@ -2,17 +2,41 @@
  * 壯遊據點地圖與圖鑑動態互動模組 (spots.js) - Supabase 連線版
  */
 
+// 地圖使用在地插畫；資料庫照片保留給圖鑑。別名兼容據點全名與常見異體字。
+function getSpotIllustration(title = '') {
+    const illustrations = [
+        ['清木屋せいもくや', ['清木屋', 'せいもくや']],
+        ['朴子第一零售市場', ['朴子第一零售市場', '朴子第一市場', '朴子市第一公有零售市場', '朴子第一公有零售市場']],
+        ['好食作企業社', ['好食作']],
+        ['民雄三昧堂', ['三昧堂']],
+        ['東窯茶空間', ['東窯']],
+        ['新港板陶窯', ['板陶窯']],
+        ['新港培桂堂', ['培桂堂']],
+        ['配天宮', ['配天宮']],
+        ['蒜頭糖廠', ['蒜頭糖廠']],
+        ['笑瞇瞇', ['笑瞇瞇', '笑咪咪']],
+        ['立青工作室', ['立青']],
+        ['用九柑仔店', ['用九']],
+        ['水道頭文創聚落', ['水道頭']],
+        ['朴子好書室', ['好書室']],
+        ['文化創新基地', ['文化科技創新基地', '文化創新基地', '文化科技基地']],
+        ['故宮南院', ['故宮南院']],
+        ['成豐社區講堂', ['成豐社區', '成豐講堂']],
+        ['德興里老厝區  大槺榔掃把工作室', ['德興里', '大槺榔掃把']],
+        ['墘窯陶坊', ['墘窯', '潭墘社區']],
+        ['朴子刺繡文化館', ['刺繡文化館', '刺繡館']],
+        ['六腳公有市場', ['六腳公有市場', '六腳市場']]
+    ];
+    const normalized = String(title).replace(/\s+/g, '');
+    const match = illustrations.find(([, aliases]) => aliases.some(alias => normalized.includes(alias)));
+    return match ? `assets/illustrations/${match[0]}.png` : '';
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. 初始化 Supabase 客戶端 (使用你的新專案資訊)
     const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_miYTEZasCg_uBNOd0wlwNw_dwcP-hJk';
     
-    if (!window.supabase) {
-        console.error("Supabase SDK 未載入！");
-        return;
-    }
-    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
     // DOM 元素選取
     const btnViewMap = document.getElementById('btnViewMap');
     const btnViewGrid = document.getElementById('btnViewGrid');
@@ -20,6 +44,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const spotsGridView = document.getElementById('spotsGridView');
     const spotsCardsGrid = document.getElementById('spotsCardsGrid');
     const gridFilterTags = document.querySelectorAll('.grid-filter-tag');
+    const mapFilterTags = document.querySelectorAll('.inline-cat-item');
+    const filterTags = [...mapFilterTags, ...gridFilterTags];
+    const loadStatus = document.querySelector('.map-sidebar-updating span:last-child');
     const mapArtworkContainer = document.querySelector('.map-artwork-container');
 
     const modalBackdrop = document.getElementById('spotModalBackdrop');
@@ -34,11 +61,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 從資料庫抓取所有據點資料
     let SPOTS_DATA = {};
+    let selectedCategory = 'all';
+
+    function selectCategory(category) {
+        selectedCategory = category;
+        filterTags.forEach(tag => {
+            const selected = tag.dataset.cat === category;
+            tag.classList.toggle('active', selected);
+            tag.setAttribute('aria-pressed', String(selected));
+        });
+        mapArtworkContainer?.querySelectorAll('.map-spot-pin').forEach(pin => {
+            pin.style.display = category === 'all' || pin.dataset.category === category ? 'flex' : 'none';
+        });
+        renderSpotsGrid(category);
+    }
 
     async function loadSpotsFromSupabase() {
-        const { data, error } = await db.from('spots').select('*').order('title', { ascending: true });
-        if (error) {
+        let data;
+        try {
+            if (!window.supabase) throw new Error('Supabase SDK 未載入');
+            const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            const result = await db.from('spots').select('*').order('title', { ascending: true });
+            if (result.error) throw result.error;
+            data = result.data || [];
+        } catch (error) {
             console.error('無法載入據點資料:', error.message);
+            if (loadStatus) loadStatus.textContent = '據點載入失敗，請重新整理再試';
             return;
         }
 
@@ -52,6 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 desc: item.summary || '暫無詳細介紹...',
                 features: item.features || '在地導覽 ‧ 風土體驗',
                 photos: [item.image_url || 'assets/水道頭文創聚落.png'],
+                illustration: getSpotIllustration(item.title),
                 gmapQuery: `${item.title} 嘉義`,
                 lat: item.lat || 50, // 儲存 X%
                 lng: item.lng || 50  // 儲存 Y%
@@ -60,7 +109,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 資料載入後動態渲染地圖點位與圖鑑
         renderMapPins();
-        renderSpotsGrid('all');
+        selectCategory(selectedCategory);
+        if (loadStatus) loadStatus.textContent = data.length ? `已載入 ${data.length} 個據點` : '目前尚無據點資料';
     }
 
     // 動態渲染地圖上的點位
@@ -84,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             pinEl.innerHTML = `
                 <div class="pin-marker-bubble"><span class="pin-dot-core"></span></div>
                 <div class="pin-popout-preview">
-                    ${data.photos[0] ? `<div class="popout-img-box"><img src="${data.photos[0]}" alt="${data.title}"></div>` : ''}
+                    ${data.illustration ? `<div class="popout-img-box"><img src="${data.illustration}" alt="${data.title}插畫"></div>` : ''}
                     <span class="popout-name">${data.title}</span>
                 </div>
             `;
@@ -183,16 +233,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             btnViewMap.classList.remove('active');
             mapCanvas.style.display = 'none';
             spotsGridView.style.display = 'block';
-            renderSpotsGrid('all');
+            renderSpotsGrid(selectedCategory);
         });
     }
 
-    // 圖鑑分類篩選
-    gridFilterTags.forEach(tag => {
+    // 地圖與圖鑑共用分類狀態，切換視圖與資料載入後仍保留選擇。
+    filterTags.forEach(tag => {
+        tag.setAttribute('type', 'button');
+        tag.setAttribute('aria-pressed', String(tag.dataset.cat === selectedCategory));
         tag.addEventListener('click', () => {
-            gridFilterTags.forEach(t => t.classList.remove('active'));
-            tag.classList.add('active');
-            renderSpotsGrid(tag.dataset.cat);
+            selectCategory(tag.dataset.cat);
         });
     });
 
