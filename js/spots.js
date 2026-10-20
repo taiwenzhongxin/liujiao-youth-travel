@@ -2,36 +2,6 @@
  * 壯遊據點地圖與圖鑑動態互動模組 (spots.js) - Supabase 連線版
  */
 
-// 地圖使用在地插畫；資料庫照片保留給圖鑑。別名兼容據點全名與常見異體字。
-function getSpotIllustration(title = '') {
-    const illustrations = [
-        ['清木屋せいもくや', ['清木屋', 'せいもくや']],
-        ['朴子第一零售市場', ['朴子第一零售市場', '朴子第一市場', '朴子市第一公有零售市場', '朴子第一公有零售市場']],
-        ['好食作企業社', ['好食作']],
-        ['民雄三昧堂', ['三昧堂']],
-        ['東窯茶空間', ['東窯']],
-        ['新港板陶窯', ['板陶窯']],
-        ['新港培桂堂', ['培桂堂']],
-        ['配天宮', ['配天宮']],
-        ['蒜頭糖廠', ['蒜頭糖廠']],
-        ['笑瞇瞇', ['笑瞇瞇', '笑咪咪']],
-        ['立青工作室', ['立青']],
-        ['用九柑仔店', ['用九']],
-        ['水道頭文創聚落', ['水道頭']],
-        ['朴子好書室', ['好書室']],
-        ['文化創新基地', ['文化科技創新基地', '文化創新基地', '文化科技基地']],
-        ['故宮南院', ['故宮南院']],
-        ['成豐社區講堂', ['成豐社區', '成豐講堂']],
-        ['德興里老厝區  大槺榔掃把工作室', ['德興里', '大槺榔掃把']],
-        ['墘窯陶坊', ['墘窯', '潭墘社區']],
-        ['朴子刺繡文化館', ['刺繡文化館', '刺繡館']],
-        ['六腳公有市場', ['六腳公有市場', '六腳市場']]
-    ];
-    const normalized = String(title).replace(/\s+/g, '');
-    const match = illustrations.find(([, aliases]) => aliases.some(alias => normalized.includes(alias)));
-    return match ? `assets/illustrations/${match[0]}.png` : '';
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. 初始化 Supabase 客戶端 (使用你的新專案資訊)
     const SUPABASE_URL = 'https://jgidphbpizkladzzamyz.supabase.co';
@@ -99,8 +69,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 shortDesc: item.summary || '',
                 desc: item.summary || '暫無詳細介紹...',
                 features: item.features || '在地導覽 ‧ 風土體驗',
-                photos: [item.image_url || 'assets/水道頭文創聚落.png'],
-                illustration: getSpotIllustration(item.title),
+                // 由後台分別上傳到 Supabase 的代表圖片與地圖 icon。
+                photos: [item.image_url || ''],
+                illustration: item.icon_url || '',
                 gmapQuery: `${item.title} 嘉義`,
                 lat: item.lat || 50, // 儲存 X%
                 lng: item.lng || 50  // 儲存 Y%
@@ -198,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             card.className = 'spot-col-card';
             card.innerHTML = `
                 <div class="spot-col-img">
-                    <img src="${data.photos[0]}" alt="${data.title}">
+                    ${data.photos[0] ? `<img src="${data.photos[0]}" alt="${data.title}">` : '<span>尚未提供代表圖片</span>'}
                 </div>
                 <div class="spot-col-body">
                     <div class="spot-col-meta">
