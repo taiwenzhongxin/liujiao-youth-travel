@@ -1,0 +1,909 @@
+/* ====================================================================
+   首頁專屬樣式表 (index.css)
+   ==================================================================== */
+
+main.content-container {
+    width: 100% !important;
+    position: relative;
+    padding: 0 0 0 0 !important;
+    overflow-x: hidden;
+}
+
+.page-section {
+    width: 100%;
+    position: relative;
+}
+
+/* ==================== 1. 全景主視覺 (HERO FULLSCREEN) ==================== */
+.hero-fullscreen-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 700px;
+    background: #0B0A09;
+    overflow: hidden;
+}
+
+/* 頂部暗色漸層：確保導覽列文字對比清晰 */
+.hero-fullscreen-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* 底部米白漸層：自然過渡至 Section 01 */
+.hero-fullscreen-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(180deg, 
+        rgba(250, 248, 245, 0) 0%, 
+        rgba(250, 248, 245, 0.4) 40%, 
+        rgba(250, 248, 245, 0.88) 75%, 
+        #FAF8F5 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+}
+
+.hero-carousel {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-bg-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center 38%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 8s linear;
+    transform: scale(1);
+}
+
+.hero-bg-slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.03);
+}
+
+/* 內容文字層 (對齊 1380px 標準) */
+.hero-content-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    pointer-events: none;
+    align-items: flex-end;
+    justify-content: flex-start;
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px 110px 40px;
+    box-sizing: border-box;
+}
+
+.hero-content-overlay.align-right {
+    justify-content: flex-end;
+}
+
+.hero-text-box {
+    max-width: 680px;
+    text-align: left;
+}
+
+.hero-main-title {
+    font-family: var(--display-serif-heavy), 'Playfair Display', Georgia, serif;
+    font-size: clamp(3.2rem, 4.8vw, 4.4rem);
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.05;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    word-break: keep-all;
+}
+
+.hero-desc-cn {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #F0F0F0;
+    margin: 0;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+/* 左右箭頭按鈕 */
+.hero-edge-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.hero-edge-btn:hover {
+    color: #FFFFFF;
+}
+
+.btn-edge-prev { left: 20px; }
+.btn-edge-next { right: 20px; }
+
+/* 底部走馬燈水印 */
+.hero-marquee-strip {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0.18;
+}
+
+.marquee-track {
+    display: inline-block;
+    white-space: nowrap;
+    font-family: var(--display, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 6px;
+    color: rgba(23, 23, 23, 0.35);
+}
+
+/* ==================== 2. 關於我們 (01 ABOUT US) ==================== */
+.section-editorial-about {
+    background-color: #FAF8F5;
+    color: var(--black, #111111);
+    padding: 110px 0 130px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-layout-container {
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 0.9fr 1.25fr;
+    gap: 70px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.editorial-section-tag {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.editorial-section-tag .tag-num {
+    font-family: var(--display-serif-heavy), 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #111111;
+}
+
+.editorial-section-tag .tag-en {
+    font-family: var(--display, sans-serif);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 3.5px;
+    color: var(--accent, #D96328);
+}
+
+.about-hero-headline {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: clamp(2.8rem, 3.8vw, 4.4rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 1px;
+    color: #111111;
+    margin: 0 0 28px 0;
+}
+
+.about-manifesto {
+    font-size: 1rem;
+    line-height: 2.1;
+    color: #555555;
+    margin: 0 0 36px 0;
+    letter-spacing: 0.5px;
+}
+
+.btn-editorial-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 24px;
+    border: 1px solid rgba(17, 17, 17, 0.4);
+    border-radius: var(--radius-pill, 999px);
+    color: #111111;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-editorial-pill:hover {
+    background: #111111;
+    color: #FFFFFF;
+    border-color: #111111;
+    transform: translateY(-2px);
+}
+
+/* 右側雜誌相片緊湊拼貼群 */
+.about-collage-column {
+    position: relative;
+    width: 100%;
+    height: 540px;
+}
+
+.collage-corner-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: var(--display, sans-serif);
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #999999;
+    letter-spacing: 2.5px;
+    line-height: 1.45;
+    text-align: right;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.polaroid-card {
+    position: absolute;
+    background: #FFFFFF;
+    padding: 12px 12px 22px 12px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 2px;
+}
+
+.polaroid-card:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.12);
+    z-index: 10 !important;
+}
+
+.polaroid-img-box {
+    overflow: hidden;
+    background: #EAEAEA;
+    width: 100%;
+}
+
+.polaroid-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.main-polaroid {
+    width: 58%;
+    left: 4%;
+    top: 25px;
+    transform: rotate(-2deg);
+    z-index: 2;
+}
+
+.main-polaroid .polaroid-img-box {
+    aspect-ratio: 3 / 3.9;
+}
+
+.polaroid-stamp {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FAF8F5;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 4px 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #555555;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.polaroid-handwrite {
+    display: block;
+    font-family: 'Playfair Display', Georgia, cursive, serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: #888888;
+    margin-top: 10px;
+    text-align: left;
+    padding-left: 4px;
+}
+
+.sub-polaroid-top {
+    width: 44%;
+    right: 0;
+    top: 25px;
+    transform: rotate(3.5deg);
+    z-index: 1;
+}
+
+.sub-polaroid-top .polaroid-img-box {
+    aspect-ratio: 4 / 3.1;
+}
+
+.sub-polaroid-bottom {
+    width: 46%;
+    right: 0;
+    bottom: 25px;
+    transform: rotate(-2deg);
+    z-index: 3;
+}
+
+.sub-polaroid-bottom .polaroid-img-box {
+    aspect-ratio: 4 / 3.2;
+}
+
+/* ==================== 3. 青年壯遊 (02 THE JOURNEY) ==================== */
+.section-dark-journey {
+    background-color: #111111;
+    color: #FFFFFF;
+    padding: 130px 0 140px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.journey-main-container {
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.journey-header-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1.15fr 0.7fr;
+    gap: 50px;
+    align-items: flex-end;
+    margin-bottom: 45px;
+}
+
+.section-dark-journey .editorial-section-tag .tag-num {
+    color: #FFFFFF;
+}
+
+.journey-title-cn {
+    font-family: var(--serif, serif);
+    font-size: clamp(2.8rem, 4vw, 4.4rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: #FFFFFF;
+    margin: 0 0 18px 0;
+}
+
+.journey-lead-slogan {
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: #D2D2D2;
+    line-height: 1.85;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.journey-desc-wrap {
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+    padding-left: 32px;
+}
+
+.journey-body-text {
+    font-size: 0.92rem;
+    color: #9E9E9E;
+    line-height: 2.05;
+    margin: 0;
+}
+
+.journey-handwritten-wrap {
+    text-align: right;
+}
+
+.script-handwriting {
+    font-family: 'Playfair Display', Georgia, cursive, serif;
+    font-style: italic;
+    font-size: 2.1rem;
+    color: rgba(255, 255, 255, 0.35);
+    display: inline-block;
+    transform: rotate(-6deg);
+    white-space: nowrap;
+}
+
+.journey-stepper-line-wrap {
+    width: 100%;
+    margin: 25px 0 50px 0;
+}
+
+.stepper-svg {
+    width: 100%;
+    height: 36px;
+    display: block;
+}
+
+.journey-cards-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+}
+
+.journey-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.journey-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.step-idx {
+    font-family: var(--display-serif-heavy, serif);
+    font-size: 2.1rem;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1;
+}
+
+.step-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.step-en {
+    font-family: var(--display, sans-serif);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--accent, #D96328);
+}
+
+.step-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 2px 0 0 0;
+}
+
+.card-visual-box {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual-map-box {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 10px 0 !important;
+}
+
+.journey-map-graphic {
+    max-width: 130% !important;
+    max-height: 130% !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    background: transparent !important;
+    filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.55));
+    transition: transform 0.4s ease;
+}
+
+.journey-card:hover .journey-map-graphic {
+    transform: scale(1.05);
+}
+
+.visual-overlapping-photos {
+    position: relative;
+}
+
+.overlapping-photo-back {
+    position: absolute;
+    width: 68%;
+    aspect-ratio: 4 / 3;
+    left: 6%;
+    top: 14%;
+    transform: rotate(-4deg);
+    border: 3px solid #FFFFFF;
+    border-bottom: 12px solid #FFFFFF;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s ease;
+    overflow: hidden;
+}
+
+.overlapping-photo-front {
+    position: absolute;
+    width: 64%;
+    aspect-ratio: 4 / 3;
+    right: 6%;
+    bottom: 12%;
+    transform: rotate(4deg);
+    border: 3px solid #FFFFFF;
+    border-bottom: 12px solid #FFFFFF;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.7);
+    transition: transform 0.4s ease;
+    overflow: hidden;
+}
+
+.overlapping-photo-back img,
+.overlapping-photo-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.journey-card:hover .overlapping-photo-back {
+    transform: rotate(-7deg) scale(1.02);
+}
+
+.journey-card:hover .overlapping-photo-front {
+    transform: rotate(7deg) scale(1.04);
+}
+
+.visual-artisan-photos {
+    position: relative;
+}
+
+.artisan-main-photo {
+    width: 74%;
+    height: 88%;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+}
+
+.artisan-sub-photo {
+    position: absolute;
+    width: 44%;
+    aspect-ratio: 1 / 1;
+    right: 6%;
+    bottom: 8%;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 3px solid #111111;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease;
+}
+
+.artisan-main-photo img,
+.artisan-sub-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.journey-card:hover .artisan-sub-photo {
+    transform: translateY(-4px) scale(1.05);
+}
+
+.journey-card-desc {
+    font-size: 0.92rem;
+    color: #9E9E9E;
+    line-height: 1.8;
+    margin: 0 0 22px 0;
+}
+
+.btn-journey-circle-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-family: var(--display, sans-serif);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: color 0.25s ease;
+}
+
+.link-circle-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+.btn-journey-circle-link:hover {
+    color: var(--accent, #D96328);
+}
+
+.btn-journey-circle-link:hover .link-circle-arrow {
+    border-color: var(--accent, #D96328);
+    background-color: var(--accent, #D96328);
+    color: #FFFFFF;
+    transform: translateX(4px);
+}
+
+/* ==================== 4. 全幅行動號召 (03 FULL CTA) ==================== */
+.section-full-cta {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.cta-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.9);
+    transform: scale(1.02);
+}
+
+.cta-overlay-mask {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 18, 18, 0.45);
+}
+
+.cta-content-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1380px;
+    width: 100%;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.cta-watermark-left,
+.cta-watermark-right {
+    font-family: var(--display, sans-serif);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    user-select: none;
+}
+
+.cta-watermark-right {
+    text-align: right;
+}
+
+.cta-center-action {
+    text-align: center;
+}
+
+.cta-title {
+    font-family: var(--serif, serif);
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    font-weight: 900;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.cta-sub {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #F0EDE8;
+    margin: 0 0 28px 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.btn-cta-orange-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 38px;
+    background-color: var(--accent, #D96328) !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    border-radius: var(--radius-pill, 999px);
+    font-size: 0.96rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    box-shadow: 0 8px 24px rgba(217, 99, 40, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-cta-orange-pill:hover {
+    background-color: var(--accent-hover, #B84E1B) !important;
+    transform: translateY(-2px);
+    gap: 15px;
+}
+
+/* ==================== 5. 頁尾防折行錯位補強 ==================== */
+.footer-brand-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
+    margin-bottom: 22px !important;
+}
+
+.footer-brand-text-group {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.footer-brand-title {
+    display: block !important;
+    white-space: nowrap !important;
+}
+
+.footer-brand-slogan {
+    display: block !important;
+    white-space: nowrap !important;
+    margin-top: 4px !important;
+}
+
+/* ====================================================================
+   首頁 RWD 響應式平板與手機完美適配 (全面補強)
+   ==================================================================== */
+
+/* 平板模式：適用於 1100px 以下之裝置 */
+@media (max-width: 1100px) {
+    .about-layout-container {
+        grid-template-columns: 1fr !important;
+        gap: 45px !important;
+    }
+    
+    .about-collage-column {
+        height: 440px !important;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+    
+    .journey-header-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+    
+    .journey-desc-wrap {
+        border-left: none !important;
+        padding-left: 0 !important;
+    }
+    
+    .journey-handwritten-wrap {
+        text-align: left !important;
+    }
+    
+    .journey-stepper-line-wrap {
+        display: none !important;
+    }
+    
+    .journey-cards-row {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+    
+    .about-layout-container,
+    .journey-main-container,
+    .cta-content-inner,
+    .hero-content-overlay {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+    }
+}
+
+/* 小平板與大手機模式：適用於 900px 以下之裝置 */
+@media (max-width: 900px) {
+    .hero-fullscreen-wrapper {
+        min-height: 560px;
+    }
+    
+    .hero-content-overlay {
+        padding-bottom: 70px !important;
+    }
+    
+    .hero-main-title {
+        font-size: clamp(2.6rem, 7.5vw, 3.5rem) !important;
+        letter-spacing: 1px !important;
+    }
+}
+
+/* 手機直向模式：適用於 768px 以下之裝置 */
+@media (max-width: 768px) {
+    .cta-watermark-left,
+    .cta-watermark-right {
+        display: none !important;
+    }
+
+    .about-layout-container,
+    .journey-main-container,
+    .cta-content-inner,
+    .hero-content-overlay {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    
+    .section-editorial-about {
+        padding: 70px 0 80px 0 !important;
+    }
+    
+    .about-collage-column {
+        height: 360px !important;
+    }
+    
+    .section-dark-journey {
+        padding: 80px 0 !important;
+    }
+    
+    .section-full-cta {
+        height: auto !important;
+        padding: 60px 0 !important;
+    }
+    
+    .cta-content-inner {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center;
+        gap: 24px !important;
+    }
+    
+    .cta-center-action {
+        width: 100%;
+    }
+    
+    .btn-cta-orange-pill {
+        width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+}

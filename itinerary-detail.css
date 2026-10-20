@@ -1,0 +1,806 @@
+/* ====================================================================
+   一日遊路線詳情專屬樣式表 (itinerary-detail.css) - 高質感雜誌排版
+   ==================================================================== */
+
+html, body.itinerary-detail-page {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #F8F7F4;
+    color: #1A1A1A;
+    overflow-x: hidden;
+}
+
+/* ==================== 頂部暗色漸層護欄 (100vw 滿版襯托白字導覽列) ==================== */
+.site-top-gradient-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 130px !important;
+    background: linear-gradient(
+        180deg,
+        rgba(15, 15, 15, 0.85) 0%,
+        rgba(15, 15, 15, 0.55) 45%,
+        rgba(15, 15, 15, 0.15) 75%,
+        rgba(248, 247, 244, 0) 100%
+    ) !important;
+    z-index: 90 !important;              /* 低於 header (z-index: 100)，但高於頁面內容 */
+    pointer-events: none !important;     /* 不會阻擋導覽列的滑鼠點擊 */
+}
+
+/* 確保 header 背景全透明，讓黑漸層穿透出來襯底 */
+body.itinerary-detail-page .site-header {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+/* 當頁面向下滑動，觸發 common.js 的 scrolled 狀態時切換為實心底色 */
+body.itinerary-detail-page .site-header.scrolled {
+    background: rgba(248, 247, 244, 0.96) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ==================== 全站通用核心版心容器 (1380px 置中) ==================== */
+.site-content-container {
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+/* ==================== 1. 沉浸式寬幅 Hero 橫幅 ==================== */
+.compact-hero-banner {
+    position: relative;
+    width: 100vw;
+    height: 440px;                      /* 精準高度：大器且不佔滿全螢幕 */
+    min-height: 400px;
+    display: flex;
+    align-items: flex-end;              /* 文字重心落在橫幅偏下方 */
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.compact-hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.compact-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 38%;
+}
+
+/* 雙向漸層：頂部黑漸層護住白色導覽列，底部暗度托起大標題 */
+.compact-scrim-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(15, 15, 15, 0.75) 0%,
+        rgba(15, 15, 15, 0.35) 40%,
+        rgba(15, 15, 15, 0.65) 80%,
+        rgba(15, 15, 15, 0.85) 100%
+    );
+    z-index: 2;
+}
+
+.compact-hero-container {
+    position: relative;
+    z-index: 5;
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+/* 麵包屑改為半透明淺白色 */
+.detail-breadcrumbs-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 16px;
+}
+
+.detail-breadcrumbs-light a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.detail-breadcrumbs-light a:hover {
+    color: #FFFFFF;
+}
+
+.detail-breadcrumbs-light .crumb-divider {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.detail-breadcrumbs-light .crumb-current {
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.compact-eyebrow-line {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.compact-badge-tag {
+    font-family: var(--display, sans-serif);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: #D96328;
+    color: #FFFFFF;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.compact-script-note {
+    font-family: 'Playfair Display', Georgia, cursive, serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #F8F7F4;
+    opacity: 0.9;
+}
+
+.compact-main-title {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.15;
+    margin: 0 0 10px 0;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.compact-sub-slogan {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------- 2. A ~ F 方案切換列重構 (精緻、高雅、不笨重) ---------------- */
+.section-full-schemes {
+    width: 100%;
+    background-color: #F8F7F4;
+    padding: 24px 0 10px 0;
+}
+
+.scheme-tabs-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    width: 100%;
+}
+
+.scheme-tab-card {
+    background: #FFFFFF;
+    border: 1px solid #E4DFD5;
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.scheme-tab-card:hover {
+    transform: translateY(-2px);
+    border-color: #D96328;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.tab-badge {
+    font-family: var(--display-serif-heavy, serif);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #6E685F;
+    line-height: 1;
+}
+
+.tab-title {
+    font-family: var(--serif, serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2E2A24;
+    letter-spacing: 0.5px;
+}
+
+/* 選中狀態 (Active)：使用深邃暖橘框線與提亮背景，不再是一整塊沉重的死橘色 */
+.scheme-tab-card.active {
+    background: #FFFFFF;
+    border: 2px solid #D96328;
+    box-shadow: 0 4px 16px rgba(217, 99, 40, 0.15);
+}
+
+.scheme-tab-card.active .tab-badge {
+    color: #D96328;
+}
+
+.scheme-tab-card.active .tab-title {
+    color: #D96328;
+    font-weight: 900;
+}
+
+/* ---------------- 3. 下方路線標題精簡 (消除上下重複文字) ---------------- */
+.section-full-itinerary {
+    width: 100%;
+    background-color: #F8F7F4;
+    padding: 10px 0 60px 0;
+}
+
+.route-header-block {
+    margin-bottom: 28px;
+    padding-top: 10px;
+}
+
+.route-title-tags {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.route-eyebrow {
+    font-family: var(--display, sans-serif);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #D96328;
+}
+
+.route-keywords-pill {
+    background: #EDEAE4;
+    color: #555047;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.route-lead-summary {
+    font-size: 0.95rem;
+    color: #4A453E;
+    line-height: 1.8;
+    margin: 0;
+    width: 100% !important;          /* 撐滿整排 */
+    max-width: none !important;       /* 解除 900px 的最大寬度限制 */
+    letter-spacing: 0.3px;
+}
+
+.route-two-columns-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 36px;
+    align-items: flex-start;
+}
+
+/* 左欄時間軸樣式 */
+.timeline-itinerary-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+}
+
+.timeline-itinerary-col::before {
+    content: '';
+    position: absolute;
+    left: 65px;
+    top: 35px;
+    bottom: 35px;
+    width: 2px;
+    background-color: #E2DDD5;
+    z-index: 1;
+}
+
+.timeline-step-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.step-time-badge {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.time-range {
+    font-family: var(--display, sans-serif);
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #8C867C;
+    line-height: 1.35;
+    text-align: right;
+}
+
+.step-circle-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #D96328;
+    color: #FFFFFF;
+    font-family: var(--display, sans-serif);
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 4px #F8F7F4;
+}
+
+.step-content-card {
+    flex: 1;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #ECE7DE;
+    padding: 14px 18px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.step-thumb {
+    width: 110px;
+    height: 80px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.step-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.step-text-detail { flex: 1; }
+
+.step-title-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.step-heading {
+    font-family: var(--serif, serif);
+    font-size: 1.08rem;
+    font-weight: 800;
+    color: #111111;
+    margin: 0;
+}
+
+.step-type-pill {
+    background: rgba(217, 99, 40, 0.1);
+    color: #D96328;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.step-location-tag {
+    font-size: 0.74rem;
+    color: #D96328;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.step-desc {
+    font-size: 0.8rem;
+    color: #6E685F;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 右欄側邊欄 */
+.route-sidebar-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 路線側邊指南卡容器 */
+.route-specs-box {
+    background: #FFFFFF;
+    border: 1px solid #ECE7DE;
+    border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+.specs-card-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #F0ECE4;
+    padding-bottom: 14px;
+}
+
+.specs-badge {
+    font-family: var(--display, sans-serif);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #D96328;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.specs-title {
+    font-family: var(--serif, 'Noto Serif TC', serif);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+/* 規格列表 */
+.specs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.spec-row-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.spec-row-item .spec-icon {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.spec-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.spec-text-wrap strong {
+    font-size: 0.8rem;
+    color: #8C867D;
+    font-weight: 700;
+}
+
+.spec-text-wrap span {
+    font-size: 0.88rem;
+    color: #2E2A24;
+    line-height: 1.45;
+    font-weight: 600;
+}
+
+.sidebar-cursive-note {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #D96328;
+    text-align: right;
+    margin-bottom: 16px;
+}
+
+/* 主按鈕：Google 地圖外連 */
+.btn-route-map {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #D96328;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 12px 0;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 14px rgba(217, 99, 40, 0.35);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.btn-route-map:hover {
+    background-color: #B84E1B;
+    transform: translateY(-2px);
+}
+
+/* 次按鈕：預約此走讀梯次 */
+.btn-route-apply {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #F8F7F4;
+    color: #4A463F;
+    border: 1px solid #D8D2C6;
+    text-decoration: none;
+    padding: 10px 0;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.btn-route-apply:hover {
+    background-color: #111111;
+    color: #FFFFFF;
+    border-color: #111111;
+}
+
+.route-map-card {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 20px 18px;
+    border: 1px solid #EBE6DE;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.map-card-eyebrow {
+    font-family: var(--display, sans-serif);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #8C867C;
+}
+
+.map-card-title {
+    font-family: var(--serif, serif);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111111;
+    margin: 4px 0 6px 0;
+}
+
+.map-card-sub {
+    font-size: 0.74rem;
+    color: #77726A;
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+}
+
+.map-sketch-stage {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #EAE5DC;
+}
+
+.route-vector-map {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==================== 4. 區塊四：底部其他路線推薦 ==================== */
+.section-full-other-routes {
+    width: 100%;
+    background-color: #FFFFFF;
+    border-top: 1px solid #ECE7DE;
+    padding: 44px 0 50px 0;
+}
+
+.other-routes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 22px;
+}
+
+.other-eyebrow {
+    font-family: var(--display, sans-serif);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #8C867C;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.other-heading {
+    font-family: var(--serif, serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 4px 0;
+}
+
+.other-sub {
+    font-size: 0.8rem;
+    color: #7E786E;
+    margin: 0;
+}
+
+.other-routes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+.other-route-card {
+    background: #FFFFFF;
+    border: 1px solid #E6E1D8;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s ease;
+}
+
+.other-route-card:hover { transform: translateY(-4px); }
+
+.other-thumb {
+    width: 100%;
+    height: 110px;
+}
+
+.other-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.other-info {
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.other-info strong {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #111111;
+}
+
+.other-info .arrow {
+    font-size: 0.85rem;
+    color: #D96328;
+}
+
+/* ==================== 平板與手機 RWD 響應式完美適配 (全面補強) ==================== */
+
+/* 平板模式：適用於 1100px 以下之裝置 */
+@media (max-width: 1100px) {
+    .site-content-container,
+    .compact-hero-container {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+    
+    .scheme-tabs-grid {
+        grid-template-columns: repeat(3, 1fr) !important; /* 平板上改為每列 3 個方案 */
+        gap: 10px;
+    }
+    
+    .route-two-columns-layout { 
+        grid-template-columns: 1fr !important; /* 左右雙欄改為單欄上下堆疊 */
+        gap: 36px;
+    }
+    
+    .route-sidebar-col {
+        width: 100% !important;
+    }
+}
+
+/* 小平板與大手機模式：適用於 900px 以下之裝置 */
+@media (max-width: 900px) {
+    .compact-hero-banner {
+        height: 380px;
+        min-height: 340px;
+    }
+    
+    .route-title-tags {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+/* 手機直向模式：適用於 768px 以下之裝置 */
+@media (max-width: 768px) {
+    .site-content-container,
+    .compact-hero-container { 
+        padding-left: 20px !important; 
+        padding-right: 20px !important; 
+    }
+    
+    .compact-main-title { 
+        font-size: clamp(2.2rem, 8vw, 2.8rem) !important; 
+    }
+    
+    .scheme-tabs-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 手機上改為每列 2 個方案，點擊更輕鬆 */
+        gap: 8px;
+    }
+    
+    .scheme-tab-card {
+        padding: 12px 10px;
+    }
+    
+    /* 手機上時間軸改為獨立卡片，移除中央垂直線 */
+    .timeline-itinerary-col::before {
+        display: none !important;
+    }
+    
+    .timeline-step-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        background: #FFFFFF;
+        border: 1px solid #ECE7DE;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    
+    .step-time-badge {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    
+    .time-range {
+        text-align: left;
+    }
+    
+    .step-content-card {
+        width: 100%;
+        border: none;
+        padding: 0;
+        box-shadow: none;
+        flex-direction: column !important; /* 縮圖在上、文字在下 */
+        align-items: flex-start !important;
+    }
+    
+    .step-thumb { 
+        width: 100% !important; 
+        height: 160px !important; 
+    }
+    
+    .route-specs-box {
+        padding: 24px 20px;
+    }
+}
+
+/* 窄螢幕手機模式：適用於 480px 以下之裝置 */
+@media (max-width: 480px) {
+    .scheme-tabs-grid {
+        grid-template-columns: 1fr !important; /* 極窄螢幕改為單欄方案清單 */
+    }
+}
