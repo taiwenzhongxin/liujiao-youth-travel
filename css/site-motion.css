@@ -1,0 +1,35 @@
+/* Shared motion for the public interior pages; no hidden pre-animation state. */
+.site-motion-page :is(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid var(--accent, #D96328);
+    outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .site-motion-page :is(.topic-compact-card, .pillar-item-card, .spot-col-card,
+        .journal-card, .news-list-row, .qa-item-card) {
+        transition: translate 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    .site-motion-page :is(.topic-compact-card, .pillar-item-card, .spot-col-card,
+        .journal-card, .news-list-row, .qa-item-card):hover {
+        translate: 0 -3px;
+        box-shadow: 0 14px 30px -22px rgba(60, 36, 20, 0.4);
+    }
+    .site-motion-page :is(.btn-archive-primary, .btn-archive-secondary,
+        .btn-route-apply, .btn-route-map, .btn-submit-booking,
+        .btn-cta-solid, .btn-cta-ghost) {
+        transition: translate 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+    .site-motion-page :is(.btn-archive-primary, .btn-archive-secondary,
+        .btn-route-apply, .btn-route-map, .btn-submit-booking,
+        .btn-cta-solid, .btn-cta-ghost):hover {
+        translate: 0 -2px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    html:has(.site-motion-page) { scroll-behavior: auto; }
+    .site-motion-page *, .site-motion-page *::before, .site-motion-page *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
