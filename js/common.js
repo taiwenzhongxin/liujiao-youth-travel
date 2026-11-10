@@ -2,7 +2,6 @@
 // 嘉義六腳青年壯遊點 - 全站共用邏輯 (common.js)
 // ==================================================
 
-// 1. 側邊抽屜導覽列全域控制
 window.openSidebar = function() {
     const sidebarNav = document.getElementById('sidebarNav');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -198,8 +197,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', checkHeaderScroll, { passive: true });
     checkHeaderScroll();
 
-    // 3. 手機漢堡選單與遮罩綁定
-    const mobileToggle = document.getElementById('navMobileToggle');
+// 3. 手機漢堡選單與遮罩綁定
+const mobileToggle = document.getElementById('hamburgerToggle');
+if (mobileToggle) {
+    mobileToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.toggleSidebar();
+    });
+}
+
     const sidebarOverlay = document.getElementById('sidebarOverlay');
 
     if (mobileToggle) {
