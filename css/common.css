@@ -1071,7 +1071,6 @@ body {
 }
 
 /* ==================== 徹底隱藏 Google 翻譯頂部橫條與防下推 ==================== */
-/* 1. 隱藏 Google 橫條的所有 iframe 變體 */
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
 iframe.goog-te-banner-frame,
@@ -1086,14 +1085,12 @@ iframe[id=":2.container"] {
     pointer-events: none !important;
 }
 
-/* 2. 強制鎖死 body 與 html 位置，嚴防被 Google 注入 top: 40px */
 html, body {
     top: 0px !important;
     position: static !important;
     margin-top: 0px !important;
 }
 
-/* 3. 隱藏翻譯後的滑鼠 hover 提示框與反光文字 */
 .goog-tooltip,
 .goog-tooltip:hover {
     display: none !important;
@@ -1113,7 +1110,6 @@ html, body {
    全站共用 RWD 響應式完美適配 (導覽列 ✕ 側邊抽屜 ✕ 頁尾 Footer)
    ==================================================================== */
 
-/* 平板與手機版漢堡選單斷點：1150px 以下自動隱藏橫向選單並顯示漢堡按鈕 */
 @media (max-width: 1150px) {
     .nav-menu, 
     .nav-btn-cta { 
@@ -1127,7 +1123,6 @@ html, body {
     }
 }
 
-/* 平板模式：1100px 以下之裝置 */
 @media (max-width: 1100px) {
     .footer-main-grid {
         grid-template-columns: 1fr !important;
@@ -1145,7 +1140,6 @@ html, body {
     }
 }
 
-/* 小平板與大手機模式：900px 以下之裝置 */
 @media (max-width: 900px) {
     .site-hero-full-banner .hero-heading-block {
         margin-left: 0 !important;
@@ -1160,10 +1154,7 @@ html, body {
     }
 }
 
-/* 手機直向模式：768px 以下之裝置 */
-/* ==================== 手機版導覽列防重疊與 RWD 微調 ==================== */
 @media (max-width: 768px) {
-    /* 1. 稍微縮減手機版導覽列的左右間距與高度 */
     .site-header {
         height: 70px !important;
     }
@@ -1172,22 +1163,10 @@ html, body {
         padding: 0 16px !important;
     }
 
-    /* 2. 稍微縮小手機版 LOGO 的大小，避免向右延伸過多 */
-    .nav-logo-img {
-        max-height: 42px !important;
-        transform: scale(1.05) !important;
-    }
-    
-    .nav-logo-img.logo-black {
-        transform: translateY(-50%) scale(1.05) !important;
-    }
-
-    /* 3. 讓右側操作區塊（語言按鈕與漢堡選單）更加緊湊 */
     .nav-actions {
         gap: 8px !important;
     }
 
-    /* 4. 將語言按鈕的寬度和內距在手機版稍微縮小，釋放空間 */
     .nav-lang-btn {
         min-width: unset !important;
         padding: 5px 8px !important;
@@ -1195,7 +1174,6 @@ html, body {
     }
 }
 
-/* 窄螢幕手機模式：640px 以下之裝置 */
 @media (max-width: 640px) {
     .footer-nav-columns {
         grid-template-columns: 1fr !important;
@@ -1218,4 +1196,194 @@ html, body {
         width: 260px;
         padding: 30px 20px;
     }
+}
+
+/* ====================================================================
+   手機版頁尾 Footer 緊湊雙欄最佳化
+   ==================================================================== */
+@media (max-width: 900px) {
+    .footer-container {
+        padding: 45px 20px 25px 20px !important;
+    }
+
+    .footer-main-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+        padding-bottom: 30px !important;
+    }
+
+    .footer-nav-columns {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px 20px !important;
+    }
+
+    .col-header-wrap {
+        margin-bottom: 12px !important;
+        padding-bottom: 6px !important;
+    }
+
+    .nav-col-title,
+    .subscribe-col-title {
+        font-size: 0.95rem !important;
+    }
+
+    .nav-link-list {
+        gap: 10px !important;
+    }
+
+    .nav-link-list a {
+        font-size: 0.82rem !important;
+    }
+
+    .footer-brand-desc {
+        font-size: 0.84rem !important;
+        margin-bottom: 16px !important;
+    }
+
+    .footer-subscribe-box {
+        margin-bottom: 16px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-nav-columns {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+}
+
+/* ====================================================================
+   【最終修正】手機版 LOGO 溢出阻擋與漢堡按鈕點擊穿透修復
+   ==================================================================== */
+@media (max-width: 1150px) {
+    /* 1. 嚴格限制左側品牌 LOGO 容器的最大寬度，絕對不准超出壓到右側按鈕 */
+    .nav-brand {
+        max-width: 42% !important;
+        overflow: hidden !important;
+        flex-shrink: 1 !important;
+    }
+
+    /* 2. 強制拔掉手機版 LOGO 的放大特效，並固定高度與寬度比例 */
+    .nav-logo-img {
+        max-height: 34px !important;
+        width: auto !important;
+        transform: none !important;
+        object-fit: contain !important;
+    }
+
+    .nav-logo-img.logo-black {
+        transform: translateY(-50%) !important;
+    }
+
+    /* 3. 確保右側操作區與漢堡按鈕浮在絕對最上層，且具備最高點擊權限 */
+    .nav-actions {
+        position: relative !important;
+        z-index: 9999 !important;
+        flex-shrink: 0 !important;
+    }
+
+    .hamburger-toggle {
+        display: flex !important;
+        position: relative !important;
+        z-index: 10000 !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 8px !important;
+        color: #FFFFFF !important;
+    }
+
+    .site-header.scrolled .hamburger-toggle {
+        color: #111111 !important;
+    }
+
+    /* 4. 確保漢堡按鈕內部的 SVG 向量線條不會攔截點擊 */
+    .hamburger-toggle svg,
+    .hamburger-toggle line {
+        pointer-events: none !important;
+    }
+}
+
+/* ====================================================================
+   【完美修復】抽屜選單 LOGO 與頂部導覽列 LOGO 獨立定位
+   ==================================================================== */
+
+/* 1. 確保側邊抽屜（Sidebar）內部的 LOGO 正常顯示在抽屜選單頂部，絕對不外露 */
+.sidebar-nav .sidebar-logo {
+    display: inline-block !important;
+    text-decoration: none !important;
+    margin-bottom: 16px !important;
+}
+
+.sidebar-nav .sidebar-drawer-logo {
+    height: 48px !important;
+    width: auto !important;
+    max-width: 180px !important;
+    object-fit: contain !important;
+    display: block !important;
+    position: static !important; /* 確保不會絕對定位跑走 */
+    transform: none !important;
+    opacity: 1 !important;
+}
+
+/* 2. 嚴格限制手機版頂部導覽列的 LOGO，避免它滿天飛 */
+@media (max-width: 1150px) {
+    .nav-brand {
+        max-width: 45% !important;
+        overflow: hidden !important;
+    }
+
+    .nav-logo-img {
+        max-height: 36px !important;
+        width: auto !important;
+        transform: none !important;
+    }
+
+    /* 3. 賦予右側漢堡按鈕最高點擊權限，確保點了絕對有反應 */
+    .nav-actions {
+        position: relative !important;
+        z-index: 9999 !important;
+    }
+
+    .hamburger-toggle {
+        display: flex !important;
+        position: relative !important;
+        z-index: 10000 !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 8px !important;
+        color: #FFFFFF !important;
+    }
+
+    .site-header.scrolled .hamburger-toggle {
+        color: #111111 !important;
+    }
+
+    .hamburger-toggle svg,
+    .hamburger-toggle line {
+        pointer-events: none !important;
+    }
+}
+
+/* ====================================================================
+   側邊抽屜選單 LOGO 獨立定位與保護
+   ==================================================================== */
+.sidebar-nav .sidebar-logo {
+    display: inline-block !important;
+    text-decoration: none !important;
+    margin-bottom: 16px !important;
+}
+
+.sidebar-nav .sidebar-drawer-logo {
+    height: 48px !important;
+    width: auto !important;
+    max-width: 180px !important;
+    object-fit: contain !important;
+    display: block !important;
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
 }
